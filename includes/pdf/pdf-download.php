@@ -147,6 +147,25 @@ class WPA_PDF_Download {
 
         if ( ! file_exists( $this->cache_dir ) ) {
             wp_mkdir_p( $this->cache_dir );
+        } else {
+            // Cache Pruning: Limit number of cached PDFs to save storage
+            $cache_limit = apply_filters( 'wpa_pdf_cache_limit', 50 );
+            $cache_files = glob( $this->cache_dir . '/post-*.pdf' );
+            
+            if ( $cache_files && count( $cache_files ) >= $cache_limit ) {
+                // Sort by last modified time (Oldest first)
+                usort( $cache_files, function( $a, $b ) {
+                    return filemtime( $a ) - filemtime( $b );
+                } );
+
+                // Delete oldest files until we are below the limit
+                $to_delete = count( $cache_files ) - $cache_limit + 1;
+                for ( $i = 0; $i < $to_delete; $i++ ) {
+                    if ( is_file( $cache_files[$i] ) ) {
+                        unlink( $cache_files[$i] );
+                    }
+                }
+            }
         }
 
         // Initialize mPDF
@@ -311,21 +330,23 @@ class WPA_PDF_Download {
             }
 
             if ( in_array( 'cover_citation', $visible_elements ) ) {
-                $citation_label = $is_arabic ? 'الاقتباس الموصى به' : __( 'Recommended Citation', 'wp-academic-post-enhanced' );
-                $retrieved_label = $is_arabic ? 'تم الاسترجاع من' : 'Retrieved from';
+                $citation_label = WPA_Theme_Labels::get('cite_box_title');
+                $default_style = isset( $citation_options['default_style'] ) ? $citation_options['default_style'] : 'apa';
                 
+                // Use the global citation generator for consistency
+                $citation_text = wp_academic_post_enhanced_generate_citation( 
+                    $default_style, 
+                    $author, 
+                    get_the_date( 'Y', $post ), 
+                    $title, 
+                    $site_name, 
+                    $shortlink 
+                );
+
                 $cover_html .= '<div class="cover-citation-box">
-                    <div class="citation-label">' . $citation_label . '</div>
+                    <div class="citation-label">' . esc_html( $citation_label ) . '</div>
                     <div class="citation-text">
-                        ' . sprintf(
-                            '%s (%s). %s. %s. ' . $retrieved_label . ' <a href="%s">%s</a>',
-                            esc_html( $author ),
-                            esc_html( get_the_date( 'Y', $post ) ),
-                            '<em>' . esc_html( $title ) . '</em>',
-                            esc_html( $site_name ),
-                            esc_url( $shortlink ),
-                            esc_html( $shortlink )
-                        ) . '
+                        ' . $citation_text . '
                     </div>
                 </div>';
             }
