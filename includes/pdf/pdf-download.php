@@ -51,12 +51,27 @@ class WPA_PDF_Download {
             }
 
             // 2. No cache, generate it
+            // Implement Transient Lock to prevent race conditions (multiple users requesting at same time)
+            $lock_key = "wpa_pdf_generating_" . $post_id;
+            if ( get_transient( $lock_key ) ) {
+                // If another process is generating, tell the user to wait or reload
+                wp_die( __( "PDF is currently being generated. Please refresh the page in a few seconds.", "wp-academic-post-enhanced" ), __( "Generating PDF", "wp-academic-post-enhanced" ), [ "response" => 503 ] );
+            }
+
+            // Set lock for 2 minutes (sufficient for generation)
+            set_transient( $lock_key, true, 120 );
+
             // Clean any existing buffers
             while (ob_get_level()) {
                 ob_end_clean();
             }
             
-            $this->generate_pdf( $cache_file, $filename );
+            try {
+                $this->generate_pdf( $cache_file, $filename );
+            } finally {
+                // Always remove lock after generation (success or fail)
+                delete_transient( $lock_key );
+            }
             exit;
         }
     }

@@ -16,9 +16,19 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return int Reading time in minutes.
  */
 function wpa_calculate_reading_time( $content ) {
-    $word_count = str_word_count( strip_tags( $content ) );
+    $clean_content = strip_tags( $content );
+    // Multibyte-safe word count (supports Arabic, Cyrillic, etc.)
+    $words = preg_split( '/[\s\p{P}]+/u', $clean_content, -1, PREG_SPLIT_NO_EMPTY );
+    $word_count = is_array( $words ) ? count( $words ) : 0;
+
+    // Add CJK character count (Chinese/Japanese/Korean)
+    $cjk_count = preg_match_all( '/[\p{Han}\p{Hiragana}\p{Katakana}\p{Hangul}]/u', $clean_content );
+    if ( $cjk_count > 0 ) {
+        $word_count += $cjk_count;
+    }
+
     $reading_speed = apply_filters( 'wpa_reading_speed', 200 ); // Words per minute
-    $reading_time = ceil( $word_count / $reading_speed );
+    $reading_time = ceil( $word_count / max( 1, $reading_speed ) );
     return max( 1, $reading_time );
 }
 
