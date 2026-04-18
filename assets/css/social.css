@@ -1,0 +1,918 @@
+/* Social Sharing Styles */
+.wpa-social-sharing-container {
+    margin: 20px 0;
+    clear: both;
+}
+
+.wpa-social-buttons-container {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.wpa-social-align-left {
+    text-align: left;
+}
+
+.wpa-social-align-center {
+    text-align: center;
+}
+
+.wpa-social-align-right {
+    text-align: right;
+}
+
+.wpa-social-button {
+    display: inline-block;
+    vertical-align: middle;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    cursor: pointer;
+    line-height: 1;
+    margin: 5px;
+}
+
+.wpa-social-button svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.wpa-social-button .wpa-social-text {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+/* Shapes */
+.wpa-social-shape-rounded {
+    border-radius: 6px;
+}
+
+.wpa-social-shape-circle {
+    border-radius: 50px;
+}
+
+.wpa-social-shape-default {
+    border-radius: 0;
+}
+
+/* Sizes */
+.wpa-social-size-small {
+    font-size: 14px;
+    padding: 6px 12px;
+}
+
+.wpa-social-size-small svg {
+    width: 16px;
+    height: 16px;
+}
+
+.wpa-social-size-medium {
+    font-size: 16px;
+    padding: 10px 16px;
+}
+
+.wpa-social-size-medium svg {
+    width: 20px;
+    height: 20px;
+}
+
+.wpa-social-size-large {
+    font-size: 18px;
+    padding: 14px 24px;
+}
+
+.wpa-social-size-large svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Icon Only Fixes */
+.wpa-social-style-icons .wpa-social-text,
+.wpa-social-style-minimal .wpa-social-text {
+    display: none;
+}
+
+.wpa-social-style-icons.wpa-social-size-small,
+.wpa-social-style-minimal.wpa-social-size-small {
+    padding: 8px;
+}
+
+.wpa-social-style-icons.wpa-social-size-medium,
+.wpa-social-style-minimal.wpa-social-size-medium {
+    padding: 12px;
+}
+
+.wpa-social-style-icons.wpa-social-size-large,
+.wpa-social-style-minimal.wpa-social-size-large {
+    padding: 16px;
+}
+
+/* Colors Schemes */
+/* Color (Default) */
+.wpa-social-scheme-color.wpa-social-facebook {
+    background: #1877f2;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-twitter {
+    background: #000;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-linkedin {
+    background: #0077b5;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-pinterest {
+    background: #bd081c;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-reddit {
+    background: #ff4500;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-telegram {
+    background: #0088cc;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-whatsapp {
+    background: #25d366;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-email {
+    background: #888888;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-copy-link {
+    background: #4b5563;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-native-share {
+    background: #3b82f6;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-sms {
+    background: #10b981;
+    color: #fff;
+}
+
+.wpa-social-scheme-color.wpa-social-print {
+    background: #6b7280;
+    color: #fff;
+}
+
+/* Outline */
+.wpa-social-scheme-outline {
+    background: transparent;
+}
+
+.wpa-social-scheme-outline.wpa-social-facebook {
+    color: #1877f2;
+    border-color: #1877f2;
+}
+
+.wpa-social-scheme-outline.wpa-social-twitter {
+    color: #000;
+    border-color: #000;
+}
+
+.wpa-social-scheme-outline.wpa-social-linkedin {
+    color: #0077b5;
+    border-color: #0077b5;
+}
+
+.wpa-social-scheme-outline.wpa-social-copy-link {
+    color: #4b5563;
+    border-color: #4b5563;
+}
+
+.wpa-social-scheme-outline.wpa-social-print {
+    color: #6b7280;
+    border-color: #6b7280;
+}
+
+.wpa-social-scheme-outline:hover {
+    background: currentColor;
+    color: #fff !important;
+}
+
+/* Invert on hover */
+
+/* Inline Text Style */
+.wpa-social-style-inline-text {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 5px !important;
+    margin: 0 !important;
+    color: var(--wpa-accent, #2563eb) !important;
+    text-decoration: underline !important;
+    display: inline !important;
+    width: auto !important;
+    box-shadow: none !important;
+}
+
+.wpa-social-style-inline-text:hover {
+    color: var(--wpa-accent-dark, #1d4ed8) !important;
+}
+
+.wpa-social-style-inline-text svg {
+    display: none;
+}
+
+.wpa-social-style-inline-text .wpa-social-text {
+    margin-left: 0;
+}
+
+/* Share Count */
+.wpa-share-count {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+.wpa-social-scheme-outline .wpa-share-count {
+    background: rgba(0, 0, 0, 0.05);
+    color: inherit;
+}
+
+/* Mono */
+.wpa-social-scheme-mono {
+    background: #f0f0f0;
+    color: #444;
+}
+
+.wpa-social-scheme-mono:hover {
+    background: #333;
+    color: #fff;
+}
+
+/* Copy Feedback */
+.wpa-social-button {
+    position: relative;
+}
+
+.wpa-copy-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.wpa-copy-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.wpa-copy-success {
+    background-color: var(--wpa-success, #10b981) !important;
+    border-color: var(--wpa-success, #10b981) !important;
+    color: #fff !important;
+}
+
+/* Floating Sidebar */
+.wpa-social-floating-sidebar {
+    position: fixed;
+    z-index: 9999;
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 10px 5px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.wpa-social-floating-left {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+}
+
+.wpa-social-floating-right {
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+.wpa-social-floating-bottom {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    padding: 0 !important;
+    padding-bottom: env(safe-area-inset-bottom) !important;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.12);
+    transform: none;
+    z-index: 999999 !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.wpa-glass-enabled .wpa-social-floating-bottom {
+    background: rgba(255, 255, 255, 0.4) !important;
+    /* Extra glossy when global glass is on */
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Collapsed State: Hide the entire bar content */
+.wpa-social-floating-bottom.wpa-bar-collapsed {
+    transform: translateY(110%);
+    box-shadow: none;
+}
+
+.wpa-social-main-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 14px 15px;
+    position: relative;
+    gap: 12px;
+}
+
+.wpa-mobile-ad-row {
+    width: 100%;
+    text-align: center;
+    padding: 5px 0;
+    background: rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wpa-mobile-download-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 15px 15px;
+    background: transparent;
+    border-top: none;
+}
+
+.wpa-mobile-download-toggle {
+    position: fixed !important;
+    left: 20px;
+    bottom: calc(150px + env(safe-area-inset-bottom));
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1000001;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    color: #1f2937;
+    backdrop-filter: blur(15px) saturate(160%);
+    -webkit-backdrop-filter: blur(15px) saturate(160%);
+}
+
+body.wpa-glass-enabled .wpa-mobile-download-toggle {
+    background: rgba(255, 255, 255, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.wpa-mobile-download-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    color: #111827;
+}
+
+@media (max-width: 768px) {
+    .wpa-mobile-download-toggle {
+        display: flex;
+    }
+}
+
+/* Position when bar is collapsed */
+.wpa-mobile-download-toggle.is-collapsed {
+    bottom: 30px;
+    /* Floating bubble when closed */
+}
+
+/* Icon size adjustment */
+.wpa-mobile-download-toggle svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Position when bar is collapsed */
+body:has(.wpa-bar-collapsed) .wpa-mobile-download-toggle {
+    bottom: 30px;
+}
+
+/* Icon Switching */
+body:has(.wpa-bar-collapsed) .wpa-mobile-download-toggle .wpa-icon-close {
+    display: none;
+}
+
+body:has(.wpa-bar-collapsed) .wpa-mobile-download-toggle .wpa-icon-open {
+    display: block;
+}
+
+body:not(:has(.wpa-bar-collapsed)) .wpa-mobile-download-toggle .wpa-icon-open {
+    display: none;
+}
+
+body:not(:has(.wpa-bar-collapsed)) .wpa-mobile-download-toggle .wpa-icon-close {
+    display: block;
+}
+
+/* Fallback for older browsers without :has */
+.wpa-bar-collapsed~.wpa-mobile-download-toggle,
+.wpa-mobile-download-toggle.is-collapsed {
+    bottom: 15px;
+}
+
+.wpa-mobile-pdf-btn,
+.wpa-mobile-ris-btn {
+    flex: 1;
+    background: var(--wpa-accent, #2563eb) !important;
+    color: #fff !important;
+    border-radius: 8px !important;
+    /* Slightly smaller radius */
+    padding: 6px 4px !important;
+    /* Even smaller padding */
+    font-size: 11px !important;
+    /* Smaller font */
+    font-weight: 600 !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    /* Tighter gap */
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.wpa-mobile-pdf-btn {
+    background: var(--wpa-danger, #dc2626) !important;
+    /* Red for PDF */
+    box-shadow: 0 2px 6px rgba(220, 38, 38, 0.2);
+}
+
+.wpa-mobile-pdf-btn:active,
+.wpa-mobile-ris-btn:active {
+    transform: scale(0.98);
+}
+
+.wpa-mobile-pdf-btn svg,
+.wpa-mobile-ris-btn svg {
+    width: 12px;
+    /* Even smaller icons */
+    height: 12px;
+}
+
+.wpa-social-floating-bottom .wpa-social-buttons-container {
+    flex-direction: row !important;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: center;
+}
+
+.wpa-social-floating-sidebar .wpa-social-sharing-container {
+    margin: 0;
+}
+
+.wpa-social-floating-sidebar .wpa-social-buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.wpa-social-floating-sidebar .wpa-social-button {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+
+    .wpa-social-floating-left,
+    .wpa-social-floating-right,
+    .wpa-hide-on-mobile {
+        display: none !important;
+    }
+
+    /* Bottom bar always visible on mobile if enabled */
+    .wpa-social-floating-bottom {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .wpa-social-floating-bottom {
+        display: none !important;
+    }
+}
+
+@media print {
+
+    .wpa-print-btn,
+    .wpa-social-sharing-container,
+    .wpa-social-floating-sidebar {
+        display: none !important;
+    }
+}
+
+/* Hover Effects */
+.wpa-social-hover-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Light Scheme */
+.wpa-social-scheme-light {
+    background: #f3f4f6;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+}
+
+.wpa-social-scheme-light:hover {
+    background: #e5e7eb;
+}
+
+/* Soft Scheme (Vibrant Alpha + Solid Hover) */
+.wpa-social-scheme-soft.wpa-social-facebook {
+    background: rgba(24, 119, 242, 0.12);
+    color: #1877f2;
+}
+
+.wpa-social-scheme-soft.wpa-social-twitter {
+    background: rgba(0, 0, 0, 0.08);
+    color: #000;
+}
+
+.wpa-social-scheme-soft.wpa-social-linkedin {
+    background: rgba(0, 119, 181, 0.12);
+    color: #0077b5;
+}
+
+.wpa-social-scheme-soft.wpa-social-pinterest {
+    background: rgba(189, 8, 28, 0.12);
+    color: #bd081c;
+}
+
+.wpa-social-scheme-soft.wpa-social-reddit {
+    background: rgba(255, 69, 0, 0.12);
+    color: #ff4500;
+}
+
+.wpa-social-scheme-soft.wpa-social-telegram {
+    background: rgba(0, 136, 204, 0.12);
+    color: #0088cc;
+}
+
+.wpa-social-scheme-soft.wpa-social-whatsapp {
+    background: rgba(37, 211, 102, 0.12);
+    color: #25d366;
+}
+
+.wpa-social-scheme-soft.wpa-social-email {
+    background: rgba(136, 136, 136, 0.15);
+    color: #888888;
+}
+
+.wpa-social-scheme-soft.wpa-social-copy-link {
+    background: rgba(75, 85, 99, 0.15);
+    color: #4b5563;
+}
+
+.wpa-social-scheme-soft.wpa-social-sms {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.wpa-social-scheme-soft.wpa-social-print {
+    background: rgba(107, 114, 128, 0.15);
+    color: #6b7280;
+}
+
+/* Interactive Hover States */
+.wpa-social-scheme-soft {
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.wpa-social-scheme-soft:hover {
+    transform: translateY(-3px);
+    color: #ffffff !important;
+}
+
+.wpa-social-scheme-soft.wpa-social-facebook:hover {
+    background: #1877f2;
+    box-shadow: 0 6px 15px rgba(24, 119, 242, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-twitter:hover {
+    background: #000;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.wpa-social-scheme-soft.wpa-social-linkedin:hover {
+    background: #0077b5;
+    box-shadow: 0 6px 15px rgba(0, 119, 181, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-pinterest:hover {
+    background: #bd081c;
+    box-shadow: 0 6px 15px rgba(189, 8, 28, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-reddit:hover {
+    background: #ff4500;
+    box-shadow: 0 6px 15px rgba(255, 69, 0, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-telegram:hover {
+    background: #0088cc;
+    box-shadow: 0 6px 15px rgba(0, 136, 204, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-whatsapp:hover {
+    background: #25d366;
+    box-shadow: 0 6px 15px rgba(37, 211, 102, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-email:hover {
+    background: #888888;
+    box-shadow: 0 6px 15px rgba(136, 136, 136, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-copy-link:hover {
+    background: #4b5563;
+    box-shadow: 0 6px 15px rgba(75, 85, 99, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-sms:hover {
+    background: #10b981;
+    box-shadow: 0 6px 15px rgba(16, 185, 129, 0.3);
+}
+
+.wpa-social-scheme-soft.wpa-social-print:hover {
+    background: #6b7280;
+    box-shadow: 0 6px 15px rgba(107, 114, 128, 0.3);
+}
+
+/* Gradient Scheme */
+.wpa-social-scheme-gradient.wpa-social-facebook {
+    background: linear-gradient(135deg, #1877f2 0%, #0056b3 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-twitter {
+    background: linear-gradient(135deg, #333 0%, #000 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-linkedin {
+    background: linear-gradient(135deg, #0077b5 0%, #004d73 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-pinterest {
+    background: linear-gradient(135deg, #bd081c 0%, #8a0614 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-reddit {
+    background: linear-gradient(135deg, #ff4500 0%, #cc3700 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-telegram {
+    background: linear-gradient(135deg, #0088cc 0%, #005f8f 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-whatsapp {
+    background: linear-gradient(135deg, #25d366 0%, #1da851 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-email {
+    background: linear-gradient(135deg, #888 0%, #666 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-copy-link {
+    background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-native-share {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-sms {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #fff;
+}
+
+.wpa-social-scheme-gradient.wpa-social-print {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    color: #fff;
+}
+
+/* 3D Effect Scheme */
+.wpa-social-scheme-3d {
+    color: #fff;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    transform: translateY(0);
+    transition: all 0.1s;
+}
+
+.wpa-social-scheme-3d:active {
+    transform: translateY(2px);
+    border-bottom-width: 1px;
+}
+
+.wpa-social-scheme-3d.wpa-social-facebook {
+    background: #1877f2;
+}
+
+.wpa-social-scheme-3d.wpa-social-twitter {
+    background: #000;
+}
+
+.wpa-social-scheme-3d.wpa-social-linkedin {
+    background: #0077b5;
+}
+
+.wpa-social-scheme-3d.wpa-social-pinterest {
+    background: #bd081c;
+}
+
+.wpa-social-scheme-3d.wpa-social-reddit {
+    background: #ff4500;
+}
+
+.wpa-social-scheme-3d.wpa-social-telegram {
+    background: #0088cc;
+}
+
+.wpa-social-scheme-3d.wpa-social-whatsapp {
+    background: #25d366;
+}
+
+.wpa-social-scheme-3d.wpa-social-email {
+    background: #888888;
+}
+
+.wpa-social-scheme-3d.wpa-social-copy-link {
+    background: #4b5563;
+}
+
+.wpa-social-scheme-3d.wpa-social-native-share {
+    background: #3b82f6;
+}
+
+.wpa-social-scheme-3d.wpa-social-sms {
+    background: #10b981;
+}
+
+.wpa-social-scheme-3d.wpa-social-print {
+    background: #6b7280;
+}
+
+
+/* Glassmorphism Scheme */
+.wpa-social-scheme-glass {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #333;
+}
+
+.wpa-social-scheme-glass:hover {
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+}
+
+/* Use colors for text in glass mode */
+.wpa-social-scheme-glass.wpa-social-facebook {
+    color: #1877f2;
+}
+
+.wpa-social-scheme-glass.wpa-social-twitter {
+    color: #000;
+}
+
+.wpa-social-scheme-glass.wpa-social-linkedin {
+    color: #0077b5;
+}
+
+.wpa-social-scheme-glass.wpa-social-pinterest {
+    color: #bd081c;
+}
+
+.wpa-social-scheme-glass.wpa-social-reddit {
+    color: #ff4500;
+}
+
+.wpa-social-scheme-glass.wpa-social-telegram {
+    color: #0088cc;
+}
+
+.wpa-social-scheme-glass.wpa-social-whatsapp {
+    color: #25d366;
+}
+
+/* Dark Mode Overrides for Sticky Social Bar */
+body.wpa-dark-mode .wpa-social-floating-bottom {
+    background: rgba(15, 23, 42, 0.8) !important;
+    /* Slate 900 based */
+    border-top-color: rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+}
+
+body.wpa-dark-mode.wpa-glass-enabled .wpa-social-floating-bottom {
+    background: rgba(30, 41, 59, 0.5) !important;
+    /* Slate 800 based */
+}
+
+body.wpa-dark-mode .wpa-mobile-download-toggle {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+}
+
+body.wpa-dark-mode.wpa-glass-enabled .wpa-mobile-download-toggle {
+    background: rgba(30, 41, 59, 0.4);
+}
+
+body.wpa-dark-mode .wpa-mobile-ad-row {
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+body.wpa-dark-mode .wpa-social-scheme-glass {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+}
+
+body.wpa-dark-mode .wpa-social-scheme-glass.wpa-social-twitter {
+    color: #fff;
+}
+
+body.wpa-dark-mode .wpa-social-scheme-mono {
+    background: #334155;
+    color: #f1f5f9;
+}
+
+body.wpa-dark-mode .wpa-social-scheme-mono:hover {
+    background: #475569;
+}
+
+body.wpa-dark-mode .wpa-social-scheme-light {
+    background: #1e293b;
+    color: #f1f5f9;
+    border-color: #334155;
+}
+
+body.wpa-dark-mode .wpa-social-scheme-light:hover {
+    background: #334155;
+}

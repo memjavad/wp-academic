@@ -1,0 +1,535 @@
+/**
+ * WP Academic Post Enhanced - Modern Admin Design System (v3.1)
+ */
+
+:root {
+    /* Colors */
+    --wpa-primary: #2563eb;          /* Modern Blue */
+    --wpa-primary-hover: #1d4ed8;
+    --wpa-bg-app: #f3f4f6;           /* Light Gray App BG */
+    --wpa-bg-card: #ffffff;
+    --wpa-text-main: #111827;
+    --wpa-text-secondary: #6b7280;
+    --wpa-border: #e5e7eb;
+    --wpa-border-focus: #2563eb;
+    --wpa-danger: #ef4444;
+    --wpa-success: #10b981;
+    
+    /* Spacing & Layout */
+    --wpa-radius: 8px;
+    --wpa-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --wpa-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --wpa-container-width: 900px;
+}
+
+/* =========================================
+   Global Layout Wrapper
+   ========================================= */
+.wpa-settings-wrapper {
+    margin: 20px 20px 0 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--wpa-text-main);
+    box-sizing: border-box;
+}
+
+.wpa-settings-wrapper * {
+    box-sizing: border-box;
+}
+
+/* Header */
+.wpa-settings-wrapper .wpa-header {
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.wpa-settings-wrapper h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--wpa-text-main);
+    margin: 0;
+    letter-spacing: -0.025em;
+    padding: 0;
+}
+
+/* =========================================
+   Settings Cards (Vertical Stack)
+   ========================================= */
+.wpa-settings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Standard Card Class (Used by PHP files) */
+.wpa-card,
+.wpa-section-card {
+    background: var(--wpa-bg-card);
+    border: 1px solid var(--wpa-border);
+    border-radius: var(--wpa-radius);
+    box-shadow: var(--wpa-shadow-sm);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+/* Card Header (Section Title) */
+.wpa-card h3,
+.wpa-section-card h3 {
+    margin: 0;
+    padding: 20px 24px;
+    background: #f9fafb;
+    border-bottom: 1px solid var(--wpa-border);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--wpa-text-main);
+}
+
+/* Section Description */
+.wpa-section-desc {
+    padding: 20px 24px 0;
+    color: var(--wpa-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* =========================================
+   Form Table Transformation (Flex Row)
+   ========================================= */
+.wpa-card .form-table,
+.wpa-section-card .form-table {
+    margin: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.wpa-card .form-table tr,
+.wpa-section-card .form-table tr {
+    border-bottom: 1px solid var(--wpa-border);
+    display: flex;
+    flex-direction: row;
+    padding: 24px;
+    align-items: flex-start;
+}
+
+.wpa-card .form-table tr:last-child,
+.wpa-section-card .form-table tr:last-child {
+    border-bottom: none;
+}
+
+/* Label Column (Left) */
+.wpa-card .form-table th,
+.wpa-section-card .form-table th {
+    width: 35%;
+    padding: 0 24px 0 0;
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--wpa-text-main);
+    display: block;
+    line-height: 1.4;
+}
+
+/* Input Column (Right) */
+.wpa-card .form-table td,
+.wpa-section-card .form-table td {
+    width: 65%;
+    padding: 0;
+    display: block;
+}
+
+/* Responsive: Stack on mobile */
+@media screen and (max-width: 782px) {
+    .wpa-card .form-table tr,
+    .wpa-section-card .form-table tr {
+        flex-direction: column;
+    }
+    .wpa-card .form-table th,
+    .wpa-section-card .form-table th,
+    .wpa-card .form-table td,
+    .wpa-section-card .form-table td {
+        width: 100%;
+        padding-right: 0;
+    }
+    .wpa-card .form-table th,
+    .wpa-section-card .form-table th {
+        margin-bottom: 12px;
+    }
+}
+
+/* =========================================
+   Form Elements Styling
+   ========================================= */
+/* Text Inputs */
+.wpa-settings-wrapper input[type="text"],
+.wpa-settings-wrapper input[type="email"],
+.wpa-settings-wrapper input[type="password"],
+.wpa-settings-wrapper input[type="number"],
+.wpa-settings-wrapper select,
+.wpa-settings-wrapper textarea {
+    width: 100%;
+    max-width: 100%; /* Fill the right column */
+    padding: 8px 12px;
+    border: 1px solid var(--wpa-border);
+    border-radius: 6px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--wpa-text-main);
+    background: #fff;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.wpa-settings-wrapper input:focus,
+.wpa-settings-wrapper select:focus,
+.wpa-settings-wrapper textarea:focus {
+    border-color: var(--wpa-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+/* Descriptions */
+.wpa-settings-wrapper .description {
+    font-size: 13px;
+    color: var(--wpa-text-secondary);
+    margin-top: 8px;
+    display: block;
+    line-height: 1.4;
+}
+
+/* =========================================
+   Toggle Switch (Replacing Checkboxes)
+   ========================================= */
+/* Clean toggle */
+.wpa-settings-wrapper input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 44px;
+    height: 24px;
+    background: #e5e7eb;
+    border-radius: 24px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    transition: background 0.3s;
+    vertical-align: middle;
+    margin: 0;
+}
+
+.wpa-settings-wrapper input[type="checkbox"]::before {
+    content: none !important;
+}
+
+.wpa-settings-wrapper input[type="checkbox"]::after {
+    content: '' !important;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.wpa-settings-wrapper input[type="checkbox"]:checked {
+    background: var(--wpa-primary);
+    background-image: none !important;
+}
+
+.wpa-settings-wrapper input[type="checkbox"]:checked::after {
+    transform: translateX(20px);
+}
+
+.wpa-settings-wrapper input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+}
+
+/* Group of Checkboxes layout */
+.wpa-settings-wrapper label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    color: var(--wpa-text-main);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+/* =========================================
+   Tabs (Pill Style)
+   ========================================= */
+.wpa-settings-wrapper .nav-tab-wrapper {
+    border: none;
+    padding: 0;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.wpa-settings-wrapper .nav-tab {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--wpa-text-secondary);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.wpa-settings-wrapper .nav-tab:hover {
+    background: #e5e7eb;
+    color: var(--wpa-text-main);
+}
+
+.wpa-settings-wrapper .nav-tab-active, 
+.wpa-settings-wrapper .nav-tab-active:hover {
+    background: var(--wpa-bg-card);
+    color: var(--wpa-primary);
+    border-color: var(--wpa-border);
+    box-shadow: var(--wpa-shadow-sm);
+}
+
+.wpa-settings-wrapper .tab-content {
+    display: none;
+}
+.wpa-settings-wrapper .tab-content.active {
+    display: block;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   Vertical Layout & Grouped Tabs
+   ========================================= */
+.wpa-vertical-layout {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.wpa-vertical-nav {
+    width: 220px;
+    flex-shrink: 0;
+    background: #fff;
+    border: 1px solid var(--wpa-border);
+    border-radius: var(--wpa-radius);
+    overflow: hidden;
+    position: sticky;
+    top: 50px;
+    box-shadow: var(--wpa-shadow-sm);
+}
+
+.wpa-vertical-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wpa-vertical-nav li {
+    margin: 0;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.wpa-vertical-nav li:last-child {
+    border-bottom: none;
+}
+
+.wpa-vertical-nav a {
+    display: block;
+    padding: 14px 20px;
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    outline: none;
+}
+
+.wpa-vertical-nav a:hover {
+    background: #f9fafb;
+    color: var(--wpa-primary);
+}
+
+.wpa-vertical-nav a.active {
+    background: #f0f6fc;
+    color: var(--wpa-primary);
+    border-left-color: var(--wpa-primary);
+    font-weight: 600;
+}
+
+.wpa-vertical-content {
+    flex-grow: 1;
+    min-width: 0;
+    min-height: 600px;
+}
+
+.wpa-group-content {
+    display: none;
+}
+
+.wpa-group-content.active {
+    display: block;
+    animation: wpaFadeIn 0.3s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes wpaFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Nested Tabs Refinement */
+.wpa-group-content .nav-tab-wrapper {
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--wpa-border);
+    padding-bottom: 0;
+}
+
+.wpa-group-content .tab-content {
+    background: var(--wpa-bg-card);
+    border: 1px solid var(--wpa-border);
+    border-radius: var(--wpa-radius);
+    padding: 30px;
+    box-shadow: var(--wpa-shadow-sm);
+}
+
+/* =========================================
+   Submit Button
+   ========================================= */
+.wpa-settings-wrapper .submit {
+    margin-top: 32px;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.wpa-settings-wrapper .button-primary {
+    background: var(--wpa-primary);
+    border-color: var(--wpa-primary);
+    padding: 10px 24px;
+    height: auto;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: all 0.2s;
+    box-shadow: var(--wpa-shadow-sm);
+    text-shadow: none;
+}
+
+.wpa-settings-wrapper .button-primary:hover {
+    background: var(--wpa-primary-hover);
+    border-color: var(--wpa-primary-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--wpa-shadow-md);
+}
+
+/* =========================================
+   Main Dashboard (Module Grid)
+   ========================================= */
+.wp-academic-post-enhanced-main-page {
+    max-width: 1200px !important; /* Wider for grid */
+}
+
+.feature-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.feature-card {
+    background: var(--wpa-bg-card);
+    border: 1px solid var(--wpa-border);
+    border-radius: var(--wpa-radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.2s ease;
+    box-shadow: var(--wpa-shadow-sm);
+}
+
+.feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--wpa-shadow-md);
+    border-color: #d1d5db;
+}
+
+.feature-card h2 {
+    font-size: 18px;
+    margin: 0 0 12px 0;
+    color: var(--wpa-text-main);
+    font-weight: 600;
+}
+
+.feature-card .description {
+    font-size: 14px;
+    color: var(--wpa-text-secondary);
+    line-height: 1.5;
+    flex-grow: 1; /* Pushes footer down */
+    margin-bottom: 24px;
+}
+
+.feature-card .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 20px;
+    border-top: 1px solid #f3f4f6;
+    margin-top: auto;
+}
+
+/* Status Badges */
+.feature-status {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-active {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-inactive {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+/* Action Buttons */
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.card-actions .button {
+    font-size: 13px !important;
+    padding: 6px 12px !important;
+    height: auto !important;
+    min-height: 32px;
+    border-radius: 6px !important;
+    font-weight: 500;
+}
+
+/* Override color picker margins */
+.wp-picker-container {
+    display: block;
+}
+.wp-picker-input-wrap {
+    margin-bottom: 8px;
+}

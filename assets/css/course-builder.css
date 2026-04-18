@@ -1,0 +1,138 @@
+#wpa-course-builder {
+    background: #fff;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.wpa-builder-tabs {
+    display: flex;
+    background: #f1f5f9;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.wpa-tab-btn {
+    flex: 1;
+    padding: 12px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.wpa-tab-btn:hover {
+    background: #e2e8f0;
+    color: #1e293b;
+}
+
+.wpa-tab-btn.active {
+    background: #fff;
+    color: var(--wpa-primary, #2563eb);
+    border-bottom-color: var(--wpa-primary, #2563eb);
+}
+
+.wpa-builder-header {
+    padding: 15px;
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.wpa-builder-header input {
+    flex-grow: 1;
+    padding: 8px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 36px;
+    box-sizing: border-box;
+}
+
+.wpa-builder-header button {
+    height: 36px;
+}
+
+#wpa-course-lessons-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-height: 50px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.wpa-builder-lesson-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+    transition: background 0.2s, opacity 0.2s;
+    cursor: move;
+}
+
+.wpa-builder-lesson-item:last-child {
+    border-bottom: none;
+}
+
+.wpa-builder-lesson-item:hover {
+    background: #f3f4f6;
+}
+
+.wpa-lesson-handle {
+    color: #9ca3af;
+    margin-right: 15px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+}
+
+.wpa-lesson-title {
+    flex-grow: 1;
+    font-weight: 600;
+    color: #374151;
+    font-size: 14px;
+}
+
+.wpa-lesson-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wpa-lesson-actions a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.wpa-lesson-edit {
+    color: var(--wpa-primary, #2563eb);
+}
+.wpa-lesson-edit:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+.wpa-lesson-remove {
+    color: var(--wpa-danger, #ef4444);
+}
+
+.wpa-lesson-remove:hover {
+    color: #dc2626;
+    text-decoration: underline;
+}
+
+/* Sortable Placeholder */
+.ui-sortable-placeholder {
+    background: #f0fdf4;
+    border: 1px dashed #16a34a;
+    height: 45px;
+    visibility: visible !important;
+}

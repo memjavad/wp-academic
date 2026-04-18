@@ -1,0 +1,33 @@
+.wpa-field-news-wrap {
+    max-width: 800px;
+}
+.wpa-field-news-wrap .form-table th {
+    width: 250px;
+}
+.wpa-field-news-wrap input[type="text"] {
+    width: 100%;
+}
+#wpa-field-news-results {
+    border-radius: 4px;
+    border-left: 4px solid #72aee6;
+}
+#wpa-field-news-results.success {
+    border-left-color: #46b450;
+}
+#wpa-field-news-results.error {
+    border-left-color: #dc3232;
+}
+.wpa-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0,0,0,0.1);
+    border-radius: 50%;
+    border-top-color: #2271b1;
+    animation: spin 1s ease-in-out infinite;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

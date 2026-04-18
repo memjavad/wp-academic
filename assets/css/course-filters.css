@@ -1,0 +1,114 @@
+/* =========================================
+   Filter Bar Styles
+   ========================================= */
+.wpa-course-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.wpa-filter-item {
+    flex: 1;
+    min-width: 200px;
+}
+
+.wpa-filter-item.search {
+    flex: 2; /* Search bar wider */
+    min-width: 250px;
+}
+
+.wpa-filter-item select,
+.wpa-filter-item input[type="text"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95em;
+    color: #374151;
+    background: #f9fafb;
+    transition: all 0.2s;
+}
+
+.wpa-filter-item select:focus,
+.wpa-filter-item input[type="text"]:focus {
+    border-color: var(--wpa-course-primary);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    outline: none;
+}
+
+.wpa-filter-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.wpa-filter-actions .button {
+    background: var(--wpa-course-primary);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    height: auto; /* Fix height issues in some themes */
+    line-height: normal;
+}
+
+.wpa-filter-actions .button:hover {
+    background: #1d4ed8;
+}
+
+.wpa-reset-link {
+    color: #6b7280;
+    text-decoration: none;
+    font-size: 0.9em;
+    font-weight: 500;
+}
+
+.wpa-reset-link:hover {
+    color: #ef4444;
+    text-decoration: underline;
+}
+
+/* RTL Support for Filters */
+body.rtl .wpa-course-filters {
+    direction: rtl;
+}
+
+@media (max-width: 768px) {
+    .wpa-course-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .wpa-filter-item,
+    .wpa-filter-actions {
+        width: 100%;
+    }
+    .wpa-filter-actions .button {
+        width: 100%;
+    }
+    .wpa-reset-link {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+    }
+}
+
+/* Fix for no results */
+.wpa-no-results {
+    text-align: center;
+    padding: 40px;
+    background: #f9fafb;
+    border-radius: 12px;
+    color: #6b7280;
+    font-size: 1.1em;
+}

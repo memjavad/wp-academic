@@ -1,0 +1,18 @@
+.wpa-reading-time {
+    display: inline-flex;
+    align-items: center;
+    color: #6b7280;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.wpa-reading-time-icon {
+    display: inline-flex;
+    margin-right: 6px;
+}
+
+.wpa-reading-time-icon svg {
+    width: 16px;
+    height: 16px;
+}

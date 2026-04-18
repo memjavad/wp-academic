@@ -1,0 +1,33 @@
+#wpa-reading-progress-container {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    background: transparent;
+}
+
+#wpa-reading-progress-container.wpa-progress-top {
+    top: 0;
+}
+
+#wpa-reading-progress-container.wpa-progress-bottom {
+    bottom: 0;
+}
+
+#wpa-reading-progress-bar {
+    width: 0%;
+    height: var(--wpa-progress-height, 4px);
+    background-color: var(--wpa-progress-color, var(--wpa-accent, #2563eb));
+    transition: width 0.1s ease;
+}
+
+body.admin-bar #wpa-reading-progress-container.wpa-progress-top {
+    top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar #wpa-reading-progress-container.wpa-progress-top {
+        top: 46px;
+    }
+}

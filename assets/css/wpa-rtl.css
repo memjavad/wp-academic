@@ -1,0 +1,135 @@
+/* WP Academic Post Enhanced - RTL Support */
+
+/* ============================
+   Global
+   ============================ */
+body.rtl {
+    direction: rtl;
+    text-align: right;
+}
+
+/* ============================
+   Admin Settings (admin-settings.css)
+   ============================ */
+body.rtl .wpa-card .form-table th,
+body.rtl .wpa-section-card .form-table th {
+    padding: 0 0 0 24px;
+    text-align: right;
+}
+
+body.rtl .wpa-settings-wrapper input[type="checkbox"]::after {
+    left: auto;
+    right: 2px;
+}
+
+body.rtl .wpa-settings-wrapper input[type="checkbox"]:checked::after {
+    transform: translateX(-20px);
+}
+
+body.rtl .wpa-dash-tab .count {
+    margin-left: 0;
+    margin-right: 5px;
+}
+
+body.rtl .feature-cards-container {
+    direction: rtl;
+}
+
+/* ============================
+   Course Frontend (course.css)
+   ============================ */
+
+/* Hero */
+body.rtl .wpa-hero-meta-row {
+    margin-right: 0;
+}
+
+/* Curriculum List */
+body.rtl .wpa-section-title {
+    border-left: none;
+    border-right: 4px solid var(--wpa-course-primary);
+}
+
+body.rtl .wpa-lesson-list li:hover {
+    transform: translateX(-3px);
+}
+
+body.rtl .wpa-lesson-list a {
+    text-align: right;
+}
+
+body.rtl .wpa-list-left {
+    flex-direction: row; /* Ensure icon/text order */
+}
+
+body.rtl .wpa-lesson-number {
+    margin-left: 10px;
+    margin-right: 0;
+}
+
+body.rtl .wpa-sidebar-list li.current-lesson a {
+    border-left: none;
+    border-right: 3px solid var(--wpa-course-primary);
+    padding-left: 20px;
+    padding-right: 17px;
+}
+
+body.rtl .wpa-sidebar-section-title.collapsed .dashicons {
+    transform: rotate(90deg);
+}
+
+/* Timeline Layout */
+body.rtl .wpa-course-curriculum.layout-timeline .wpa-lesson-list {
+    padding-left: 0;
+    padding-right: 40px;
+}
+
+body.rtl .wpa-course-curriculum.layout-timeline .wpa-lesson-list::before {
+    left: auto;
+    right: 15px;
+}
+
+body.rtl .wpa-course-curriculum.layout-timeline .wpa-lesson-list li::before {
+    left: auto;
+    right: -31px;
+}
+
+/* Z-Pattern Layout */
+body.rtl .wpa-course-curriculum.layout-z-pattern .wpa-lesson-list li:nth-child(even) {
+    transform: translateX(-20px);
+    border-left: none;
+    border-right: 4px solid var(--wpa-course-primary);
+}
+
+body.rtl .wpa-course-curriculum.layout-z-pattern .wpa-lesson-list li:nth-child(odd) {
+    transform: translateX(20px);
+    border-right: none;
+    border-left: 4px solid var(--wpa-course-primary);
+}
+
+/* Lesson Navigation */
+body.rtl .wpa-nav-prev, 
+body.rtl .wpa-nav-next {
+    flex-direction: row-reverse; /* Flip icon/text */
+}
+
+body.rtl .wpa-nav-prev .dashicons,
+body.rtl .wpa-nav-next .dashicons {
+    transform: scaleX(-1);
+}
+
+/* Sidebar Notes */
+body.rtl .wpa-notes-status {
+    text-align: left;
+}
+
+/* Archive Hero Split */
+body.rtl .wpa-archive-hero.style-split .wpa-hero-visual img {
+    left: 0;
+    right: auto;
+    clip-path: polygon(0 0, 90% 0, 100% 100%, 0% 100%);
+}
+
+/* General Float Fixes */
+body.rtl .float-left { float: right; }
+body.rtl .float-right { float: left; }

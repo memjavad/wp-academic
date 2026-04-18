@@ -1,0 +1,180 @@
+﻿.wpa-glossary-wrapper {
+	width: 100%;
+	clear: both;
+}
+
+/* Search Bar */
+.wpa-glossary-search-wrapper {
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.wpa-glossary-search-input {
+	width: 100%;
+	padding: 15px 20px;
+	border: 2px solid var(--wpa-border-color);
+	background: var(--wpa-bg-white);
+	color: var(--wpa-text-main);
+	border-radius: 8px;
+	font-size: 16px;
+	box-sizing: border-box;
+	transition: border-color 0.3s ease;
+	outline: none;
+}
+
+.wpa-glossary-search-input:focus {
+	border-color: var(--wpa-glossary-accent);
+}
+
+.wpa-glossary-no-results {
+	width: 100%;
+	text-align: center;
+	padding: 30px;
+	background: var(--wpa-bg-white);
+	color: var(--wpa-text-muted);
+	border: 1px dashed var(--wpa-border-color);
+	border-radius: 8px;
+	margin-top: 20px;
+	font-size: 16px;
+}
+
+/* Filter Buttons - Text-based & Compact */
+.wpa-glossary-filter {
+	text-align: center;
+	margin-bottom: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 15px; /* Closer together but still readable */
+	border-bottom: 1px solid var(--wpa-border-color);
+	padding-bottom: 15px;
+}
+
+.wpa-glossary-filter button {
+	display: inline-block;
+	padding: 5px 0;
+	border: none;
+	background: transparent;
+	color: var(--wpa-text-muted);
+	cursor: pointer;
+	text-decoration: none;
+	border-radius: 0;
+	font-size: 1.1rem;
+	font-weight: 600;
+	transition: all 0.2s ease;
+	min-width: auto;
+	box-shadow: none;
+	position: relative;
+}
+
+.wpa-glossary-filter button::after {
+	content: '';
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: var(--wpa-glossary-accent);
+	transform: scaleX(0);
+	transition: transform 0.3s ease;
+}
+
+.wpa-glossary-filter button:hover {
+	background: transparent;
+	color: var(--wpa-glossary-accent);
+	transform: none;
+}
+
+.wpa-glossary-filter button:hover::after {
+	transform: scaleX(1);
+}
+
+.wpa-glossary-filter button.active {
+	background: transparent;
+	color: var(--wpa-glossary-accent);
+	border-color: transparent;
+	box-shadow: none;
+}
+
+.wpa-glossary-filter button.active::after {
+	transform: scaleX(1);
+}
+
+/* Container & Groups */
+.wpa-glossary-container {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -15px;
+	scroll-behavior: smooth;
+}
+
+.wpa-glossary-group {
+	margin-bottom: 30px;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+
+.wpa-glossary-group h3 {
+	border-bottom: none;
+	padding: 12px 15px;
+	margin-bottom: 15px;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 6px;
+	background: var(--wpa-glossary-head-bg);
+	color: var(--wpa-glossary-accent);
+	position: sticky;
+	top: 20px;
+	z-index: 5;
+}
+
+.wpa-glossary-group ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(var(--wpa-glossary-columns, 3), 1fr);
+	gap: 12px;
+}
+
+.wpa-glossary-group li a {
+	text-decoration: none;
+	transition: color 0.2s ease;
+	display: block;
+	padding: 5px 0;
+	color: var(--wpa-text-main);
+}
+
+.wpa-glossary-group li a:hover {
+	text-decoration: underline;
+	color: var(--wpa-glossary-accent);
+}
+
+/* Style: Badges */
+.wpa-glossary-container.wpa-glossary-style-badges .wpa-glossary-group li a {
+	display: inline-block;
+	padding: 5px 12px;
+	background: var(--wpa-bg-white);
+	border: 1px solid var(--wpa-glossary-accent);
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+/* Style: Visual Cards */
+.wpa-glossary-container.wpa-glossary-style-images .wpa-glossary-group li {
+	background: var(--wpa-bg-white);
+	border: 1px solid var(--wpa-border-color);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.wpa-card-image {
+	aspect-ratio: 16 / 9;
+	background-size: cover;
+	background-position: center;
+	border-bottom: 1px solid var(--wpa-border-color);
+}
+
+.wpa-card-content p {
+	color: var(--wpa-text-muted);
+}

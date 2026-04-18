@@ -1,0 +1,7 @@
+.git/
+tmp-sitemap-fix.php
+node_modules/
+.DS_Store
+Thumbs.db
+wp-config.php
+*.log

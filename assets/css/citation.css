@@ -1,0 +1,165 @@
+/* Citation Tabs - Unified */
+
+:root {
+    --wpa-citation-border: var(--wpa-border-color, rgba(127, 127, 127, 0.3));
+    --wpa-citation-bg: var(--wpa-bg-light, rgba(127, 127, 127, 0.05));
+}
+
+.wpa-citation-container {
+    /* Base styles now inherited from unified news classes in frontend.php if on news page */
+    margin: 40px 0;
+}
+
+.wpa-citation-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    border-bottom: 1px solid var(--wpa-citation-border);
+    margin-bottom: 20px;
+}
+
+.wpa-citation-tab-input { display: none; }
+
+.wpa-citation-tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: inherit;
+    opacity: 0.7;
+    border-radius: 6px 6px 0 0;
+    border: 1px solid transparent;
+    margin-bottom: -1px;
+}
+
+.wpa-citation-mobile-select {
+    display: none;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.wpa-citation-select-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--wpa-citation-border);
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font-weight: 500;
+}
+
+.wpa-citation-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.wpa-citation-actions .wpa-btn {
+    margin: 0 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .wpa-citation-container {
+        padding: 12px;
+        margin: 15px 0;
+    }
+    .wpa-citation-tab { display: none; }
+    .wpa-citation-mobile-select { display: block; margin-bottom: 8px; }
+    .wpa-citation-tabs { border-bottom: none; margin-bottom: 8px; }
+    .wpa-citation-content { padding: 8px; font-size: 12px; }
+    .wpa-citation-actions { 
+        margin-top: 10px; 
+        gap: 8px;
+        justify-content: center;
+    }
+    .wpa-download-ris-btn,
+    .wpa-download-bib-btn,
+    .wpa-download-pdf-btn {
+        flex: 1;
+        min-width: 140px;
+        padding: 8px 10px !important;
+        white-space: nowrap;
+        text-align: center;
+        font-size: 12px !important;
+    }
+}
+
+.wpa-citation-tab:hover {
+    opacity: 1;
+    background: var(--wpa-citation-bg);
+}
+
+.wpa-citation-tab-input:checked + .wpa-citation-tab {
+    opacity: 1;
+    background: rgba(127, 127, 127, 0.1);
+    border-color: var(--wpa-citation-border);
+    border-bottom-color: transparent;
+}
+
+.wpa-citation-content {
+    display: none;
+    padding: 10px 0;
+    font-family: monospace;
+    font-size: 14px;
+    color: inherit;
+    background: var(--wpa-citation-bg);
+    padding: 15px;
+    border-radius: 4px;
+    position: relative;
+    /* Hanging Indent for Academic Styles */
+    padding-left: 35px;
+    text-indent: -20px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+#wpa-citation-tab-apa:checked ~ #wpa-citation-content-apa,
+#wpa-citation-tab-mla:checked ~ #wpa-citation-content-mla,
+#wpa-citation-tab-chicago:checked ~ #wpa-citation-content-chicago,
+#wpa-citation-tab-harvard:checked ~ #wpa-citation-content-harvard,
+#wpa-citation-tab-ieee:checked ~ #wpa-citation-content-ieee,
+#wpa-citation-tab-ama:checked ~ #wpa-citation-content-ama {
+    display: block;
+}
+
+.wpa-copy-citation-btn {
+    margin-top: 10px !important;
+    font-size: 12px !important;
+}
+
+/* Quick Downloads Under Title */
+.wpa-quick-downloads {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+.wpa-qd-link {
+    display: inline-block;
+    padding: 2px 10px;
+    border: 1px solid var(--wpa-citation-border);
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    color: #666 !important;
+    transition: all 0.2s;
+    background: var(--wpa-citation-bg);
+}
+
+.wpa-qd-link:hover {
+    background: #2271b1;
+    color: #fff !important;
+    border-color: #2271b1;
+}

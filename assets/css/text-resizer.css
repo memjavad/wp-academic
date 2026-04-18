@@ -1,0 +1,39 @@
+/* Text Resizer Styles */
+.wpa-text-resizer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+.wpa-text-resizer-btn {
+    background: var(--wpa-resizer-btn-bg, #f0f0f1);
+    border: 1px solid #dcdcde;
+    color: var(--wpa-resizer-btn-color, #1d2327);
+    cursor: pointer;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background-color 0.2s, color 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+}
+
+.wpa-text-resizer-btn:hover {
+    filter: brightness(0.95);
+    color: var(--wpa-resizer-btn-color, #000);
+}
+
+.wpa-text-resizer-btn:focus {
+    outline: 2px solid #2271b1;
+    outline-offset: -1px;
+}
+
+.wpa-text-resizer-label {
+    margin-right: 8px;
+    font-weight: 500;
+    font-size: 14px;
+}

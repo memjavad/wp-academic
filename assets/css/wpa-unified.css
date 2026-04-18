@@ -1,0 +1,3272 @@
+﻿/* --- WPA Global Theme Variables & Design System --- */
+:root {
+    /* Colors - Inspired by arabpsychology.com Design System */
+    --wpa-accent: #0572ec;          /* Standard Blue */
+    --wpa-accent-dark: #025cc5;     /* Darker Blue for Hover */
+    --wpa-secondary: #505a6b;       /* Cool Gray */
+    --wpa-success: #2da44e;
+    --wpa-warning: #cf840d;
+    --wpa-danger: #d93025;
+    --wpa-info: #0572ec;
+    
+    /* Backgrounds */
+    --wpa-bg-light: #ffffff; /* Forced White */
+    --wpa-bg-white: #ffffff;
+    --wpa-header-bg: rgba(255, 255, 255, 0.98);
+    --wpa-footer-bg: #ffffff;
+    
+    /* Text */
+    --wpa-text-main: #1f2937;       /* Very Dark Gray */
+    --wpa-text-muted: #6b7280;      /* Muted Gray */
+    --wpa-header-text: #374151;
+    --wpa-footer-text: #6b7280;
+
+    /* Borders & Shadows */
+    --wpa-border-color: #e5e7eb;
+    --wpa-border: 1px solid var(--wpa-border-color);
+    --wpa-radius: 8px;
+    --wpa-radius-lg: 16px;
+    --wpa-radius-pill: 9999px;      /* Full Pill */
+    --wpa-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --wpa-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Layout */
+    --wpa-header-height: 60px;      /* Reduced from 80px */
+
+    /* Typography Defaults - Overridden by theme.php */
+    --wpa-font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --wpa-font-heading: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --wpa-font-size-body: 1.15rem;
+    --wpa-line-height-body: 1.8;
+
+    /* Patterns */
+    --wpa-pattern-color: 15, 23, 42; /* Default Dark Slate for Light Mode */
+}
+
+/* --- Dark Mode Overrides --- */
+body.wpa-dark-mode {
+    --wpa-pattern-color: 255, 255, 255; /* White for Dark Mode */
+    --wpa-bg-light: #0f172a;       /* Slate 900 */
+    --wpa-bg-white: #1e293b;       /* Slate 800 */
+    --wpa-header-bg: rgba(30, 41, 59, 0.98);
+    --wpa-footer-bg: #1e293b;
+    
+    --wpa-text-main: #f8fafc;      /* Slate 50 */
+    --wpa-text-muted: #cbd5e1;     /* Slate 300 */
+    --wpa-header-text: #f1f5f9;
+    --wpa-footer-text: #94a3b8;
+
+    --wpa-border-color: #334155;   /* Slate 700 */
+    --wpa-accent: #93c5fd;         /* Much softer, elegant blue for dark mode */
+    --wpa-accent-dark: #bfdbfe;    /* Even softer for hover */
+    
+    /* Shadows - inverted logic or reduced for dark mode */
+    --wpa-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --wpa-shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+
+    background-color: var(--wpa-bg-light);
+}
+
+/* Crimson Academic Theme Overrides */
+body.wpa-dark-mode.wpa-dark-theme-deep-red,
+html.wpa-dark-mode.wpa-dark-theme-deep-red {
+    --wpa-bg-light: #1a0a0a !important;
+    --wpa-bg-white: #2d0f0f !important;
+    --wpa-accent: #ef4444;
+    --wpa-accent-dark: #f87171;
+    --wpa-border-color: #451a1a;
+}
+
+/* Emerald Scholar Theme Overrides */
+body.wpa-dark-mode.wpa-dark-theme-deep-green,
+html.wpa-dark-mode.wpa-dark-theme-deep-green {
+    --wpa-bg-light: #06100c !important;
+    --wpa-bg-white: #0a1f18 !important;
+    --wpa-accent: #10b981;
+    --wpa-accent-dark: #34d399;
+    --wpa-border-color: #0f2d22;
+}
+
+/* Midnight Black Theme */
+body.wpa-dark-mode.wpa-dark-theme-deep-black,
+html.wpa-dark-mode.wpa-dark-theme-deep-black {
+    --wpa-bg-light: #000000 !important;
+    --wpa-bg-white: #0a0a0a !important;
+    --wpa-accent: #93c5fd;
+    --wpa-accent-dark: #bfdbfe;
+    --wpa-border-color: #1a1a1a;
+}
+
+/* Royal Purple Theme */
+body.wpa-dark-mode.wpa-dark-theme-deep-purple,
+html.wpa-dark-mode.wpa-dark-theme-deep-purple {
+    --wpa-bg-light: #0d0615 !important;
+    --wpa-bg-white: #160a22 !important;
+    --wpa-accent: #a855f7;
+    --wpa-accent-dark: #c084fc;
+    --wpa-border-color: #26123b;
+}
+
+/* Neutral Slate Theme */
+body.wpa-dark-mode.wpa-dark-theme-deep-slate,
+html.wpa-dark-mode.wpa-dark-theme-deep-slate {
+    --wpa-bg-light: #0f172a !important;
+    --wpa-bg-white: #1e293b !important;
+    --wpa-accent: #93c5fd;
+    --wpa-accent-dark: #bfdbfe;
+    --wpa-border-color: #334155;
+}
+
+/* Force backgrounds for color themes on HTML and Body */
+html.wpa-dark-mode[class*="wpa-dark-theme-deep-"],
+body.wpa-dark-mode[class*="wpa-dark-theme-deep-"] {
+    background-color: var(--wpa-bg-light) !important;
+}
+
+html.wpa-dark-mode {
+    background-color: #0f172a;
+}
+
+/* Specific Dark Mode Tweaks */
+body.wpa-dark-mode .wpa-card,
+body.wpa-dark-mode .wpa-sidebar-card,
+body.wpa-dark-mode .wpa-widget,
+body.wpa-dark-mode .wpa-sidebar .widget,
+body.wpa-dark-mode .wpa-instructor-card,
+body.wpa-dark-mode .wpa-testimonial-card,
+body.wpa-dark-mode .wpa-faq-question {
+    background-color: var(--wpa-bg-white);
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-faq-answer {
+    background-color: var(--wpa-bg-light);
+}
+
+body.wpa-dark-mode .wpa-news-header {
+    background: var(--wpa-header-bg);
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-btn-secondary,
+body.wpa-dark-mode .wpa-btn-google {
+    background-color: var(--wpa-bg-white);
+    color: var(--wpa-text-main) !important;
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-btn-secondary:hover,
+body.wpa-dark-mode .wpa-btn-google:hover {
+    background-color: #334155;
+}
+
+body.wpa-dark-mode .wpa-tag-primary {
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+}
+
+body.wpa-dark-mode .wpa-tag-outline {
+    border-color: var(--wpa-border-color);
+    color: var(--wpa-text-muted);
+}
+
+body.wpa-dark-mode .wpa-sidebar {
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-footer-social a {
+    background-color: var(--wpa-bg-white);
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-header-menu .sub-menu {
+    background-color: var(--wpa-bg-white);
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-header-menu a:hover,
+body.wpa-dark-mode .wpa-header-menu li.current-menu-item > a {
+    background-color: var(--wpa-bg-light);
+}
+
+/* Glassmorphism Dark Overrides */
+body.wpa-glass-enabled.wpa-dark-mode .wpa-card,
+body.wpa-glass-enabled.wpa-dark-mode .wpa-sidebar-card,
+body.wpa-glass-enabled.wpa-dark-mode .wpa-news-header,
+body.wpa-glass-enabled.wpa-dark-mode .wpa-mobile-menu-content {
+    background: rgba(30, 41, 59, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+/* --- Base Layout & Typography --- */
+* { box-sizing: border-box; } /* Enforce global box model */
+
+html { 
+    background-color: var(--wpa-bg-light);
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    transition: background-color 0.3s ease;
+}
+
+body {
+    background-color: var(--wpa-bg-light);
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wpa-custom-template {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--wpa-font-body);
+    font-size: var(--wpa-font-size-body) !important;
+    line-height: var(--wpa-line-height-body);
+    color: var(--wpa-text-main);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wpa-container {
+    max-width: var(--wpa-container-width, 1400px);
+    margin: 0 auto;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+}
+
+/* --- Layout Grid & Sidebar --- */
+.wpa-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px; /* Main content | Sidebar */
+    gap: 60px;
+    align-items: start;
+}
+
+.wpa-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+    height: fit-content;
+    z-index: 10;
+    padding-inline-start: 40px;
+    border-inline-start: 1px solid var(--wpa-border-color);
+    background: transparent;
+}
+
+/* Ensure sidebar items look like distinct cards */
+.wpa-sidebar-card, 
+.wpa-widget,
+.wpa-sidebar .widget {
+    background: var(--wpa-bg-white);
+    padding: 25px;
+    border-radius: var(--wpa-radius-lg);
+    border: 1px solid var(--wpa-border-color);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    margin-bottom: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.wpa-sidebar-card:hover,
+.wpa-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+}
+
+/* Ensure no ancestor breaks sticky */
+.wpa-custom-template,
+.wpa-news-main,
+.wpa-container {
+    overflow: visible !important;
+}
+
+@media (max-width: 1000px) {
+    .wpa-layout-grid,
+    .wpa-course-layout-wrapper,
+    .wpa-lesson-layout {
+        display: block !important;
+    }
+    
+    .wpa-sidebar,
+    .wpa-course-sidebar-area,
+    .wpa-lesson-sidebar {
+        display: none !important;
+    }
+}
+
+.wpa-custom-template h1, 
+.wpa-custom-template h2, 
+.wpa-custom-template h3, 
+.wpa-custom-template h4, 
+.wpa-custom-template h5, 
+.wpa-custom-template h6 {
+    font-family: var(--wpa-font-heading);
+}
+
+.wpa-custom-template h4 { font-size: 1.25rem; font-weight: 700; margin-top: 1.8rem; }
+.wpa-custom-template h5 { font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--wpa-text-muted); }
+.wpa-custom-template h6 { font-size: 1rem; font-weight: 600; color: var(--wpa-text-muted); }
+
+/* Typography */
+.wpa-article-title, 
+.wpa-entry-title, 
+.wpa-hero-title, 
+.wpa-lesson-title-main {
+    margin-top: 10px !important;
+}
+
+.wpa-custom-template h1 { font-size: clamp(2.2rem, 4vw, 3rem); letter-spacing: -0.03em; }
+.wpa-custom-template h2 { font-size: clamp(1.75rem, 3vw, 2.25rem); border-bottom: 2px solid var(--wpa-accent); display: inline-block; padding-bottom: 5px; margin-bottom: 1.5rem; }
+.wpa-custom-template h3 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; }
+
+.wpa-custom-template p {
+    margin-bottom: 1.6rem;
+    opacity: 0.95;
+    font-weight: 400;
+    line-height: 1.7;
+    text-align: justify;
+}
+
+/* --- Elegant Link Styling --- */
+.wpa-custom-template a:not(.wpa-btn):not(.wpa-toc-item a):not(.wpa-header-menu a):not(.wpa-mobile-menu-list a) {
+    color: var(--wpa-accent);
+    text-decoration: none;
+    background-image: linear-gradient(var(--wpa-accent), var(--wpa-accent));
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.3s, color 0.3s;
+}
+
+body.wpa-dark-mode .wpa-custom-template a:not(.wpa-btn):not(.wpa-toc-item a):not(.wpa-header-menu a):not(.wpa-mobile-menu-list a) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wpa-custom-template a:not(.wpa-btn):not(.wpa-toc-item a):not(.wpa-header-menu a):not(.wpa-mobile-menu-list a):hover {
+    color: var(--wpa-accent-dark);
+    background-size: 100% 1px;
+    border-bottom-color: transparent;
+}
+
+/* --- Background Patterns --- */
+body[class*="wpa-bg-pattern-"]::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    --wpa-bg-pattern-opacity: 0.15;
+}
+
+body.wpa-dark-mode[class*="wpa-bg-pattern-"]::before {
+    --wpa-bg-pattern-opacity: 0.25; /* Higher visibility for dark backgrounds */
+}
+
+body.wpa-bg-intensity-medium::before  { --wpa-bg-pattern-opacity: 0.3; }
+body.wpa-bg-intensity-strong::before  { --wpa-bg-pattern-opacity: 0.5; }
+body.wpa-bg-intensity-intense::before { --wpa-bg-pattern-opacity: 0.8; }
+
+body.wpa-bg-pattern-radial::before {
+    background-image: radial-gradient(circle at 10% 20%, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 0%, transparent 30%),
+                      radial-gradient(circle at 90% 80%, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 0%, transparent 30%);
+}
+
+body.wpa-bg-pattern-dots::before {
+    background-image: radial-gradient(rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 2px, transparent 2px);
+    background-size: 32px 32px;
+}
+
+body.wpa-bg-pattern-grid::before {
+    background-image: linear-gradient(rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 1px, transparent 1px),
+                      linear-gradient(90deg, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 1px, transparent 1px);
+    background-size: 50px 50px;
+}
+
+body.wpa-bg-pattern-blueprint::before {
+    background-image: 
+        linear-gradient(rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 1px, transparent 1px),
+        linear-gradient(90deg, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 1px, transparent 1px),
+        linear-gradient(rgb(var(--wpa-pattern-color) / calc(var(--wpa-bg-pattern-opacity) * 0.3)) 0.5px, transparent 0.5px),
+        linear-gradient(90deg, rgb(var(--wpa-pattern-color) / calc(var(--wpa-bg-pattern-opacity) * 0.3)) 0.5px, transparent 0.5px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+}
+
+body.wpa-bg-pattern-mesh::before {
+    background-image: 
+        radial-gradient(at 0% 0%, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 0, transparent 50%), 
+        radial-gradient(at 50% 0%, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 0, transparent 50%), 
+        radial-gradient(at 100% 0%, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 0, transparent 50%);
+}
+
+body.wpa-bg-pattern-topo::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 86c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm66 3c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-46-45c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm54 24c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM57 6c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM32 30c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM8 54c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm40 20c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm52-54c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM4 2c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm92 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM4 98c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm92 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM28 64c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm56-44c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM28 28c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm56 56c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM28 84c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm56-56c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM28 4c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm56 92c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-48-74c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 80c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm40-40c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm-80 0c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm40 40c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%232563eb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-size: 400px 400px;
+    opacity: var(--wpa-bg-pattern-opacity);
+}
+
+body.wpa-bg-pattern-waves::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1600 800'%3E%3Cpath fill='rgb(var(--wpa-pattern-color))' fill-opacity='var(--wpa-bg-pattern-opacity)' d='M-400 0C-400 0 0 800 400 800C800 800 1200 0 1600 0C2000 0 2400 800 2800 800C3200 800 3600 0 4000 0'/%3E%3C/svg%3E");
+    background-size: cover;
+    background-position: center;
+}
+
+body.wpa-bg-pattern-circuit::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg stroke='rgb(var(--wpa-pattern-color))' stroke-width='0.5' stroke-opacity='var(--wpa-bg-pattern-opacity)'%3E%3Cpath d='M0 0h80v80H0z'/%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Cpath d='M40 0v38M40 80V42M0 40h38M80 40H42'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-size: 80px 80px;
+}
+
+body.wpa-bg-pattern-zenith::before {
+    background-image: 
+        radial-gradient(circle at 50% -20%, rgb(var(--wpa-pattern-color) / calc(var(--wpa-bg-pattern-opacity) * 0.8)) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgb(var(--wpa-pattern-color) / calc(var(--wpa-bg-pattern-opacity) * 0.3)) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgb(var(--wpa-pattern-color) / calc(var(--wpa-bg-pattern-opacity) * 0.3)) 0%, transparent 40%);
+    background-attachment: fixed;
+}
+
+body.wpa-bg-pattern-hex::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10V10c0-5.523-4.477-10-10-10s-10 4.477-10 10v20c0 5.523 4.477 10 10 10zM24 20c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10z' fill='rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity))' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+body.wpa-bg-pattern-stars::before {
+    background-image: 
+        radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 50px 50px, 100px 100px;
+    background-position: 0 0, 25px 25px;
+    opacity: 0.3;
+}
+
+body.wpa-bg-pattern-cube::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity))' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L20 20H0v20zM40 0L20 20h20V0zM20 20L0 0v20h20zM20 20l20 20V20H20z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+body.wpa-bg-pattern-carbon::before {
+    background-image: 
+        linear-gradient(27deg, #151515 5px, transparent 5px), 
+        linear-gradient(207deg, #151515 5px, transparent 5px), 
+        linear-gradient(27deg, #222 5px, transparent 5px), 
+        linear-gradient(207deg, #222 5px, transparent 5px);
+    background-size: 58px 58px;
+    background-position: 0px 0px, 29px 29px, 29px 29px, 0px 0px;
+    opacity: 0.1;
+}
+
+body.wpa-bg-pattern-lines::before {
+    background-image: repeating-linear-gradient(45deg, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 0, rgb(var(--wpa-pattern-color) / var(--wpa-bg-pattern-opacity)) 1px, transparent 0, transparent 50%);
+    background-size: 10px 10px;
+}
+
+/* --- Glassmorphism Enhancements --- */
+body.wpa-glass-enabled {
+    background-image: radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.05) 0%, transparent 20%),
+                      radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
+    background-attachment: fixed;
+}
+
+body.wpa-glass-enabled .wpa-card,
+body.wpa-glass-enabled .wpa-alert,
+body.wpa-glass-enabled .wpa-testimonial-card,
+body.wpa-glass-enabled .wpa-stat-item,
+body.wpa-glass-enabled .wpa-mobile-menu-content,
+body.wpa-glass-enabled .wpa-sidebar-card,
+body.wpa-glass-enabled .wpa-widget,
+body.wpa-glass-enabled .wpa-news-meta-box,
+body.wpa-glass-enabled .wpa-course-curriculum,
+body.wpa-glass-enabled .wpa-instructor-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+}
+
+body.wpa-glass-enabled .wpa-card-header,
+body.wpa-glass-enabled .wpa-box-header,
+body.wpa-glass-enabled .wpa-widget .widget-title,
+body.wpa-glass-enabled .wpa-sidebar-card .widget-title {
+    background: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.wpa-glass-enabled .wpa-card-footer,
+body.wpa-glass-enabled .wpa-box-footer {
+    background: rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+body.wpa-glass-enabled .wpa-news-header {
+    background: rgba(255, 255, 255, 0.85); /* Increased opacity from 0.6 */
+    backdrop-filter: blur(8px) saturate(160%); /* Reduced blur from 16px */
+    -webkit-backdrop-filter: blur(8px) saturate(160%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.wpa-glass-enabled .wpa-news-footer {
+    background: rgba(248, 250, 252, 0.6);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+body.wpa-glass-enabled .wpa-btn-secondary,
+body.wpa-glass-enabled .wpa-btn-google {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+body.wpa-glass-enabled .wpa-btn-secondary:hover,
+body.wpa-glass-enabled .wpa-btn-google:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+body.wpa-glass-enabled .wpa-tag {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Keep solid backgrounds for primary actions/dark areas to ensure contrast */
+body.wpa-glass-enabled .wpa-btn-primary,
+body.wpa-glass-enabled .wpa-section-newsletter {
+    backdrop-filter: none;
+}
+
+
+/* --- UI Component: Buttons --- */
+.wpa-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 24px; /* Wider padding for pill shape */
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none !important;
+    border-radius: var(--wpa-radius-pill); /* Pill shape */
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid transparent;
+    background: transparent;
+}
+
+.wpa-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.wpa-btn:active {
+    transform: translateY(0);
+}
+
+/* Button Variants */
+.wpa-btn-primary {
+    background-color: var(--wpa-accent);
+    color: #ffffff !important;
+    border-color: var(--wpa-accent);
+}
+.wpa-btn-primary:hover {
+    background-color: var(--wpa-accent-dark);
+    border-color: var(--wpa-accent-dark);
+    color: #ffffff !important;
+}
+
+.wpa-btn-secondary {
+    background-color: var(--wpa-bg-white);
+    color: var(--wpa-text-main) !important;
+    border-color: var(--wpa-border-color);
+}
+.wpa-btn-secondary:hover {
+    background-color: var(--wpa-bg-light);
+    border-color: #cbd5e1;
+}
+
+.wpa-btn-outline {
+    background-color: transparent;
+    color: var(--wpa-accent) !important;
+    border-color: var(--wpa-accent);
+}
+.wpa-btn-outline:hover {
+    background-color: var(--wpa-accent);
+    color: #ffffff !important;
+}
+
+.wpa-btn-success {
+    background-color: var(--wpa-success);
+    color: #ffffff !important;
+    border-color: var(--wpa-success);
+}
+.wpa-btn-success:hover {
+    background-color: #059669;
+    border-color: #059669;
+}
+
+.wpa-btn-text {
+    padding: 8px 12px;
+    color: var(--wpa-text-muted) !important;
+}
+.wpa-btn-text:hover {
+    color: var(--wpa-accent) !important;
+    background-color: rgba(0,0,0,0.03);
+}
+
+/* Button Sizes */
+.wpa-btn-sm {
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+}
+
+.wpa-btn-lg {
+    padding: 14px 28px;
+    font-size: 1.1rem;
+    border-radius: var(--wpa-radius-lg);
+}
+
+.wpa-btn-pill {
+    border-radius: var(--wpa-radius-pill);
+}
+
+/* Google News Button */
+.wpa-btn-google {
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    color: var(--wpa-text-main) !important;
+    border-radius: 30px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.wpa-btn-google:hover {
+    background: var(--wpa-bg-light);
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+.wpa-btn-google .dashicons { color: #4285F4; }
+
+/* Icon Button (Round) */
+.wpa-btn-icon {
+    width: 40px; height: 40px; padding: 0; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+}
+
+/* Share Brands */
+.wpa-btn-twitter { background: #1da1f2; color: #fff !important; border: none; }
+.wpa-btn-twitter:hover { background: #0c85d0; color: #fff !important; }
+
+.wpa-btn-facebook { background: #1877f2; color: #fff !important; border: none; }
+.wpa-btn-facebook:hover { background: #1060c2; color: #fff !important; }
+
+.wpa-btn-linkedin { background: #0077b5; color: #fff !important; border: none; }
+.wpa-btn-linkedin:hover { background: #005885; color: #fff !important; }
+
+.wpa-btn-whatsapp { background: #25d366; color: #fff !important; border: none; }
+.wpa-btn-whatsapp:hover { background: #1da851; color: #fff !important; }
+
+/* --- UI Component: Cards --- */
+.wpa-card {
+    background: var(--wpa-bg-white);
+    border: var(--wpa-border);
+    border-radius: var(--wpa-radius-lg);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.wpa-card.has-shadow {
+    box-shadow: var(--wpa-shadow);
+    border-color: transparent;
+}
+
+.wpa-card.interactive:hover {
+    box-shadow: var(--wpa-shadow-hover);
+    border-color: #cbd5e1;
+}
+
+.wpa-card-header {
+    padding: 15px 20px;
+    background: var(--wpa-bg-light);
+    border-bottom: var(--wpa-border);
+    font-weight: 700;
+    color: var(--wpa-text-main);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wpa-card-body {
+    padding: 20px;
+    flex: 1;
+}
+
+.wpa-card-footer {
+    padding: 15px 20px;
+    background: var(--wpa-bg-white);
+    border-top: var(--wpa-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* --- UI Component: Alerts --- */
+.wpa-alert {
+    padding: 15px 20px;
+    border-radius: var(--wpa-radius);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.wpa-alert-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    margin-top: 1px;
+}
+
+.wpa-alert-success { background: #dcfce7; color: #14532d; border: 1px solid #bbf7d0; }
+.wpa-alert-warning { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+.wpa-alert-error   { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.wpa-alert-info    { background: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
+
+/* --- UI Component: Badges & Tags --- */
+.wpa-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: var(--wpa-bg-light);
+    color: var(--wpa-text-muted);
+    border: 1px solid transparent;
+}
+
+.wpa-tag-primary { background: #eff6ff; color: var(--wpa-accent); }
+.wpa-tag-success { background: #dcfce7; color: var(--wpa-success); }
+.wpa-tag-outline { background: transparent; border-color: var(--wpa-border-color); }
+
+/* --- UI Component: Meta Items --- */
+.wpa-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+.wpa-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: var(--wpa-text-muted);
+}
+
+.wpa-meta-item .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+}
+
+/* --- Modern Header --- */
+.wpa-news-header {
+    position: relative;
+    top: 0;
+    z-index: 1000;
+    background: var(--wpa-header-bg);
+    border: 1px solid rgba(128, 128, 128, 0.5); /* 50% opaque gray outline */
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    width: min(calc(var(--wpa-container-width, 1400px) + 40px), calc(100% - 30px)); /* 40px wider than content */
+    margin: 15px auto; /* Top margin and centering */
+    border-radius: 40px; /* More rounded island */
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.1); /* Much stronger base shadow */
+    transform: translateY(0); /* Default state */
+    will-change: transform;
+}
+
+.wpa-news-header.wpa-sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin-top: 15px;
+}
+
+.wpa-news-header.is-scrolled {
+    background: var(--wpa-header-bg) !important;
+    backdrop-filter: blur(10px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(10px) saturate(160%) !important;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2) !important; /* Maximum depth when scrolled */
+    border: 1px solid var(--wpa-border-color);
+}
+
+.wpa-header-hidden {
+    transform: translateY(-200px) !important; /* Larger value to ensure it clears the 15px gap + height */
+}
+/* ... elsewhere in file ... */
+
+.wpa-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--wpa-header-height);
+    max-width: var(--wpa-container-width, 1400px); /* Use dynamic width */
+    gap: 30px;
+    padding: 0 30px !important;
+}
+
+/* Branding */
+.wpa-branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1002;
+    flex-shrink: 0;
+    margin-right: 0;
+}
+
+.wpa-site-title {
+    text-decoration: none;
+    font-weight: 800; /* Extra Bold */
+    font-size: 1.4rem; /* Larger */
+    letter-spacing: -0.02em;
+    color: var(--wpa-text-main);
+    line-height: 1;
+}
+
+.wpa-branding img {
+    height: 32px; /* Slightly smaller logo */
+    width: auto;
+    display: block;
+}
+
+/* Desktop Navigation */
+.wpa-header-nav {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end; /* Align links to the opposite side of logo */
+    margin-inline-start: 0;
+}
+
+.wpa-header-menu,
+.wpa-header-menu ul {
+    display: flex !important;
+    flex-direction: row !important; /* Force horizontal */
+    flex-wrap: nowrap !important;   /* Prevent vertical stacking/wrapping */
+    gap: 6px; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    flex-grow: 0;
+}
+
+.wpa-header-menu li {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+/* Top Level Links */
+.wpa-header-menu a {
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    font-weight: 600; /* Bolder */
+    font-size: 1rem; /* Larger */
+    letter-spacing: -0.01em; /* Tighter for modern look */
+    padding: 8px 18px; /* Slightly wider touch target */
+    border-radius: var(--wpa-radius-pill);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.wpa-header-menu li > a:hover,
+.wpa-header-menu li.current-menu-item > a,
+.wpa-header-menu li.current-menu-parent > a {
+    background-color: var(--wpa-bg-light);
+    color: var(--wpa-text-main); /* Keep dark text for arabpsychology.com style */
+}
+
+/* Dropdown Indicators */
+.wpa-header-menu .menu-item-has-children > a {
+    padding-right: 24px; /* Space for arrow */
+    position: relative;
+}
+
+.wpa-header-menu .menu-item-has-children > a::after {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border: 2px solid currentColor;
+    border-top: transparent;
+    border-left: transparent;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    margin-top: -5px;
+    opacity: 0.6;
+    transition: transform 0.2s ease;
+}
+
+.wpa-header-menu .menu-item-has-children:hover > a::after {
+    transform: rotate(225deg);
+    margin-top: -1px;
+}
+
+/* Dropdown Menus */
+.wpa-header-menu .sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 240px;
+    background: var(--wpa-bg-white);
+    border-radius: var(--wpa-radius-lg);
+    box-shadow: 0 20px 40px -5px rgba(0,0,0,0.1), 0 8px 16px -4px rgba(0,0,0,0.05);
+    padding: 12px;
+    margin-top: 10px;
+    opacity: 0;
+    visibility: hidden;
+    /* Ensure it doesn't capture clicks when hidden */
+    pointer-events: none;
+    transform: translateY(15px);
+    /* Add delay to visibility to prevent instant closing */
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+    z-index: 1100;
+    list-style: none;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Vertical Bridge for Top Level */
+.wpa-header-menu > .menu-item-has-children > .sub-menu::before {
+    content: "";
+    position: absolute;
+    top: -30px; /* Increased coverage */
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background: transparent;
+}
+
+body.rtl .wpa-header-menu .sub-menu {
+    left: auto;
+    right: 0;
+}
+
+/* Show Dropdown on Hover/Focus */
+.wpa-header-menu li:hover > .sub-menu,
+.wpa-header-menu li:focus-within > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto; /* Enable clicks */
+    transform: translateY(0);
+    /* Remove delay on enter so it opens instantly */
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+}
+
+/* Dropdown Links */
+.wpa-header-menu .sub-menu li {
+    display: block;
+    width: 100%;
+    margin-bottom: 2px;
+    position: relative;
+}
+
+.wpa-header-menu .sub-menu li:last-child {
+    margin-bottom: 0;
+}
+
+.wpa-header-menu .sub-menu a {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: var(--wpa-text-main);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border-radius: var(--wpa-radius);
+    transition: all 0.2s;
+    background: transparent;
+}
+
+.wpa-header-menu .sub-menu a:hover {
+    background-color: var(--wpa-bg-light);
+    color: var(--wpa-accent);
+    transform: translateX(4px);
+}
+
+body.rtl .wpa-header-menu .sub-menu a:hover {
+    transform: translateX(-4px);
+}
+
+/* Nested Dropdowns (Desktop) */
+.wpa-header-menu .sub-menu .menu-item-has-children > a::after {
+    transform: rotate(-45deg);
+    right: 12px;
+}
+
+body.rtl .wpa-header-menu .sub-menu .menu-item-has-children > a::after {
+    transform: rotate(135deg);
+    left: 12px;
+    right: auto;
+}
+
+.wpa-header-menu .sub-menu .sub-menu {
+    top: -12px;
+    left: 100%;
+    margin-top: 0;
+    margin-inline-start: 10px;
+}
+
+/* Horizontal Bridge for Nested Menus */
+.wpa-header-menu .sub-menu .sub-menu::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: 30px; /* Increased coverage */
+    height: 100%;
+    background: transparent;
+}
+
+body.rtl .wpa-header-menu .sub-menu .sub-menu::before {
+    right: auto;
+    left: 100%; /* Extend to the right for RTL */
+}
+
+/* Mobile Menu Styles */
+.wpa-mobile-menu-list li {
+    border-bottom: 1px solid var(--wpa-border-color);
+    position: relative;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wpa-mobile-menu-list a {
+    display: block;
+    padding: 16px 0;
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    font-weight: 600;
+    font-size: 1.1rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Mobile Toggle --- */
+.wpa-mobile-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1005;
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.wpa-mobile-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--wpa-header-text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.wpa-mobile-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.wpa-mobile-toggle.active span:nth-child(2) { opacity: 0; }
+.wpa-mobile-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+/* --- Mobile Menu Drawer --- */
+.wpa-mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    z-index: 99999; /* Higher z-index */
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none; /* Prevent clicks when hidden */
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.wpa-mobile-menu-overlay.active { 
+    opacity: 1; 
+    visibility: visible; 
+    pointer-events: auto; /* Enable clicks */
+}
+
+.wpa-mobile-menu-content {
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    right: 15px; /* Detached from right */
+    width: 85%;
+    max-width: 320px;
+    height: calc(100% - 30px);
+    background-color: var(--wpa-bg-white);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3); /* Strong floating shadow */
+    transform: translateX(120%); /* Start further out */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 80px 0 30px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    border-radius: 24px; /* Rounded corners */
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+/* RTL Mobile Menu Overrides */
+body.rtl .wpa-mobile-menu-content {
+    right: auto;
+    left: 15px; /* Detached from left in RTL */
+    transform: translateX(-120%);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+}
+
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-content { transform: translateX(0); }
+
+.wpa-mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--wpa-bg-light);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: var(--wpa-text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+body.rtl .wpa-mobile-close {
+    right: auto;
+    left: 20px;
+}
+
+.wpa-mobile-close:hover { background: var(--wpa-bg-light); color: var(--wpa-accent); }
+
+.wpa-mobile-menu-list { list-style: none; padding: 0; margin: 0; width: 100%; }
+
+.wpa-mobile-menu-list li {
+    border-bottom: 1px solid var(--wpa-border-color);
+    position: relative;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    width: 100%;
+}
+
+.wpa-mobile-menu-list a {
+    display: block;
+    padding: 16px 30px;
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color 0.2s;
+}
+
+.wpa-mobile-menu-list a:hover {
+    background-color: var(--wpa-bg-light);
+}
+
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-list li { opacity: 1; transform: translateX(0); }
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-list li:nth-child(1) { transition-delay: 0.1s; }
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-list li:nth-child(2) { transition-delay: 0.15s; }
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-list li:nth-child(3) { transition-delay: 0.2s; }
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-list li:nth-child(4) { transition-delay: 0.25s; }
+.wpa-mobile-menu-overlay.active .wpa-mobile-menu-list li:nth-child(5) { transition-delay: 0.3s; }
+
+/* ... existing styles ... */
+
+.wpa-news-footer { 
+    padding: 60px 0 !important; /* Increased from 40px */
+}
+
+.wpa-footer-left p { margin: 0; font-size: 0.95rem; opacity: 0.8; }
+
+.wpa-footer-social { display: flex; gap: 20px; }
+
+.wpa-footer-social a {
+    text-decoration: none;
+    color: var(--wpa-footer-text);
+    font-size: 22px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+}
+
+.wpa-footer-social a:hover {
+    color: var(--wpa-accent);
+    background: var(--wpa-bg-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Footer Grid */
+.wpa-footer-widgets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+}
+
+.wpa-footer-col .widget-title, .wpa-widget-title {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--wpa-text-main);
+    font-weight: 700;
+}
+
+.wpa-footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wpa-footer-col li {
+    margin-bottom: 10px;
+}
+
+.wpa-footer-col a {
+    text-decoration: none;
+    color: var(--wpa-text-muted);
+    transition: color 0.2s;
+}
+
+.wpa-footer-col a:hover {
+    color: var(--wpa-accent);
+}
+
+/* --- Scroll to Top Button --- */
+.wpa-scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    border-radius: 50%;
+    color: var(--wpa-text-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.wpa-scroll-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.wpa-scroll-top:hover {
+    background: var(--wpa-accent);
+    color: #ffffff;
+    border-color: var(--wpa-accent);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+body.rtl .wpa-scroll-top {
+    right: auto;
+    left: 30px;
+}
+
+@media (max-width: 1000px) {
+    .wpa-scroll-top {
+        bottom: 90px; /* Stay above mobile sharing bar */
+        right: 20px;
+    }
+    body.rtl .wpa-scroll-top {
+        left: 20px;
+    }
+    
+    .wpa-header-nav,
+    .wpa-header-actions { display: none; }
+    .wpa-mobile-toggle { display: flex; }
+    
+    .wpa-header-inner { 
+        height: 60px; 
+        padding: 0 2% !important; /* 2% side padding */
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .wpa-container { 
+        padding: 0 2% !important; /* 2% side padding */
+        width: 100% !important;
+        max-width: 100% !important; /* Override inline styles */
+        margin: 0 !important;
+    }
+    
+    /* Force Edge-to-Edge for Images - with Rounded Edges */
+    .wpa-featured-image img,
+    .wpa-card-img img {
+        border-radius: 24px !important; /* Unified rounded corners */
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .wpa-footer-content { flex-direction: column; text-align: center; }
+
+    /* Ensure content starts after header on mobile (non-homepages) */
+    body.wpa-custom-template:not(.home) #page,
+    body.wpa-custom-template:not(.home) .site-content,
+    body.wpa-custom-template:not(.home) main {
+        margin-top: 100px !important;
+    }
+}
+
+/* Force Desktop Header Stacking & Sticky */
+@media (min-width: 1001px) {
+    .wpa-custom-template .wpa-news-header {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 15px !important; /* Stick with a gap */
+        z-index: 1000;
+        /* Remove the full-width overrides to restore the rounded island look */
+    }
+    
+    .wpa-homepage-wrapper {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+/* WPA SVG Icons */
+.wpa-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    fill: currentColor;
+    line-height: 1;
+}
+.wpa-icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Prevent Google Ads in Header */
+.wpa-news-header .google-auto-placed,
+.wpa-news-header .adsbygoogle {
+    display: none !important;
+}
+
+/* Global Content Justification */
+.wpa-entry-content,
+.wpa-article-content,
+.wpa-lesson-body,
+.wpa-course-description,
+.wpa-post-content,
+.wpa-about-content {
+    text-align: justify;
+    hyphens: auto;
+}
+
+/* Ensure paragraphs within these containers are also justified */
+.wpa-entry-content p,
+.wpa-article-content p,
+.wpa-lesson-body p,
+.wpa-course-description p,
+.wpa-post-content p,
+.wpa-about-content p {
+    text-align: justify;
+}
+
+/* Widget Headers Dark Mode Fix */
+body.wpa-dark-mode .wpa-widget .widget-title,
+body.wpa-dark-mode .wpa-sidebar-card .widget-title,
+body.wpa-dark-mode .wpa-footer-col .widget-title,
+body.wpa-dark-mode .wpa-widget-title {
+    background: var(--wpa-bg-light);
+    border-bottom-color: var(--wpa-border-color);
+    color: var(--wpa-text-main);
+}
+
+/* Global Widget Header Styles */
+.widget-title, .wpa-widget-title {
+    background: var(--wpa-bg-light);
+    color: var(--wpa-text-main);
+    border-bottom: 1px solid var(--wpa-border-color);
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Article Background Fix for Themes */
+.wpa-custom-template article {
+    background-color: transparent !important;
+}
+
+/* Force transparency on common theme containers */
+.wpa-custom-template #primary,
+.wpa-custom-template #main,
+.wpa-custom-template #content,
+.wpa-custom-template .site-content,
+.wpa-custom-template .site-main {
+    background-color: transparent !important;
+}
+/* Course Frontend Styles - Unified with WPA Global Theme */
+
+:root {
+    /* Map Course Variables to Global Design System */
+    --wpa-course-primary: var(--wpa-accent);
+    --wpa-course-accent: var(--wpa-success); /* Green for progress/success */
+}
+
+/* =========================================
+   Course Header Meta (Course Page)
+   ========================================= */
+.wpa-course-header-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+    font-size: 0.95em;
+    color: var(--wpa-text-muted);
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 20px;
+    border-radius: var(--wpa-radius);
+    background: var(--wpa-bg-light);
+    border: var(--wpa-border);
+}
+
+.wpa-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: var(--wpa-bg-white);
+    border: var(--wpa-border);
+    border-radius: 6px;
+    color: var(--wpa-text-muted);
+    font-weight: 500;
+}
+
+/* Progress Bar */
+.wpa-course-progress-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--wpa-border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    position: relative;
+}
+
+.wpa-progress-fill {
+    height: 100%;
+    background: var(--wpa-course-accent);
+    width: 0;
+    transition: width 0.5s ease-out;
+}
+
+.wpa-course-completed-msg {
+    width: 100%;
+    background: rgba(45, 164, 78, 0.15);
+    color: var(--wpa-success);
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    border: 1px solid var(--wpa-success);
+}
+
+/* Course Hero Header (Redesigned V2) */
+.wpa-course-hero-v2 {
+    width: 100%;
+    position: relative;
+    background: #1e293b;
+    border-radius: var(--wpa-radius-lg);
+    overflow: hidden;
+    display: flex;
+    padding: 40px;
+    gap: 40px;
+    color: #ffffff;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+body.wpa-dark-mode .wpa-course-hero-v2 {
+    background: #0f172a;
+    border: 1px solid var(--wpa-border-color);
+}
+
+.wpa-hero-title {
+    font-size: 3em !important;
+    color: #ffffff !important;
+    margin: 0 0 20px 0 !important;
+    font-weight: 800 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.03em !important;
+    display: block !important;
+}
+
+.wpa-hero-meta-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.85em;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.wpa-instructor-card {
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    border-radius: var(--wpa-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+}
+
+.wpa-instructor-header {
+    padding: 15px 20px;
+    background: var(--wpa-bg-light);
+    border-bottom: 1px solid var(--wpa-border-color);
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--wpa-text-muted);
+    font-weight: 700;
+    text-align: center;
+}
+
+.wpa-section-title {
+    color: var(--wpa-text-main);
+    background: var(--wpa-bg-light);
+    border: 1px solid var(--wpa-border-color);
+}
+
+.wpa-lesson-list li {
+    border: 1px solid var(--wpa-border-color);
+    background: var(--wpa-bg-white);
+}
+
+.wpa-lesson-list a {
+    color: var(--wpa-text-main);
+}
+
+.wpa-lesson-duration {
+    color: var(--wpa-text-muted);
+    background: var(--wpa-bg-light);
+}
+
+.wpa-sidebar-section-title {
+    background: var(--wpa-bg-light);
+    color: var(--wpa-text-muted);
+    border-bottom: 1px solid var(--wpa-border-color);
+}
+
+.wpa-sidebar-list li a {
+    color: var(--wpa-text-muted);
+}
+
+.wpa-sidebar-list li:hover a {
+    color: var(--wpa-course-primary);
+    background: var(--wpa-bg-light);
+}
+
+.wpa-sidebar-list li.current-lesson a {
+    color: var(--wpa-course-primary);
+    background: rgba(59, 130, 246, 0.1);
+}
+/* =========================================
+   Elegant Field News Metadata Box - Compact
+   ========================================= */
+
+.wpa-unified-study-box {
+    position: relative;
+    background: var(--wpa-bg-white) !important;
+    border: 1px solid var(--wpa-border-color) !important;
+    border-radius: 12px !important;
+    padding: 0 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+    overflow: hidden;
+    margin: 30px 0 !important;
+    font-family: var(--wpa-font-body, inherit);
+}
+
+/* Header */
+.wpa-unified-study-box .wpa-box-header {
+    background: var(--wpa-bg-light);
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--wpa-border-color);
+}
+
+.wpa-header-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.wpa-unified-study-box .wpa-meta-title {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--wpa-text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* Body & Grid */
+.wpa-unified-study-box .wpa-box-body {
+    padding: 20px;
+}
+
+.wpa-study-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 25px;
+    margin-bottom: 15px;
+}
+
+/* Source */
+.wpa-source-card.compact {
+    margin-bottom: 15px;
+}
+
+.wpa-journal-name {
+    display: block;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--wpa-text-main);
+    line-height: 1.2;
+}
+
+.wpa-meta-subrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    color: var(--wpa-text-muted);
+}
+
+/* Authors */
+.wpa-authors-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.wpa-author-item {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--wpa-text-muted);
+    background: var(--wpa-bg-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wpa-affiliations-list {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--wpa-text-muted);
+}
+
+/* Side Citation */
+.wpa-quick-citation-box {
+    background: var(--wpa-bg-light);
+    border: 1px solid var(--wpa-border-color);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.wpa-citation-preview code {
+    background: transparent;
+    padding: 0;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: var(--wpa-text-muted);
+    line-height: 1.4;
+    font-style: italic;
+    border: none;
+    display: block;
+}
+
+/* Tags/Concepts Footer */
+.wpa-study-footer-meta.compact {
+    padding-top: 15px;
+    border-top: 1px solid var(--wpa-border-color);
+}
+
+.wpa-unified-study-box .wpa-box-footer {
+    background: var(--wpa-bg-light);
+    padding: 12px 20px;
+    border-top: 1px solid var(--wpa-border-color);
+}
+
+.wpa-raw-abstract-overlay {
+    background: var(--wpa-bg-white);
+    padding: 20px;
+    border: 1px solid var(--wpa-border-color);
+    border-radius: 12px;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--wpa-text-main);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Mobile Optimizations for Study Box */
+@media (max-width: 768px) {
+    .wpa-unified-study-box .wpa-box-header {
+        padding: 15px;
+    }
+    
+    .wpa-header-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .wpa-header-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .wpa-unified-study-box .wpa-box-body {
+        padding: 15px;
+    }
+
+    .wpa-study-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .wpa-source-card.compact {
+        margin-bottom: 10px;
+    }
+
+    .wpa-journal-name {
+        font-size: 0.9rem;
+    }
+
+    .wpa-quick-citation-box {
+        padding: 12px;
+    }
+
+    .wpa-citation-preview code {
+        font-size: 0.75rem;
+    }
+
+    .wpa-unified-study-box .wpa-box-footer {
+        padding: 15px;
+    }
+
+    .wpa-footer-actions-row {
+        flex-direction: column;
+        gap: 15px;
+        align-items: stretch;
+    }
+
+    .wpa-footer-actions-left,
+    .wpa-footer-actions-right {
+        width: 100%;
+    }
+
+    .wpa-footer-actions-row .wpa-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* --- Keep existing non-box styles --- */
+
+.wpa-sidebar-card, .wpa-widget { 
+    margin-bottom: 30px;
+}
+
+.wpa-widget .widget-title, 
+.wpa-sidebar-card .widget-title { 
+    margin: 0;
+    padding: 15px 20px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--wpa-text-muted);
+    background: var(--wpa-bg-light);
+    border-bottom: 1px solid var(--wpa-border-color);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Key Takeaways Box */
+.wpa-article-content > ul:first-of-type {
+    background: var(--wpa-bg-light);
+    border-left: 4px solid var(--wpa-accent);
+    padding: 20px 20px 20px 40px;
+    margin: 30px 0;
+    border-radius: 0 var(--wpa-radius, 8px) var(--wpa-radius, 8px) 0;
+}
+
+body.rtl .wpa-article-content > ul:first-of-type {
+    border-left: none;
+    border-right: 4px solid var(--wpa-accent);
+    padding: 20px 40px 20px 20px;
+    border-radius: var(--wpa-radius, 8px) 0 0 var(--wpa-radius, 8px);
+}
+
+/* RTL Support */
+body.rtl .wpa-journal-row { gap: 15px; }
+body.rtl .wpa-author-item { gap: 5px; }
+body.rtl .wpa-topic-label { min-width: auto; margin-left: 10px; }
+body.rtl .wpa-action-row { justify-content: flex-end; }
+
+/* --- Responsive Image Styles --- */
+@media (min-width: 1001px) {
+    .wpa-img-wide { 
+        max-width: 1000px; 
+        margin-left: calc(50% - 500px); 
+        margin-right: calc(50% - 500px); 
+        width: 1000px !important; 
+    }
+}
+
+@media (max-width: 1000px) {
+    .wpa-img-wide { 
+        width: 100% !important; 
+        margin: 0 !important; 
+        max-width: 100% !important; 
+    }
+    .wpa-featured-image img { 
+        border-radius: 24px !important; 
+    }
+}
+
+.wpa-img-hidden { display: none !important; }
+.wpa-glossary-wrapper {
+	width: 100%;
+	clear: both;
+}
+
+/* Search Bar */
+.wpa-glossary-search-wrapper {
+	margin-bottom: 30px;
+	width: 100%;
+}
+
+.wpa-glossary-search-input {
+	width: 100%;
+	padding: 15px 20px;
+	border: 2px solid var(--wpa-border-color);
+	background: var(--wpa-bg-white);
+	color: var(--wpa-text-main);
+	border-radius: 8px;
+	font-size: 16px;
+	box-sizing: border-box;
+	transition: border-color 0.3s ease;
+	outline: none;
+}
+
+.wpa-glossary-search-input:focus {
+	border-color: var(--wpa-glossary-accent);
+}
+
+.wpa-glossary-no-results {
+	width: 100%;
+	text-align: center;
+	padding: 30px;
+	background: var(--wpa-bg-white);
+	color: var(--wpa-text-muted);
+	border: 1px dashed var(--wpa-border-color);
+	border-radius: 8px;
+	margin-top: 20px;
+	font-size: 16px;
+}
+
+/* Glossary Filter Buttons - Text-based & Compact */
+.wpa-glossary-filter {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px !important;
+    border-bottom: 1px solid var(--wpa-border-color);
+    padding-bottom: 15px;
+}
+
+.wpa-glossary-filter button {
+    display: inline-block !important;
+    padding: 5px 2px !important;
+    border: none !important;
+    background: transparent !important;
+    color: var(--wpa-text-muted) !important;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 0 !important;
+    font-size: 1.1rem !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease;
+    min-width: auto !important;
+    box-shadow: none !important;
+    position: relative;
+}
+
+.wpa-glossary-filter button::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--wpa-accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.wpa-glossary-filter button:hover {
+    background: transparent !important;
+    color: var(--wpa-accent) !important;
+    transform: none !important;
+}
+
+.wpa-glossary-filter button:hover::after {
+    transform: scaleX(1);
+}
+
+.wpa-glossary-filter button.active {
+    background: transparent !important;
+    color: var(--wpa-accent) !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.wpa-glossary-filter button.active::after {
+    transform: scaleX(1);
+}
+/* Container & Groups */
+.wpa-glossary-container {
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 -15px;
+	scroll-behavior: smooth;
+}
+
+.wpa-glossary-group {
+	margin-bottom: 30px;
+	padding: 0 15px;
+	box-sizing: border-box;
+}
+
+.wpa-glossary-group h3 {
+	border-bottom: none;
+	padding: 12px 15px;
+	margin-bottom: 15px;
+	font-size: 18px;
+	font-weight: 600;
+	border-radius: 6px;
+	background: var(--wpa-glossary-head-bg);
+	color: var(--wpa-glossary-accent);
+	position: sticky;
+	top: 20px;
+	z-index: 5;
+}
+
+.wpa-glossary-group ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(var(--wpa-glossary-columns, 3), 1fr);
+	gap: 12px;
+}
+
+.wpa-glossary-group li a {
+	text-decoration: none;
+	transition: color 0.2s ease;
+	display: block;
+	padding: 5px 0;
+	color: var(--wpa-text-main);
+}
+
+.wpa-glossary-group li a:hover {
+	text-decoration: underline;
+	color: var(--wpa-glossary-accent);
+}
+
+/* Style: Badges */
+.wpa-glossary-container.wpa-glossary-style-badges .wpa-glossary-group li a {
+	display: inline-block;
+	padding: 5px 12px;
+	background: var(--wpa-bg-white);
+	border: 1px solid var(--wpa-glossary-accent);
+	border-radius: 20px;
+	font-size: 14px;
+}
+
+/* Style: Visual Cards */
+.wpa-glossary-container.wpa-glossary-style-images .wpa-glossary-group li {
+	background: var(--wpa-bg-white);
+	border: 1px solid var(--wpa-border-color);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.wpa-card-image {
+	aspect-ratio: 16 / 9;
+	background-size: cover;
+	background-position: center;
+	border-bottom: 1px solid var(--wpa-border-color);
+}
+
+/* Mobile Optimizations for Glossary Index */
+@media (max-width: 900px) {
+    .wpa-glossary-group ul {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .wpa-glossary-group {
+        width: 100% !important;
+        padding: 0 10px !important;
+    }
+
+    .wpa-glossary-group ul {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .wpa-glossary-group h3 {
+        top: 70px; /* Adjust for sticky header if needed */
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+
+    .wpa-glossary-group li a {
+        padding: 10px 15px;
+        background: var(--wpa-bg-white);
+        border: 1px solid var(--wpa-border-color);
+        border-radius: 8px;
+    }
+
+    /* Adjust badges style for mobile */
+    .wpa-glossary-container.wpa-glossary-style-badges .wpa-glossary-group li a {
+        display: block;
+        text-align: center;
+    }
+
+    /* Filter buttons on mobile */
+    .wpa-glossary-filter {
+        gap: 3px;
+        margin-bottom: 25px;
+    }
+
+    .wpa-glossary-filter button {
+        padding: 6px 10px;
+        font-size: 12px;
+        min-width: 30px;
+    }
+}
+
+.wpa-card-content p {
+	color: var(--wpa-text-muted);
+}
+
+/* Glossary Hero Dark Mode Fix */
+.wpa-glossary-hero {
+    background: var(--wpa-glossary-head-bg);
+}
+
+body.wpa-dark-mode .wpa-glossary-hero {
+    background: var(--wpa-bg-light);
+    border-bottom-color: var(--wpa-border-color);
+}
+
+/* Glossary Term Card Dark Mode Fix */
+.wpa-glossary-term-card {
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+body.wpa-dark-mode .wpa-glossary-term-card {
+    background: var(--wpa-bg-white);
+    border-color: var(--wpa-border-color);
+}
+
+/* Unified Glossary Single Page Styles */
+.wpa-glossary-hero {
+    padding: 60px 0;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--wpa-border-color);
+    text-align: center;
+}
+
+.wpa-glossary-label {
+    color: var(--wpa-glossary-accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.wpa-title-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.wpa-post-title {
+    margin: 0;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+}
+
+.wpa-content-layout {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.wpa-article-body {
+    flex: 1;
+    min-width: 300px;
+}
+
+.wpa-article-body.no-sidebar {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.wpa-post-content {
+    font-size: var(--wpa-font-size-body);
+    line-height: var(--wpa-line-height-body);
+}
+
+.wpa-post-footer {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid var(--wpa-border-color);
+}
+
+.wpa-sidebar {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.wpa-meta-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wpa-meta-list-item {
+    margin-bottom: 10px;
+    border-bottom: 1px dashed var(--wpa-border-color);
+    padding-bottom: 8px;
+}
+
+.wpa-meta-list-link {
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    transition: color 0.2s;
+}
+
+.wpa-meta-list-link:hover {
+    color: var(--wpa-accent);
+}
+
+/* --- Glossary Sidebar Widget Styles --- */
+.wpa-glossary-widget {
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.wpa-glossary-widget .wpa-widget-title {
+    background: var(--wpa-bg-light);
+    border-bottom: 1px solid var(--wpa-border-color);
+    padding: 15px 20px;
+    margin: 0;
+    color: var(--wpa-text-main);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 1. Related Terms List */
+.wpa-glossary-side-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.wpa-glossary-side-list li {
+    border-bottom: 1px solid var(--wpa-border-color);
+}
+
+.wpa-glossary-side-list li:last-child { border-bottom: none; }
+
+.wpa-glossary-side-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    text-decoration: none !important;
+    color: var(--wpa-text-main);
+    transition: all 0.2s;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.wpa-glossary-side-list a:hover {
+    background: var(--wpa-bg-light);
+    color: var(--wpa-accent);
+    padding-inline-start: 25px;
+}
+
+.wpa-side-arrow {
+    opacity: 0.3;
+    transition: transform 0.2s;
+}
+
+.wpa-glossary-side-list a:hover .wpa-side-arrow {
+    opacity: 1;
+    transform: translateX(5px);
+}
+
+body.rtl .wpa-glossary-side-list a:hover .wpa-side-arrow {
+    transform: translateX(-5px);
+}
+
+/* 2. Compact Items (News/Courses) */
+.wpa-side-items-compact {
+    padding: 10px 0;
+}
+
+.wpa-side-item {
+    display: flex;
+    gap: 15px;
+    padding: 12px 20px;
+    text-decoration: none !important;
+    color: inherit;
+    border-bottom: 1px solid var(--wpa-border-color);
+    transition: background 0.2s;
+}
+
+.wpa-side-item:last-child { border-bottom: none; }
+
+.wpa-side-item:hover {
+    background: var(--wpa-bg-light);
+}
+
+.wpa-side-thumb {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--wpa-bg-light);
+    border: 1px solid var(--wpa-border-color);
+}
+
+.wpa-side-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wpa-side-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.wpa-side-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 3px;
+}
+
+.wpa-side-meta {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+/* 3. Details List */
+.wpa-side-details-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 15px 20px !important;
+}
+
+.wpa-side-details-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.wpa-side-details-list li:last-child { margin-bottom: 0; }
+
+.wpa-side-details-list .wpa-label {
+    font-weight: 700;
+    color: var(--wpa-text-muted);
+}
+
+.wpa-article-body h2, .wpa-article-body h3 {
+    color: var(--wpa-glossary-accent);
+    margin-top: 1.5em;
+}
+
+.wpa-audio-btn {
+    background: var(--wpa-glossary-accent);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.wpa-audio-btn:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .wpa-sidebar { width: 100%; }
+    .wpa-content-layout { flex-direction: column; }
+}
+
+
+/* Force transparency on article body */
+.wpa-article-body {
+    background-color: transparent !important;
+}
+
+/* Stronger Dark Mode Override for Hero */
+body.wpa-dark-mode .wpa-glossary-hero {
+    background: var(--wpa-bg-light) !important;
+    border-bottom-color: var(--wpa-border-color) !important;
+}
+
+/* Fix for AI Enhanced Content Inline Styles */
+.rop-ai-enhanced-content {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: inherit;
+}
+
+body.wpa-dark-mode .rop-ai-enhanced-content {
+    background-color: transparent !important;
+    border-color: var(--wpa-border-color) !important;
+    color: var(--wpa-text-main) !important;
+}
+
+/* --- Grid System --- */
+.wpa-grid {
+    display: grid;
+    gap: 30px;
+}
+
+.wpa-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1024px) {
+    .wpa-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .wpa-cols-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- Course Card Styles --- */
+.wpa-course-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.wpa-course-card .wpa-card-img {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px solid var(--wpa-border-color);
+}
+
+.wpa-course-card .wpa-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.wpa-course-card:hover .wpa-card-img img {
+    transform: scale(1.05);
+}
+
+.wpa-course-card .wpa-card-body {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.wpa-course-card .wpa-card-title {
+    font-size: 1.25rem;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.wpa-course-card .wpa-card-title a {
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    transition: color 0.2s;
+}
+
+.wpa-course-card .wpa-card-title a:hover {
+    color: var(--wpa-accent);
+}
+
+.wpa-course-card .wpa-card-meta {
+    margin-bottom: 15px;
+}
+
+.wpa-course-card .wpa-card-excerpt {
+    font-size: 0.95rem;
+    color: var(--wpa-text-muted);
+    margin-bottom: auto;
+}
+
+.wpa-course-card .wpa-card-footer {
+    padding: 15px 20px;
+    background: var(--wpa-bg-light);
+    border-top: 1px solid var(--wpa-border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+body.wpa-dark-mode .wpa-course-card .wpa-card-footer {
+    background: var(--wpa-bg-light);
+}
+
+.wpa-card-price {
+    font-weight: 700;
+    color: var(--wpa-text-main);
+    font-size: 1.1rem;
+}
+
+.wpa-card-price.free {
+    color: var(--wpa-success);
+}
+
+/* --- Course Single Layout --- */
+.wpa-course-layout-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+}
+
+.wpa-course-sidebar-area {
+    position: sticky;
+    top: 100px;
+}
+
+/* Instructor Card Internals */
+.wpa-instructor-content {
+    padding: 30px;
+    text-align: center;
+}
+
+.wpa-instructor-avatar {
+    margin-bottom: 15px;
+}
+
+.wpa-instructor-avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--wpa-bg-light);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.wpa-instructor-name {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.wpa-instructor-bio {
+    font-size: 0.9rem;
+    color: var(--wpa-text-muted);
+    line-height: 1.6;
+}
+
+/* Course Curriculum List Styles */
+.wpa-lesson-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+}
+
+.wpa-lesson-list li {
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    margin-bottom: -1px; /* Collapse borders */
+}
+
+.wpa-lesson-list li:first-child { border-radius: 8px 8px 0 0; }
+.wpa-lesson-list li:last-child { border-radius: 0 0 8px 8px; margin-bottom: 0; }
+
+.wpa-lesson-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    transition: background-color 0.2s;
+}
+
+.wpa-lesson-list a:hover {
+    background-color: var(--wpa-bg-light);
+}
+
+.wpa-list-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.wpa-lesson-number {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--wpa-text-muted);
+    opacity: 0.6;
+    min-width: 20px;
+}
+
+.wpa-lesson-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--wpa-text-muted);
+}
+
+.wpa-list-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--wpa-text-muted);
+}
+
+.wpa-lesson-check {
+    color: var(--wpa-success);
+    width: 20px;
+}
+
+.wpa-lesson-lock {
+    color: var(--wpa-text-muted);
+    width: 16px;
+    opacity: 0.5;
+}
+
+/* Missing Lesson List Components */
+.wpa-lesson-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.wpa-lesson-title-text {
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.wpa-section-title {
+    padding: 12px 20px;
+    margin: 30px 0 0 0;
+    background: var(--wpa-bg-light);
+    border: 1px solid var(--wpa-border-color);
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--wpa-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Fix for list border radius when section title is present */
+.wpa-section-title + .wpa-lesson-list li:first-child {
+    border-radius: 0;
+    border-top: 1px solid var(--wpa-border-color);
+}
+
+/* --- Lesson Single Layout --- */
+.wpa-lesson-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    align-items: start;
+}
+
+.wpa-lesson-layout.sidebar-left {
+    grid-template-columns: 320px 1fr;
+}
+
+.wpa-lesson-layout.sidebar-left .wpa-lesson-content-area {
+    order: 2;
+}
+
+.wpa-lesson-layout.sidebar-none {
+    grid-template-columns: 1fr;
+}
+
+.wpa-lesson-sidebar {
+    position: sticky;
+    top: 100px;
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    border-radius: var(--wpa-radius-lg);
+    padding: 20px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+body.wpa-dark-mode .wpa-lesson-sidebar {
+    background: var(--wpa-bg-white);
+}
+
+/* Sidebar Curriculum Styles */
+.wpa-sidebar-section-title {
+    margin: 20px 0 10px 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--wpa-text-muted);
+    border-bottom: 1px solid var(--wpa-border-color);
+    padding-bottom: 5px;
+}
+
+.wpa-sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.wpa-sidebar-list li {
+    margin-bottom: 2px;
+}
+
+.wpa-sidebar-list li a {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--wpa-text-main);
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wpa-sidebar-list li a:hover {
+    background-color: var(--wpa-bg-light);
+    color: var(--wpa-accent);
+}
+
+.wpa-sidebar-list li.current-lesson a {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--wpa-accent);
+    font-weight: 600;
+}
+
+.wpa-check {
+    color: var(--wpa-success);
+}
+
+/* --- Course Hero V2 Internals --- */
+.wpa-course-hero-v2 {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    color: #ffffff;
+    min-height: 350px;
+}
+
+.wpa-hero-bg-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    opacity: 0.15;
+    filter: blur(20px);
+    pointer-events: none;
+}
+
+.wpa-hero-bg-blur img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wpa-hero-thumb-wrap {
+    position: relative;
+    z-index: 1;
+    width: 400px; /* Wider for landscape */
+    aspect-ratio: 16 / 9; /* Standard video ratio */
+    height: auto; /* Let aspect ratio define height */
+    flex-shrink: 0;
+    border-radius: var(--wpa-radius-lg);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    /* Removed translate/negative margin for cleaner alignment */
+}
+
+.wpa-hero-thumb-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.wpa-hero-info {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+}
+
+.wpa-hero-title {
+    color: #ffffff !important;
+    margin-bottom: 20px !important;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.wpa-hero-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.wpa-hero-meta-item {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    backdrop-filter: blur(4px);
+}
+
+.wpa-price-badge {
+    background: var(--wpa-accent);
+    border-color: var(--wpa-accent);
+    color: #ffffff;
+}
+
+.wpa-hero-action-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 900px) {
+    .wpa-course-hero-v2 {
+        flex-direction: column;
+        text-align: center;
+        padding: 30px 20px;
+    }
+
+    .wpa-hero-thumb-wrap {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin-bottom: 20px;
+        transform: none;
+    }
+
+    .wpa-hero-meta-row {
+        justify-content: center;
+    }
+
+    .wpa-hero-action-area {
+        justify-content: center;
+    }
+}
+
+/* --- Citation Box Styles --- */
+.wpa-feature-box {
+    background: var(--wpa-bg-white);
+    border: 1px solid var(--wpa-border-color);
+    border-radius: var(--wpa-radius-lg);
+    padding: 25px;
+    margin: 40px 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.wpa-feature-box-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--wpa-text-main);
+    border-bottom: 1px solid var(--wpa-border-color);
+    padding-bottom: 10px;
+}
+
+.wpa-citation-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    border-bottom: 1px solid var(--wpa-border-color);
+    margin-bottom: 20px;
+}
+
+.wpa-citation-tab-input { display: none; }
+
+.wpa-citation-tab {
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--wpa-text-muted);
+    border-radius: 8px 8px 0 0;
+    border: 1px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+}
+
+.wpa-citation-tab:hover {
+    color: var(--wpa-accent);
+    background: var(--wpa-bg-light);
+}
+
+.wpa-citation-tab-input:checked + .wpa-citation-tab {
+    color: var(--wpa-accent);
+    background: rgba(59, 130, 246, 0.1);
+    border-bottom: 2px solid var(--wpa-accent);
+}
+
+.wpa-citation-content {
+    display: none;
+    padding: 20px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    color: var(--wpa-text-main);
+    background: var(--wpa-bg-light);
+    border-radius: 8px;
+    border: 1px solid var(--wpa-border-color);
+    position: relative;
+    line-height: 1.6;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+.wpa-citation-content p {
+    margin: 0;
+    padding-left: 2em;
+    text-indent: -2em;
+}
+
+#wpa-citation-tab-apa:checked ~ #wpa-citation-content-apa,
+#wpa-citation-tab-mla:checked ~ #wpa-citation-content-mla,
+#wpa-citation-tab-chicago:checked ~ #wpa-citation-content-chicago,
+#wpa-citation-tab-harvard:checked ~ #wpa-citation-content-harvard,
+#wpa-citation-tab-ieee:checked ~ #wpa-citation-content-ieee,
+#wpa-citation-tab-ama:checked ~ #wpa-citation-content-ama,
+#wpa-citation-tab-bibtex:checked ~ #wpa-citation-content-bibtex {
+    display: block;
+}
+
+.wpa-citation-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Mobile */
+.wpa-citation-mobile-select {
+    display: none;
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.wpa-citation-select-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--wpa-border-color);
+    border-radius: var(--wpa-radius);
+    background: var(--wpa-bg-white);
+    color: var(--wpa-text-main);
+}
+
+@media (max-width: 768px) {
+    .wpa-citation-tab { display: none; }
+    .wpa-citation-mobile-select { display: block; }
+    .wpa-citation-tabs { border-bottom: none; margin-bottom: 0; }
+    .wpa-citation-actions { justify-content: center; }
+}
+
+/* Dark Mode Overrides */
+body.wpa-dark-mode .wpa-feature-box {
+    background: var(--wpa-bg-white);
+    border-color: var(--wpa-border-color);
+}
+
+body.wpa-dark-mode .wpa-citation-content {
+    background: var(--wpa-bg-light);
+    border-color: var(--wpa-border-color);
+    color: var(--wpa-text-main);
+}
+
+body.wpa-dark-mode .wpa-citation-tab:hover {
+    background: var(--wpa-bg-light);
+}
+
+body.wpa-dark-mode .wpa-citation-tab-input:checked + .wpa-citation-tab {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+/* --- Pagination Styles --- */
+.wpa-pagination {
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.wpa-pagination ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.wpa-pagination li {
+    margin: 0;
+}
+
+.wpa-pagination a,
+.wpa-pagination span.current {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: var(--wpa-radius);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--wpa-border-color);
+    background: var(--wpa-bg-white);
+    color: var(--wpa-text-main);
+    transition: all 0.2s ease;
+}
+
+.wpa-pagination a:hover {
+    border-color: var(--wpa-accent);
+    color: var(--wpa-accent);
+    background: var(--wpa-bg-light);
+}
+
+.wpa-pagination span.current {
+    background: var(--wpa-accent);
+    border-color: var(--wpa-accent);
+    color: #ffffff;
+}
+
+.wpa-pagination span.dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    color: var(--wpa-text-muted);
+    border: none;
+    background: transparent;
+}
+
+/* Dark Mode Overrides */
+body.wpa-dark-mode .wpa-pagination a {
+    background: var(--wpa-bg-white);
+    border-color: var(--wpa-border-color);
+    color: var(--wpa-text-main);
+}
+
+body.wpa-dark-mode .wpa-pagination a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--wpa-accent);
+    color: var(--wpa-accent);
+}
+
+/* Enhanced Pagination Styles with Stronger Selectors */
+.wpa-pagination .page-numbers,
+.wpa-pagination a,
+.wpa-pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: var(--wpa-radius);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid var(--wpa-border-color);
+    background: var(--wpa-bg-white);
+    color: var(--wpa-text-main);
+    transition: all 0.2s ease;
+}
+
+.wpa-pagination .page-numbers.current,
+.wpa-pagination span.current {
+    background: var(--wpa-accent);
+    border-color: var(--wpa-accent);
+    color: #ffffff;
+}
+
+.wpa-pagination .page-numbers.dots,
+.wpa-pagination span.dots {
+    background: transparent;
+    border: none;
+    color: var(--wpa-text-muted);
+}
+
+/* Dark Mode Overrides - Aggressive */
+body.wpa-dark-mode .wpa-pagination .page-numbers:not(.current):not(.dots),
+body.wpa-dark-mode .wpa-pagination a:not(.current) {
+    background-color: var(--wpa-bg-white) !important;
+    border-color: var(--wpa-border-color) !important;
+    color: var(--wpa-text-main) !important;
+}
+
+body.wpa-dark-mode .wpa-pagination .page-numbers:hover:not(.current),
+body.wpa-dark-mode .wpa-pagination a:hover:not(.current) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: var(--wpa-accent) !important;
+}
+
+/* Dark Mode Pattern Visibility Fix */
+body.wpa-dark-mode[class*="wpa-bg-pattern-"]::before {
+    filter: brightness(1.5) saturate(1.2);
+    opacity: 0.15; /* Ensure subtle */
+}
+
+body.wpa-dark-mode.wpa-bg-pattern-stars::before {
+    opacity: 0.4; /* Stars need more visibility */
+    filter: none;
+}
+
+body.wpa-dark-mode.wpa-bg-pattern-carbon::before {
+    opacity: 0.3;
+    filter: invert(1); /* Invert black carbon to white/grey texture */
+}
+
+/* --- Dark Mode Pattern Specifics --- */
+
+/* Grid: White lines */
+body.wpa-dark-mode.wpa-bg-pattern-grid::before {
+    background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    filter: none;
+}
+
+/* Dots: White dots */
+body.wpa-dark-mode.wpa-bg-pattern-dots::before {
+    background-image: radial-gradient(rgba(255,255,255,0.1) 2px, transparent 2px);
+    filter: none;
+}
+
+/* Hex: Cyan/Light Blue Hexes */
+body.wpa-dark-mode.wpa-bg-pattern-hex::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='24' height='40' viewBox='0 0 24 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40c5.523 0 10-4.477 10-10V10c0-5.523-4.477-10-10-10s-10 4.477-10 10v20c0 5.523 4.477 10 10 10zM24 20c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10 10 4.477 10 10z' fill='%2360a5fa' fill-opacity='0.08' fill-rule='evenodd'/%3E%3C/svg%3E");
+    filter: none;
+}
+
+/* Cube: Light outlines */
+body.wpa-dark-mode.wpa-bg-pattern-cube::before {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2394a3b8' fill-opacity='0.08' fill-rule='evenodd'%3E%3Cpath d='M0 40L20 20H0v20zM40 0L20 20h20V0zM20 20L0 0v20h20zM20 20l20 20V20H20z'/%3E%3C/g%3E%3C/svg%3E");
+    filter: none;
+}
+
+/* Lines: Light diagonals */
+body.wpa-dark-mode.wpa-bg-pattern-lines::before {
+    background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0.03) 1px, transparent 0, transparent 50%);
+    filter: none;
+}
+
+/* Blueprint: Cyan lines on dark */
+body.wpa-dark-mode.wpa-bg-pattern-blueprint::before {
+    background-image: 
+        linear-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.1) 1px, transparent 1px),
+        linear-gradient(rgba(56, 189, 248, 0.05) 0.5px, transparent 0.5px),
+        linear-gradient(90deg, rgba(56, 189, 248, 0.05) 0.5px, transparent 0.5px);
+    filter: none;
+}
+
+/* Glossary Group Header Dark Mode Fix */
+body.wpa-dark-mode .wpa-glossary-group h3 {
+    background: var(--wpa-bg-white) !important;
+    border: 1px solid var(--wpa-border-color);
+    color: var(--wpa-text-main);
+}
+
+/* Mobile Dark Mode Toggle Position */
+#wpa-dark-mode-toggle-mobile {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    width: 36px;
+    height: 36px;
+    background: var(--wpa-bg-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--wpa-text-muted);
+}
+
+body.rtl #wpa-dark-mode-toggle-mobile {
+    left: auto;
+    right: 20px;
+}
+
+/* Force Header Dark Mode */
+body.wpa-dark-mode .wpa-news-header {
+    background: var(--wpa-bg-light) !important;
+    border-color: var(--wpa-border-color) !important;
+    color: var(--wpa-text-main) !important;
+}
+
+/* Fix Glassy Header in Dark Mode - Ensure Dark Glass */
+body.wpa-glass-enabled.wpa-dark-mode .wpa-news-header {
+    background: rgba(15, 23, 42, 0.85) !important;
+    backdrop-filter: blur(12px) saturate(180%) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
+    color: var(--wpa-text-main) !important;
+}
