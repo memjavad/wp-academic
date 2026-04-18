@@ -44,7 +44,8 @@ function wpa_course_content_filter( $content ) {
         $type     = get_post_meta( $course_id, '_wpa_course_type', true );
         $price    = get_post_meta( $course_id, '_wpa_course_price', true );
         $language = get_post_meta( $course_id, '_wpa_course_language', true );
-        $lessons_count = count( get_posts( [ 'post_type' => 'wpa_lesson', 'meta_key' => '_wpa_course_id', 'meta_value' => $course_id, 'posts_per_page' => -1 ] ) );
+        $lessons = get_posts( [ 'post_type' => 'wpa_lesson', 'meta_key' => '_wpa_course_id', 'meta_value' => $course_id, 'posts_per_page' => -1, 'orderby' => 'menu_order', 'order' => 'ASC' ] );
+        $lessons_count = count( $lessons );
 
         // --- Course Hero Header (Redesigned) ---
         $course_thumb = get_the_post_thumbnail( $course_id, 'large', ['class' => 'wpa-course-hero-image'] );
@@ -136,15 +137,6 @@ function wpa_course_content_filter( $content ) {
         $instructor_html .= '</div>'; // .sidebar-area
 
         // Curriculum List
-        $lessons = get_posts( [
-            'post_type' => 'wpa_lesson',
-            'meta_key' => '_wpa_course_id',
-            'meta_value' => $course_id,
-            'posts_per_page' => -1,
-            'orderby' => 'menu_order',
-            'order' => 'ASC',
-        ] );
-
         $list_style_layout = isset( $options['lesson_list_style'] ) ? $options['lesson_list_style'] : 'simple';
 
         $list_html = '<div class="wpa-course-curriculum style-' . esc_attr( $list_style ) . ' layout-' . esc_attr( $list_style_layout ) . '">';
