@@ -1,18 +1,16 @@
 === WP Academic Post Enhanced ===
-Contributors: yourname
+Contributors: Mohammed looti
 Tags: academic, citation, toc, schema, pdf, social, analytics, seo, lms, ai
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.0
+Stable tag: 3.9.3
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 A comprehensive suite of tools to enhance WordPress posts for academic and research-oriented content.
 
-== Description ==
-
-WP Academic Post Enhanced is a modular plugin designed to transform standard blog posts into professional, academic-grade articles. It focuses on improving Search Engine Optimization (SEO), user experience for long-form content, and accessibility.
+WP Academic Post Enhanced is a modular, research-oriented plugin designed to transform standard blog posts into professional, academic-grade articles. It focuses on improving Search Engine Optimization (SEO), Large Language Models (LLMs) comprehension, and superior reading experiences.
 
 **Key Features:**
 
