@@ -163,6 +163,7 @@ function wp_academic_post_enhanced_add_citation( $content ) {
          $citation_html .= '<div id="wpa-citation-content-' . esc_attr( $style ) . '" class="wpa-citation-content">';
          $text = wp_academic_post_enhanced_generate_citation( $style, $author, $year, $title, $site_name, $url );
          $citation_html .= '<p class="wpa-citation-text">' . $text . '</p>';
+         $citation_html .= '<button type="button" class="button wpa-btn wpa-btn-secondary wpa-copy-citation-btn" aria-live="polite" data-style="' . esc_attr( $style ) . '">' . esc_html( WPA_Theme_Labels::get('cite_btn_copy') ) . '</button>';
          $citation_html .= '</div>';
     }
     $citation_html .= '</div>'; // .wpa-citation-tabs
@@ -204,6 +205,28 @@ function wp_academic_post_enhanced_add_citation( $content ) {
                 if(radio) radio.checked = true;
             });
         }
+
+        // Copy Citation
+        document.body.addEventListener("click", function(e) {
+            var copyBtn = e.target.closest(".wpa-copy-citation-btn");
+            if (copyBtn) {
+                e.preventDefault();
+                var container = copyBtn.closest(".wpa-citation-content");
+                var textElement = container.querySelector(".wpa-citation-text");
+                if (textElement) {
+                    var textToCopy = textElement.innerText || textElement.textContent;
+                    navigator.clipboard.writeText(textToCopy).then(function() {
+                        var originalText = copyBtn.innerText;
+                        copyBtn.innerText = "Copied!";
+                        setTimeout(function() {
+                            copyBtn.innerText = originalText;
+                        }, 2000);
+                    }).catch(function(err) {
+                        console.error("Failed to copy text: ", err);
+                    });
+                }
+            }
+        });
 
         // RIS Download
         document.body.addEventListener("click", function(e) {
