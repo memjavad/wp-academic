@@ -448,6 +448,11 @@ body.wpa-glass-enabled .wpa-section-newsletter {
     transform: translateY(0);
 }
 
+.wpa-btn:focus-visible {
+    outline: 2px solid var(--wpa-accent);
+    outline-offset: 2px;
+}
+
 /* Button Variants */
 .wpa-btn-primary {
     background-color: var(--wpa-accent);
