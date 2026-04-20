@@ -12,15 +12,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Calculate reading time.
  *
+ * ⚡ Bolt: Caches the calculated reading time in post meta to avoid expensive str_word_count() and strip_tags() calls on every page load.
+ *
  * @param string $content The post content.
+ * @param int|null $post_id The post ID for caching.
  * @return int Reading time in minutes.
  */
-function wpa_calculate_reading_time( $content ) {
+function wpa_calculate_reading_time( $content, $post_id = null ) {
+    if ( $post_id ) {
+        $cached_time = get_post_meta( $post_id, '_wpa_reading_time', true );
+        if ( ! empty( $cached_time ) ) {
+            return (int) $cached_time;
+        }
+    }
+
     $word_count = str_word_count( strip_tags( $content ) );
     $reading_speed = apply_filters( 'wpa_reading_speed', 200 ); // Words per minute
-    $reading_time = ceil( $word_count / $reading_speed );
-    return max( 1, $reading_time );
+    $reading_time = (int) max( 1, ceil( $word_count / $reading_speed ) );
+
+    if ( $post_id ) {
+        update_post_meta( $post_id, '_wpa_reading_time', $reading_time );
+    }
+
+    return $reading_time;
 }
+
+/**
+ * Clear cached reading time when a post is saved.
+ */
+function wpa_clear_reading_time_cache( $post_id ) {
+    if ( wp_is_post_revision( $post_id ) || wp_is_post_autosave( $post_id ) ) {
+        return;
+    }
+    delete_post_meta( $post_id, '_wpa_reading_time' );
+}
+add_action( 'save_post', 'wpa_clear_reading_time_cache' );
 
 /**
  * Add reading time to post content or meta.
@@ -43,7 +69,7 @@ function wpa_add_reading_time( $content ) {
         return $content;
     }
 
-    $reading_time = wpa_calculate_reading_time( get_post_field( 'post_content', get_the_ID() ) );
+    $reading_time = wpa_calculate_reading_time( get_post_field( 'post_content', get_the_ID() ), get_the_ID() );
     
     $html = '<span class="wpa-reading-time">';
     $html .= '<span class="wpa-reading-time-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>';
