@@ -110,11 +110,13 @@ $features = [
                                 <input type="hidden" name="enabled_option" value="<?php echo esc_attr( $feature['enabled_option'] ); ?>">
                                 <input type="hidden" name="current_status" value="<?php echo esc_attr( $is_enabled ? '1' : '0' ); ?>">
                                 <?php wp_nonce_field( 'wp_academic_post_enhanced_toggle_feature_' . $key, '_wpnonce_wp_academic_post_enhanced_toggle_feature' ); ?>
-                                <button type="submit" class="button <?php echo $is_enabled ? 'button-secondary' : 'button-primary'; ?>">
+                                <?php $aria_label_toggle = sprintf( $is_enabled ? __( 'Deactivate %s', 'wp-academic-post-enhanced' ) : __( 'Activate %s', 'wp-academic-post-enhanced' ), $feature['name'] ); ?>
+                                <button type="submit" class="button <?php echo $is_enabled ? 'button-secondary' : 'button-primary'; ?>" aria-label="<?php echo esc_attr( $aria_label_toggle ); ?>">
                                     <?php echo esc_html( $toggle_text ); ?>
                                 </button>
                             </form>
-                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $feature['slug'] ) ); ?>" class="button">
+                            <?php $aria_label_settings = sprintf( __( 'Settings for %s', 'wp-academic-post-enhanced' ), $feature['name'] ); ?>
+                            <a href="<?php echo esc_url( admin_url( 'admin.php?page=' . $feature['slug'] ) ); ?>" class="button" aria-label="<?php echo esc_attr( $aria_label_settings ); ?>">
                                 <?php esc_html_e( 'Settings', 'wp-academic-post-enhanced' ); ?>
                             </a>
                         </div>
