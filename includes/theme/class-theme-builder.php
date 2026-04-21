@@ -689,10 +689,13 @@ class WPA_Theme_Builder {
             $args['post_type'] = 'post';
         }
         
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since pagination is not needed.
+        $args['no_found_rows'] = true;
+
         $q = new WP_Query( $args );
         if ( ! $q->have_posts() ) return; 
         
-        echo '<!-- WPA Slider Debug: Found ' . $q->found_posts . ' posts. Style: ' . esc_html($style) . ' -->';
+        echo '<!-- WPA Slider Debug: Found ' . $q->post_count . ' posts. Style: ' . esc_html($style) . ' -->';
         
         ?>
         <section class="wpa-slider-section wpa-fade-up <?php echo $delay; ?>" style="position:relative; overflow:hidden; padding: 60px 0;">
@@ -880,7 +883,8 @@ class WPA_Theme_Builder {
     private function render_courses( $data, $delay ) {
         $count = ! empty($data['count']) ? $data['count'] : 3;
         $style = ! empty($data['style']) ? $data['style'] : 'grid';
-        $q = new WP_Query([ 'post_type' => 'wpa_course', 'posts_per_page' => $count, 'post_status' => 'publish' ]);
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since pagination is not needed.
+        $q = new WP_Query([ 'post_type' => 'wpa_course', 'posts_per_page' => $count, 'post_status' => 'publish', 'no_found_rows' => true ]);
         if ( ! $q->have_posts() ) return;
         ?>
         <section class="wpa-section-courses wpa-fade-up <?php echo $delay; ?>">
@@ -958,6 +962,9 @@ class WPA_Theme_Builder {
             $args['orderby'] = 'rand';
         }
         
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since pagination is not needed.
+        $args['no_found_rows'] = true;
+
         $q = new WP_Query( $args );
         
         if ( ! $q->have_posts() ) return;
