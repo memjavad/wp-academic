@@ -1,0 +1,3 @@
+## 2026-04-18 - Optimize N+1 query in course frontend by warming meta cache
+**Learning:** Calling `get_post_meta()` repeatedly in a loop for post metadata causes N+1 queries if the post metadata is not cached. Using `update_meta_cache( 'post', $post_ids )` efficiently retrieves and caches the metadata in bulk, removing the N+1 database queries.
+**Action:** When rendering a list of posts and fetching meta fields individually for each post (like `_wpa_lesson_video_url`, `_wpa_lesson_section`, `_wpa_lesson_duration`), first collect the IDs and call `update_meta_cache('post', $ids)` before the loop.

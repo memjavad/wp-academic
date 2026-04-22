@@ -153,6 +153,10 @@ function wpa_course_content_filter( $content ) {
         $enable_sections = isset( $options['enable_sections'] ) ? $options['enable_sections'] : 1;
 
         if ( ! empty( $lessons ) ) {
+            if ( function_exists( 'update_meta_cache' ) ) {
+                $lesson_ids = wp_list_pluck( $lessons, 'ID' );
+                update_meta_cache( 'post', $lesson_ids );
+            }
             $sections = [];
             // Group logic (if enabled) OR Flat List
             if ( $enable_sections ) {
@@ -314,6 +318,11 @@ function wpa_lesson_content_filter( $content ) {
             'orderby'        => 'menu_order',
             'order'          => 'ASC',
         ] );
+
+        if ( ! empty( $all_lessons ) && function_exists( 'update_meta_cache' ) ) {
+            $lesson_ids = wp_list_pluck( $all_lessons, 'ID' );
+            update_meta_cache( 'post', $lesson_ids );
+        }
 
         // --- Sequential Check ---
         if ( $enforce_seq && is_user_logged_in() ) {
