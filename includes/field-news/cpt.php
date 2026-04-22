@@ -49,7 +49,7 @@ function wpa_field_news_register_cpt() {
 
     register_post_type( 'wpa_news', $args );
 
-    // Flush rules once to fix 404s
+    // Flush rules once to prevent 404 errors
     if ( ! get_option( 'wpa_news_cpt_flushed' ) ) {
         flush_rewrite_rules();
         update_option( 'wpa_news_cpt_flushed', true );
