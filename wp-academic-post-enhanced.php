@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Academic Post Enhanced
  * Description: A plugin to enhance blog posts for the academic sector with a focus on SEO and LLMs.
- * Version: 3.9.4
+ * Version: 3.9.5
  * Author: Mohammed looti
  * Author URI: Your Website
  * License: GPL2
@@ -16,7 +16,7 @@ if ( ! defined( 'WP_ACADEMIC_POST_ENHANCED_FILE' ) ) {
 }
 
 if ( ! defined( 'WPA_VERSION' ) ) {
-    define( 'WPA_VERSION', '3.9.4' );
+    define( 'WPA_VERSION', '3.9.5' );
 }
 
 // Load the plugin features.
@@ -34,7 +34,7 @@ add_action( 'admin_init', [ 'WPA_Activator', 'check_update' ] );
 add_action( 'init', function() {
     if ( ! is_admin() && ! get_option( 'wpa_sitemap_fix_v7' ) ) {
         global $wpdb;
-        $wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_wpa_sitemap_%'" );
+        $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s", $wpdb->esc_like( '_transient_wpa_sitemap_' ) . '%' ) );
         flush_rewrite_rules();
         update_option( 'wpa_sitemap_fix_v7', time() );
     }
