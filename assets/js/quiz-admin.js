@@ -12,13 +12,27 @@ jQuery(document).ready(function($) {
         $container.append(html);
     });
 
+    function reindexQuestions() {
+        $container.children('.wpa-quiz-item').each(function(index) {
+            var $item = $(this);
+            $item.attr('data-index', index);
+
+            // Safely update all wpa_quiz inputs
+            $item.find('[name^="wpa_quiz["]').each(function() {
+                var oldName = $(this).attr('name');
+                if (oldName) {
+                    var newName = oldName.replace(/wpa_quiz\[.*?\]/, 'wpa_quiz[' + index + ']');
+                    $(this).attr('name', newName);
+                }
+            });
+        });
+    }
+
     $(document).on('click', '.wpa-quiz-remove', function(e) {
         e.preventDefault();
         if (confirm('Remove this question?')) {
             $(this).closest('.wpa-quiz-item').remove();
-            // Re-index? PHP handles array append, but for correctness might want to re-index names.
-            // But PHP $_POST['wpa_quiz'] will come as array 0, 1, 3... array_values will fix it if we use foreach.
-            // My save logic: foreach ( $_POST['wpa_quiz'] as $item ). This handles gaps.
+            reindexQuestions();
         }
     });
 
@@ -26,6 +40,9 @@ jQuery(document).ready(function($) {
     $container.sortable({
         handle: '.wpa-quiz-header',
         placeholder: 'ui-sortable-placeholder',
-        forcePlaceholderSize: true
+        forcePlaceholderSize: true,
+        update: function(event, ui) {
+            reindexQuestions();
+        }
     });
 });
