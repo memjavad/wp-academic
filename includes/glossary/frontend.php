@@ -53,7 +53,7 @@ class WPA_Glossary_Frontend {
 			global $wpdb;
 			$post_ids = $wpdb->get_col( $wpdb->prepare(
 				"SELECT ID FROM $wpdb->posts WHERE post_type = 'wpa_glossary' AND post_status = 'publish' AND post_title LIKE %s",
-				$letter . '%'
+				$wpdb->esc_like( $letter ) . '%'
 			) );
 			
 			if ( empty($post_ids) ) {
