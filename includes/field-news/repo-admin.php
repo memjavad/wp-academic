@@ -541,6 +541,10 @@ class WPA_Study_Repo_Page {
     public function ajax_fetch_studies() {
         check_ajax_referer( 'wpa_repo_nonce', 'nonce' );
         
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( 'Unauthorized' );
+        }
+
         // Increase time limit for batch fetch
         if ( function_exists('set_time_limit') ) @set_time_limit( 300 ); 
 
@@ -710,6 +714,10 @@ class WPA_Study_Repo_Page {
 
     public function ajax_generate() {
         check_ajax_referer( 'wpa_repo_nonce', 'nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( 'Unauthorized' );
+        }
         $id = intval( $_POST['study_id'] );
         
         try {
