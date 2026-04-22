@@ -1,0 +1,9 @@
+{
+    "name": "jules/wp-academic-post-enhanced",
+    "description": "Testing",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "brain/monkey": "^2.6"
+    }
+}

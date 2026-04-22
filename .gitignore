@@ -5,3 +5,5 @@ node_modules/
 Thumbs.db
 wp-config.php
 *.log
+vendor/
+.phpunit.result.cache
