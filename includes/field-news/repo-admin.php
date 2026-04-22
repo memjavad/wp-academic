@@ -125,20 +125,29 @@ class WPA_Study_Repo_Page {
     }
 
     private function get_status_counts() {
+        global $wpdb;
         $statuses = [ 'pending', 'selected', 'processed', 'ignored' ];
         $counts = [
             'all' => wp_count_posts( 'wpa_study' )->publish
         ];
 
         foreach ( $statuses as $status ) {
-            $q = new WP_Query( [
-                'post_type'      => 'wpa_study',
-                'posts_per_page' => 1,
-                'fields'         => 'ids',
-                'meta_key'       => '_wpa_status',
-                'meta_value'     => $status,
-            ] );
-            $counts[ $status ] = $q->found_posts;
+            $counts[ $status ] = 0;
+        }
+
+        $results = $wpdb->get_results( "
+            SELECT pm.meta_value AS status, COUNT(p.ID) AS count
+            FROM {$wpdb->posts} p
+            INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+            WHERE p.post_type = 'wpa_study'
+            AND p.post_status = 'publish'
+            AND pm.meta_key = '_wpa_status'
+            AND pm.meta_value IN ('" . implode("','", $statuses) . "')
+            GROUP BY pm.meta_value
+        " );
+
+        foreach ( $results as $row ) {
+            $counts[ $row->status ] = (int) $row->count;
         }
 
         return $counts;
