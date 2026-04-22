@@ -205,7 +205,7 @@ $author_bio = get_the_author_meta( 'description', $author_id );
                         if ( $is_enrolled && $show_sb_prog ) : 
                             $progress = function_exists('wpa_course_get_progress') ? wpa_course_get_progress( $course_id ) : 0;
                         ?>
-                            <div class="wpa-sidebar-progress"><div class="wpa-progress-fill" style="width:<?php echo esc_attr( $progress ); ?>%"></div></div>
+                            <div class="wpa-sidebar-progress" role="progressbar" aria-valuenow="<?php echo esc_attr( $progress ); ?>" aria-valuemin="0" aria-valuemax="100"><div class="wpa-progress-fill" style="width:<?php echo esc_attr( $progress ); ?>%"></div></div>
                         <?php endif; ?>
 
                         <?php if ( $show_instructor ) : ?>
