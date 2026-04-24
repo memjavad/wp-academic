@@ -85,6 +85,7 @@ class WPA_Theme_Labels {
             'cite_pp'             => [ 'default' => 'ص', 'ar' => 'ص' ], // Arabic usually uses ص
             'cite_et_al'          => [ 'default' => 'et al.', 'ar' => 'وآخرون' ],
             'cite_box_title'      => [ 'default' => 'Cite this article', 'ar' => 'اقتبس من هذا المقال' ],
+            'cite_btn_copy'       => [ 'default' => 'Copy Citation', 'ar' => 'نسخ الاقتباس' ],
             'cite_btn_ris'        => [ 'default' => 'Download Citation (.RIS)', 'ar' => 'تحميل الاقتباس (.RIS)' ],
             'cite_btn_bib'        => [ 'default' => 'Download BibTeX (.BIB)', 'ar' => 'تحميل الاقتباس (.BIB)' ],
             'cite_btn_pdf'        => [ 'default' => 'Download Post (.PDF)', 'ar' => 'تحميل المقال (.PDF)' ],
