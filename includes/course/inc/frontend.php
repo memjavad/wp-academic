@@ -73,7 +73,7 @@ function wpa_course_content_filter( $content ) {
                 $progress = wpa_course_get_progress( $course_id );
                 $hero_html .= '<div class="wpa-hero-action-area enrolled">';
                 $hero_html .= '<div class="wpa-hero-progress-label">' . sprintf( WPA_Theme_Labels::get('label_your_progress'), $progress ) . '</div>';
-                $hero_html .= '<div class="wpa-course-progress-bar"><div class="wpa-progress-fill" style="width:' . esc_attr( $progress ) . '%"></div></div>';
+                $hero_html .= '<div class="wpa-course-progress-bar" role="progressbar" aria-valuenow="' . esc_attr( $progress ) . '" aria-valuemin="0" aria-valuemax="100"><div class="wpa-progress-fill" style="width:' . esc_attr( $progress ) . '%"></div></div>';
                 
                 // Certificate Button
                 if ( $progress >= 100 ) {
@@ -418,7 +418,7 @@ function wpa_lesson_content_filter( $content ) {
             // Progress Bar in Sidebar
             if ( is_user_logged_in() && $show_sidebar_progress ) {
                 $progress = wpa_course_get_progress( $course_id );
-                $sidebar_html .= '<div class="wpa-course-progress-bar wpa-sidebar-progress">';
+                $sidebar_html .= '<div class="wpa-course-progress-bar wpa-sidebar-progress" role="progressbar" aria-valuenow="' . esc_attr( $progress ) . '" aria-valuemin="0" aria-valuemax="100">';
                 $sidebar_html .= '<div class="wpa-progress-fill" style="width:' . esc_attr( $progress ) . '%"></div>';
                 $sidebar_html .= '</div>';
             }

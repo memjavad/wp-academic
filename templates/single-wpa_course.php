@@ -81,7 +81,7 @@ $is_enrolled = function_exists('wpa_course_is_user_enrolled') ? wpa_course_is_us
                         $progress = function_exists('wpa_course_get_progress') ? wpa_course_get_progress( $course_id ) : 0;
                     ?>
                         <div class="wpa-hero-progress-label"><?php printf( WPA_Theme_Labels::get('label_your_progress'), $progress ); ?></div>
-                        <div class="wpa-course-progress-bar"><div class="wpa-progress-fill" style="width:<?php echo esc_attr( $progress ); ?>%"></div></div>
+                        <div class="wpa-course-progress-bar" role="progressbar" aria-valuenow="<?php echo esc_attr( $progress ); ?>" aria-valuemin="0" aria-valuemax="100"><div class="wpa-progress-fill" style="width:<?php echo esc_attr( $progress ); ?>%"></div></div>
                         
                         <?php if ( $progress >= 100 ) : 
                             $cert_link = add_query_arg( [ 'wpa_download_certificate' => '1', 'course_id' => $course_id ], home_url() );

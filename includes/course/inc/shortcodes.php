@@ -114,7 +114,7 @@ function wpa_student_dashboard_shortcode() {
                 <h4><a href="<?php echo get_permalink(); ?>"><?php echo get_the_title(); ?></a></h4>
                 
                 <div class="wpa-dash-progress-wrapper">
-                    <div class="wpa-course-progress-bar">
+                    <div class="wpa-course-progress-bar" role="progressbar" aria-valuenow="<?php echo esc_attr( $progress ); ?>" aria-valuemin="0" aria-valuemax="100">
                         <div class="wpa-progress-fill" style="width:<?php echo esc_attr( $progress ); ?>%"></div>
                     </div>
                     <span class="wpa-dash-percent"><?php echo esc_html( $progress ); ?>%</span>
