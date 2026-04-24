@@ -330,19 +330,48 @@ class WPA_Google_AI {
             }
         }
 
-        $response = wp_remote_post( $url, [
-            'headers' => [ 'Content-Type' => 'application/json' ],
-            'body'    => json_encode( $body ),
-            'timeout' => $timeout
-        ] );
+        $max_retries = 3;
+        $attempt = 0;
+        $response = null;
 
-        if ( is_wp_error( $response ) ) {
-            throw new Exception( 'API Request Failed: ' . $response->get_error_message() );
+        while ( $attempt < $max_retries ) {
+            $response = wp_remote_post( $url, [
+                'headers' => [ 'Content-Type' => 'application/json' ],
+                'body'    => json_encode( $body ),
+                'timeout' => $timeout
+            ] );
+
+            if ( is_wp_error( $response ) ) {
+                $attempt++;
+                if ( $attempt >= $max_retries ) {
+                    throw new Exception( 'API Request Failed after ' . $max_retries . ' attempts: ' . $response->get_error_message() );
+                }
+                sleep( pow( 2, $attempt ) ); // Exponential backoff: 2s, 4s
+                continue;
+            }
+
+            $code = wp_remote_retrieve_response_code( $response );
+
+            // Retry on 429 (Rate Limit) or 50x (Server Error)
+            if ( $code === 429 || $code >= 500 ) {
+                $attempt++;
+                if ( $attempt >= $max_retries ) {
+                    $body_content = wp_remote_retrieve_body( $response );
+                    $data = json_decode( $body_content, true );
+                    $msg = isset($data['error']['message']) ? $data['error']['message'] : 'Status ' . $code;
+                    throw new Exception( 'Google AI API Error (' . $code . '): ' . $msg );
+                }
+                sleep( pow( 2, $attempt ) ); // Exponential backoff: 2s, 4s
+                continue;
+            }
+
+            // If we reached here, it's either a success (200) or a hard error (400, 403) that we shouldn't retry
+            break;
         }
-        
+
         $code = wp_remote_retrieve_response_code( $response );
-        $body = wp_remote_retrieve_body( $response );
-        $data = json_decode( $body, true );
+        $body_content = wp_remote_retrieve_body( $response );
+        $data = json_decode( $body_content, true );
         
         if ( $code !== 200 ) {
             $msg = isset($data['error']['message']) ? $data['error']['message'] : 'Status ' . $code;
