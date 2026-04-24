@@ -44,7 +44,8 @@ function wpa_course_content_filter( $content ) {
         $type     = get_post_meta( $course_id, '_wpa_course_type', true );
         $price    = get_post_meta( $course_id, '_wpa_course_price', true );
         $language = get_post_meta( $course_id, '_wpa_course_language', true );
-        $lessons_count = count( get_posts( [ 'post_type' => 'wpa_lesson', 'meta_key' => '_wpa_course_id', 'meta_value' => $course_id, 'posts_per_page' => -1 ] ) );
+
+        // --- Bolt: Removed unused expensive get_posts query for lessons count ---
 
         // --- Course Hero Header (Redesigned) ---
         $course_thumb = get_the_post_thumbnail( $course_id, 'large', ['class' => 'wpa-course-hero-image'] );
