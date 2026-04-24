@@ -196,11 +196,19 @@ class WPA_Social_Renderer {
                 $content = $icon;
             }
 
+            $aria_label = esc_attr( sprintf( __( 'Share on %s', 'wp-academic-post-enhanced' ), $text ) );
+            if ( $service === 'copy-link' ) {
+                $aria_label = esc_attr__( 'Copy Link', 'wp-academic-post-enhanced' );
+            } elseif ( $service === 'print' ) {
+                $aria_label = esc_attr__( 'Print', 'wp-academic-post-enhanced' );
+            }
+
             $html .= sprintf(
-                '<a href="%s" target="_blank" rel="noopener noreferrer" class="%s"%s>%s</a>',
+                '<a href="%s" target="_blank" rel="noopener noreferrer" class="%s"%s aria-label="%s">%s</a>',
                 esc_url( $href ),
                 esc_attr( implode( ' ', $btn_classes ) ),
                 $extra_attrs,
+                $aria_label,
                 $content 
             );
         }
@@ -331,7 +339,7 @@ function wpa_social_sharing_floating_sidebar() {
         $ad_code = isset($settings['mobile_sticky_ad_code']) ? $settings['mobile_sticky_ad_code'] : '';
 
         // Toggle Button (Outside the bar so it stays visible)
-        echo '<button type="button" class="wpa-mobile-download-toggle" title="' . esc_attr__('Toggle Links', 'wp-academic-post-enhanced') . '">';
+        echo '<button type="button" class="wpa-mobile-download-toggle" title="' . esc_attr__('Toggle Links', 'wp-academic-post-enhanced') . '" aria-label="' . esc_attr__('Toggle Links', 'wp-academic-post-enhanced') . '" aria-expanded="false">';
         // ... (Icon content) ...
         echo '<svg class="wpa-icon-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
             <svg class="wpa-icon-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="display:none;"><path d="M12 16l-6-6h12z"/></svg>
@@ -355,7 +363,7 @@ function wpa_social_sharing_floating_sidebar() {
         $citation_post_types = isset( $citation_options['post_types'] ) ? $citation_options['post_types'] : ['post'];
         
         if ( $pdf_enabled && in_array( get_post_type(), $citation_post_types ) ) {
-            echo '<a href="' . esc_url($pdf_link) . '" class="wpa-social-button wpa-mobile-pdf-btn" title="' . esc_attr__('Download PDF', 'wp-academic-post-enhanced') . '">
+            echo '<a href="' . esc_url($pdf_link) . '" class="wpa-social-button wpa-mobile-pdf-btn" title="' . esc_attr__('Download PDF', 'wp-academic-post-enhanced') . '" aria-label="' . esc_attr__('Download PDF', 'wp-academic-post-enhanced') . '">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                 <span class="wpa-social-text">PDF</span>
             </a>';
@@ -369,7 +377,8 @@ function wpa_social_sharing_floating_sidebar() {
             data-journal="' . esc_attr($site_name) . '" 
             data-url="' . esc_attr($url) . '" 
             data-abstract="' . esc_attr($abstract) . '" 
-            title="' . esc_attr__('Download Citation (.RIS)', 'wp-academic-post-enhanced') . '">
+            title="' . esc_attr__('Download Citation (.RIS)', 'wp-academic-post-enhanced') . '"
+            aria-label="' . esc_attr__('Download Citation (.RIS)', 'wp-academic-post-enhanced') . '">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
             <span class="wpa-social-text">RIS</span>
         </button>';
