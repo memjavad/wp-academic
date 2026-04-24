@@ -12,7 +12,7 @@
 
 ---
 
-## 2024-05-18 - Prevent LIKE wildcard injection in wpdb queries
-**Vulnerability:** User input was directly concatenated with a `%` wildcard in `$wpdb->prepare` for a `LIKE` query in `includes/glossary/frontend.php`.
-**Learning:** `LIKE` wildcards `%` and `_` inside the user input are not escaped by `$wpdb->prepare` itself, allowing attackers to broaden queries, which can lead to information disclosure or DoS.
-**Prevention:** Always use `$wpdb->esc_like( $input )` before appending wildcards in `LIKE` queries.
+## 2023-11-06 - Wildcard Injection via LIKE query in WordPress
+**Vulnerability:** Found a LIKE query where user input (`$letter`) was concatenated directly with a `%` wildcard inside `$wpdb->prepare` without escaping the wildcards: `post_title LIKE %s`, `$letter . '%'`.
+**Learning:** `$wpdb->prepare` protects against standard SQL injection by escaping quotes, but it **does not** escape SQL wildcard characters (`%` and `_`). An attacker supplying `%` or `_` can change the query logic, leading to unexpected data exposure or Denial of Service via slow queries.
+**Prevention:** Always use `$wpdb->esc_like( $user_input )` before appending wildcard characters (`%` or `_`) when constructing LIKE queries with `$wpdb->prepare`.
