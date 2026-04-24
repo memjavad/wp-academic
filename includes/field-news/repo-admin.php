@@ -553,7 +553,10 @@ class WPA_Study_Repo_Page {
             $count = $gen->fetch_and_store_candidates();
             wp_send_json_success( [ 'count' => $count ] );
         } catch ( Throwable $e ) {
-            wp_send_json_error( 'Fatal: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() );
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'Field News Fetch Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() );
+            }
+            wp_send_json_error( 'An error occurred during fetch. Please check server logs.' );
         }
     }
 
@@ -725,7 +728,10 @@ class WPA_Study_Repo_Page {
             $news_id = $gen->generate_post_from_repo( $id );
             wp_send_json_success( [ 'id' => $news_id ] );
         } catch ( Throwable $e ) {
-            wp_send_json_error( 'Fatal: ' . $e->getMessage() );
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'Field News Generate Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() );
+            }
+            wp_send_json_error( 'An error occurred during generation. Please check server logs.' );
         }
     }
 
@@ -795,7 +801,10 @@ class WPA_Study_Repo_Page {
             wp_send_json_success( [ 'processed' => count($studies), 'ignored' => $ignored_count, 'selected' => $selected_count ] );
 
         } catch ( Throwable $e ) {
-            wp_send_json_error( 'AI Error: ' . $e->getMessage() );
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'Field News AI Screen Error: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine() );
+            }
+            wp_send_json_error( 'An AI error occurred. Please check server logs.' );
         }
     }
 }

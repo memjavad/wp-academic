@@ -16,3 +16,10 @@
 **Vulnerability:** Found a LIKE query where user input was concatenated directly with a `%` wildcard inside `$wpdb->prepare` without escaping the wildcards. This occurred in both `includes/glossary/frontend.php` and potentially other locations.
 **Learning:** `$wpdb->prepare` protects against standard SQL injection by escaping quotes, but it **does not** escape SQL wildcard characters (`%` and `_`). An attacker supplying `%` or `_` can change the query logic, leading to unexpected data exposure or Denial of Service via slow queries.
 **Prevention:** Always use `$wpdb->esc_like( $user_input )` before appending wildcard characters (`%` or `_`) when constructing LIKE queries with `$wpdb->prepare`.
+
+---
+
+## 2024-05-24 - Information Disclosure in AJAX Error Handlers
+**Vulnerability:** AJAX handlers in `includes/field-news/repo-admin.php` exposed internal server file paths by returning `$e->getFile()` and `$e->getLine()` to the frontend via `wp_send_json_error()`.
+**Learning:** Returning raw exception details directly to the client exposes server architecture and sensitive internals, which constitutes a Medium-priority security risk.
+**Prevention:** Always use generic error messages for client-facing error responses (e.g. "An error occurred. Check server logs.") and log the detailed exception information server-side using `error_log()` securely.
