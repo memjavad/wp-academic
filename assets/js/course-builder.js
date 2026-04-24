@@ -12,8 +12,11 @@ jQuery(document).ready(function($) {
         $canvas.sortable({
             handle: '.wpa-section-handle',
             placeholder: 'ui-sortable-placeholder',
-            items: '.wpa-builder-section:not(.wpa-unassigned-section)', // Unassigned fixed at bottom? Or sortable? Let's fix it.
-            update: function() { saveStructure(); }
+            items: '.wpa-builder-section:not(.wpa-unassigned-section)',
+            update: function() {
+                $canvas.append($('.wpa-unassigned-section'));
+                saveStructure();
+            }
         });
 
         // Sortable Lessons (Connected)
