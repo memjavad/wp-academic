@@ -19,3 +19,9 @@
 ## 2024-04-19 - Unused Heavy Query in Frontend Filter
 **Learning:** We found an expensive, uncached `get_posts` query being executed on every course page load simply to calculate a count (`$lessons_count`) that was completely unused. Retrieving full post objects is extremely wasteful when only counting them, and especially when the count is never utilized.
 **Action:** Always verify if fetched data is actually consumed, and use `fields => 'ids'` or `wp_count_posts`/custom `COUNT()` queries when merely counting, instead of loading full WP_Post objects into memory.
+
+---
+
+## 2024-06-25 - Prevent expensive SQL_CALC_FOUND_ROWS in WP_Query
+**Learning:** In WP_Query, if pagination is not needed, `SQL_CALC_FOUND_ROWS` is still executed by default, which can cause significant database overhead on large tables.
+**Action:** Always add `'no_found_rows' => true` to `WP_Query` arguments when the query results do not require pagination (i.e. when we don't need to know the total number of matching posts). Also remember to use `$q->post_count` instead of `$q->found_posts` if just counting the retrieved items.
