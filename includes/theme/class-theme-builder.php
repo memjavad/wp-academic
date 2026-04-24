@@ -245,9 +245,9 @@ class WPA_Theme_Builder {
         // Fix: Ensure layout is array if stored as JSON string
         if ( is_string( $layout ) ) {
             $decoded = json_decode( $layout, true );
-            if ( is_array( $decoded ) ) {
-                $layout = $decoded;
-            }
+            $layout = is_array( $decoded ) ? $decoded : [];
+        } elseif ( ! is_array( $layout ) ) {
+            $layout = [];
         }
         
         // Auto-Populate Demo Data if Empty
@@ -331,7 +331,12 @@ class WPA_Theme_Builder {
 
     public function render_layout() {
         $layout = get_option( 'wpa_homepage_layout', [] );
-        if ( is_string( $layout ) ) $layout = json_decode( $layout, true );
+        if ( is_string( $layout ) ) {
+            $decoded = json_decode( $layout, true );
+            $layout = is_array( $decoded ) ? $decoded : [];
+        } elseif ( ! is_array( $layout ) ) {
+            $layout = [];
+        }
         
         // Auto-Populate Complete Demo Layout if Empty
         if ( empty( $layout ) ) {
