@@ -9,3 +9,10 @@
 **Vulnerability:** The unvalidated `$_SERVER['HTTP_HOST']` variable was used directly in `.htaccess` rewrite rules, which could allow an attacker to perform Host Header Injection if they supplied a malicious Host header.
 **Learning:** The `$_SERVER['HTTP_HOST']` variable is easily manipulated by attackers since it comes directly from the HTTP Request Host header. Never trust the client-provided Host header when constructing configuration files or redirect rules. Always use a canonical value (e.g., from `site_url()`).
 **Prevention:** Always use `site_url()` or `home_url()` combined with safe parsing mechanisms like `wp_parse_url()` to get the canonical host name safely, rather than relying on `$_SERVER['HTTP_HOST']`.
+
+---
+
+## 2024-05-18 - Prevent LIKE wildcard injection in wpdb queries
+**Vulnerability:** User input was directly concatenated with a `%` wildcard in `$wpdb->prepare` for a `LIKE` query in `includes/glossary/frontend.php`.
+**Learning:** `LIKE` wildcards `%` and `_` inside the user input are not escaped by `$wpdb->prepare` itself, allowing attackers to broaden queries, which can lead to information disclosure or DoS.
+**Prevention:** Always use `$wpdb->esc_like( $input )` before appending wildcards in `LIKE` queries.
