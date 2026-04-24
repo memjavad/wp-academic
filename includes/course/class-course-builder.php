@@ -49,6 +49,11 @@ class WPA_Course_Builder {
         $sections = [];
         $unassigned = [];
 
+        // Pre-cache postmeta to avoid N+1 queries in the loop
+        if ( ! empty( $lessons ) ) {
+            update_postmeta_cache( wp_list_pluck( $lessons, 'ID' ) );
+        }
+
         foreach ( $lessons as $lesson ) {
             $sect = get_post_meta( $lesson->ID, '_wpa_lesson_section', true );
             if ( ! empty( $sect ) ) {
