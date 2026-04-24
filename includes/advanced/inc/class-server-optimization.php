@@ -138,11 +138,13 @@ class WP_Academic_Post_Enhanced_Server_Optimization {
             }
 
             if ( $hotlink_protection_enabled ) {
-                $site_host = wp_parse_url( site_url(), PHP_URL_HOST );
+                $host = wp_parse_url( site_url(), PHP_URL_HOST );
+                $host = $host ? str_replace( 'www.', '', $host ) : '';
+
                 $rules[] = '<IfModule mod_rewrite.c>';
                 $rules[] = '    RewriteEngine on';
                 $rules[] = '    RewriteCond %{HTTP_REFERER} !^$';
-                $rules[] = '    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?' . str_replace( 'www.', '', $site_host ) . ' [NC]';
+                $rules[] = '    RewriteCond %{HTTP_REFERER} !^http(s)?://(www\.)?' . $host . ' [NC]';
                 $rules[] = '    RewriteRule \.(jpg|jpeg|png|gif)$ - [NC,F,L]';
                 $rules[] = '</IfModule>';
             }
