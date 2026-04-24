@@ -128,20 +128,31 @@ class WPA_Study_Repo_Page {
         global $wpdb;
         $statuses = [ 'pending', 'selected', 'processed', 'ignored' ];
         $counts = [
-            'all' => wp_count_posts( 'wpa_study' )->publish
+            'all' => wp_count_posts( 'wpa_study' )->publish,
+            'pending' => 0,
+            'selected' => 0,
+            'processed' => 0,
+            'ignored' => 0,
         ];
 
-        foreach ( $statuses as $status ) {
-            // ⚡ Bolt: Replaced WP_Query with a direct $wpdb aggregate count to prevent expensive SQL_CALC_FOUND_ROWS execution
-            $count = $wpdb->get_var( $wpdb->prepare( "
-                SELECT COUNT(*) FROM {$wpdb->posts} p
-                INNER JOIN {$wpdb->postmeta} pm ON ( p.ID = pm.post_id )
-                WHERE p.post_type = 'wpa_study'
-                AND p.post_status = 'publish'
-                AND pm.meta_key = '_wpa_status'
-                AND pm.meta_value = %s
-            ", $status ) );
-            $counts[ $status ] = (int) $count;
+        // ⚡ Bolt: Use a single aggregated query instead of 4 separate WP_Query calls to avoid expensive SQL_CALC_FOUND_ROWS
+        $results = $wpdb->get_results( "
+            SELECT pm.meta_value as status, COUNT(p.ID) as count
+            FROM {$wpdb->posts} p
+            INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+            WHERE p.post_type = 'wpa_study'
+            AND p.post_status = 'publish'
+            AND pm.meta_key = '_wpa_status'
+            AND pm.meta_value IN ('pending', 'selected', 'processed', 'ignored')
+            GROUP BY pm.meta_value
+        " );
+
+        if ( $results ) {
+            foreach ( $results as $row ) {
+                if ( isset( $counts[ $row->status ] ) ) {
+                    $counts[ $row->status ] = (int) $row->count;
+                }
+            }
         }
 
         return $counts;

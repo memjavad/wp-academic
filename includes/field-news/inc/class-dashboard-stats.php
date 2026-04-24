@@ -24,15 +24,18 @@ class WPA_Field_News_Dashboard_Widget {
     }
 
     public function render_widget() {
-        // Count Pending Studies
-        $pending = new WP_Query([
-            'post_type' => 'wpa_study',
-            'meta_key' => '_wpa_status',
-            'meta_value' => 'pending',
-            'post_status' => 'publish',
-            'fields' => 'ids'
-        ]);
-        $pending_count = $pending->found_posts;
+        global $wpdb;
+
+        // ⚡ Bolt: Use direct count query instead of WP_Query to avoid SQL_CALC_FOUND_ROWS overhead
+        $pending_count = (int) $wpdb->get_var( "
+            SELECT COUNT(p.ID)
+            FROM {$wpdb->posts} p
+            INNER JOIN {$wpdb->postmeta} pm ON p.ID = pm.post_id
+            WHERE p.post_type = 'wpa_study'
+            AND p.post_status = 'publish'
+            AND pm.meta_key = '_wpa_status'
+            AND pm.meta_value = 'pending'
+        " );
 
         // Count Published News
         $news = wp_count_posts( 'wpa_news' );

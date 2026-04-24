@@ -31,3 +31,9 @@
 ## 2024-05-28 - Performance: Memoize Reading Time Calculation
 **Learning:** Calculating reading time dynamically on every page load with `str_word_count(strip_tags())` can be expensive on large academic texts.
 **Action:** Caching the result in `post_meta` avoids the overhead, as WP preloads meta data. Using a `save_post` hook ensures the cache invalidates appropriately.
+
+---
+
+## 2024-05-24 - Avoid WP_Query for Counting Operations
+**Learning:** Found multiple instances where `WP_Query` was used to retrieve `->found_posts` just to get a count of specific post types. This is highly inefficient because it executes `SQL_CALC_FOUND_ROWS` and pulls full post objects into memory unnecessarily.
+**Action:** When counting posts by meta values or statuses, use a direct aggregated `$wpdb->get_results` query with `GROUP BY` or a direct `$wpdb->get_var("SELECT COUNT...")` instead of `WP_Query`. Ensure the resulting array is pre-initialized with all expected keys to avoid missing data when `0` rows match a specific condition.
