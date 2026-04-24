@@ -7,3 +7,9 @@
 ## 2024-04-22 - Ensure layout is array if stored as JSON string
 **Learning:** When validating variables decoded from JSON, especially inputs going into foreach loops or layout builders, fallback to default types instead of just skipping processing. `is_array( $decoded ) ? $decoded : []` is better than just a conditional re-assignment.
 **Action:** Always enforce a type guarantee at boundaries where JSON is decoded and directly manipulated as array.
+
+---
+
+## 2025-01-28 - Optimize post counts with direct wpdb query
+**Learning:** Using `WP_Query` solely to get `$q->found_posts` triggers `SQL_CALC_FOUND_ROWS`, which is very slow. This codebase specifically lacked the `no_found_rows` parameter in multiple places, but even so, direct counts are better.
+**Action:** When only counting items with specific meta values, use a direct aggregate query like `$wpdb->get_var("SELECT COUNT(*) ...")` instead of `WP_Query` to avoid unnecessary object retrieval and performance overhead.
