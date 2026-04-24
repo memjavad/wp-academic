@@ -126,7 +126,6 @@ class WPA_Study_Repo_Page {
 
     private function get_status_counts() {
         global $wpdb;
-        $statuses = [ 'pending', 'selected', 'processed', 'ignored' ];
         $counts = [
             'all' => wp_count_posts( 'wpa_study' )->publish,
             'pending' => 0,
