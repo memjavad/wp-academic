@@ -1,0 +1,3 @@
+## 2024-04-22 - Optimize get_post_meta calls in Course Frontend
+**Learning:** Calling `get_post_meta` inside a loop can lead to N+1 queries if the post meta cache was not properly primed beforehand. Although `get_posts` with `-1` or standard WP queries attempt to prime caches, edge cases or specific loop iterations fetching additional metadata not primed can cause hidden performance drains.
+**Action:** Always manually call `update_postmeta_cache( wp_list_pluck( $items, 'ID' ) )` when retrieving a list of posts that will have metadata accessed in a subsequent loop, ensuring a single bulk query caches everything needed.
