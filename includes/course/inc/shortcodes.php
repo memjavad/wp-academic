@@ -247,7 +247,8 @@ function wpa_courses_shortcode( $atts ) {
             'posts_per_page' => $count,
             'orderby' => 'date',
             'order' => 'DESC',
-            'post_status' => 'publish'
+            'post_status' => 'publish',
+            'no_found_rows' => true // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since pagination is not needed
         ]);
 
         if ( $slider_query->have_posts() ) {
@@ -327,6 +328,7 @@ function wpa_courses_shortcode( $atts ) {
         'posts_per_page' => intval( $atts['limit'] ),
         'post_status' => 'publish',
         'meta_query' => [],
+        'no_found_rows' => true, // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since pagination is not needed
     ];
 
     $filter_html = '';
