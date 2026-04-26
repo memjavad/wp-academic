@@ -242,12 +242,14 @@ function wpa_courses_shortcode( $atts ) {
         $show_dots = isset($options['slider_show_dots']) ? intval($options['slider_show_dots']) : 1;
         $pause_hover = isset($options['slider_pause_hover']) ? intval($options['slider_pause_hover']) : 1;
 
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since slider is non-paginated
         $slider_query = new WP_Query([
             'post_type' => 'post',
             'posts_per_page' => $count,
             'orderby' => 'date',
             'order' => 'DESC',
-            'post_status' => 'publish'
+            'post_status' => 'publish',
+            'no_found_rows' => true
         ]);
 
         if ( $slider_query->have_posts() ) {

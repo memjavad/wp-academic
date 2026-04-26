@@ -37,3 +37,9 @@
 ## 2024-05-24 - Avoid WP_Query for Counting Operations
 **Learning:** Found multiple instances where `WP_Query` was used to retrieve `->found_posts` just to get a count of specific post types. This is highly inefficient because it executes `SQL_CALC_FOUND_ROWS` and pulls full post objects into memory unnecessarily.
 **Action:** When counting posts by meta values or statuses, use a direct aggregated `$wpdb->get_results` query with `GROUP BY` or a direct `$wpdb->get_var("SELECT COUNT...")` instead of `WP_Query`. Ensure the resulting array is pre-initialized with all expected keys to avoid missing data when `0` rows match a specific condition.
+
+---
+
+## 2026-04-26 - Optimize non-paginated queries by adding no_found_rows
+**Learning:** The codebase contained multiple instances where `WP_Query` was instantiated to retrieve a single existence check, fetch AI processing batches, or display a fixed slider without pagination, yet it omitted the `'no_found_rows' => true` flag. This omission forced MySQL to compute `SQL_CALC_FOUND_ROWS`, wasting database resources.
+**Action:** When building non-paginated `WP_Query` instances, always explicitly set `'no_found_rows' => true` to prevent unnecessary table scanning. Avoid adding it globally without checking context, as admin tables and frontend shortcodes often rely on it for standard pagination.

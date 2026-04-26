@@ -756,6 +756,7 @@ class WPA_Study_Repo_Page {
         }
 
         // Get up to 20 pending studies
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query since AI screening processes a fixed batch without pagination
         $args = [
             'post_type'      => 'wpa_study',
             'posts_per_page' => 20,
@@ -763,7 +764,8 @@ class WPA_Study_Repo_Page {
             'meta_key'       => '_wpa_status',
             'meta_value'     => 'pending',
             'orderby'        => 'date',
-            'order'          => 'DESC'
+            'order'          => 'DESC',
+            'no_found_rows'  => true
         ];
         $query = new WP_Query( $args );
         
