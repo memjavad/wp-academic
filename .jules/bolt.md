@@ -37,3 +37,7 @@
 ## 2024-05-24 - Avoid WP_Query for Counting Operations
 **Learning:** Found multiple instances where `WP_Query` was used to retrieve `->found_posts` just to get a count of specific post types. This is highly inefficient because it executes `SQL_CALC_FOUND_ROWS` and pulls full post objects into memory unnecessarily.
 **Action:** When counting posts by meta values or statuses, use a direct aggregated `$wpdb->get_results` query with `GROUP BY` or a direct `$wpdb->get_var("SELECT COUNT...")` instead of `WP_Query`. Ensure the resulting array is pre-initialized with all expected keys to avoid missing data when `0` rows match a specific condition.
+
+## 2024-11-20 - Prevent expensive SQL_CALC_FOUND_ROWS in Field News Generator
+**Learning:** Found multiple `WP_Query` instances inside `includes/field-news/inc/class-news-generator.php` and `includes/field-news/inc/class-news-widget.php` that were performing internal existence checks, fixed-length fetching, or widget rendering without needing pagination. By default, WP_Query triggers `SQL_CALC_FOUND_ROWS` overhead on these, slowing down background jobs and widgets.
+**Action:** When querying posts simply for an existence check (e.g. `posts_per_page => 1`) or without pagination requirements, always explicitly append `'no_found_rows' => true` to bypass the unnecessary database counting operation.

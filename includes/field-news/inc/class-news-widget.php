@@ -31,7 +31,8 @@ class WPA_Field_News_Widget extends WP_Widget {
         $q = new WP_Query([
             'post_type' => 'wpa_news',
             'posts_per_page' => $count,
-            'post_status' => 'publish'
+            'post_status' => 'publish',
+            'no_found_rows' => true
         ]);
 
         if ( $q->have_posts() ) {
