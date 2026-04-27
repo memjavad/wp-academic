@@ -743,8 +743,8 @@ class WPA_Theme_Builder {
                 </div>
                 
                 <div class="wpa-slider-nav">
-                    <button class="wpa-slider-prev"><?php echo WPA_Icons::get('arrow-left-alt2'); ?></button>
-                    <button class="wpa-slider-next"><?php echo WPA_Icons::get('arrow-right-alt2'); ?></button>
+                    <button class="wpa-slider-prev" aria-label="<?php esc_attr_e( 'Previous', 'wp-academic-post-enhanced' ); ?>"><?php echo WPA_Icons::get('arrow-left-alt2'); ?></button>
+                    <button class="wpa-slider-next" aria-label="<?php esc_attr_e( 'Next', 'wp-academic-post-enhanced' ); ?>"><?php echo WPA_Icons::get('arrow-right-alt2'); ?></button>
                 </div>
                 <div class="wpa-slider-dots"></div>
                 
