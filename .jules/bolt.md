@@ -37,3 +37,6 @@
 ## 2024-05-24 - Avoid WP_Query for Counting Operations
 **Learning:** Found multiple instances where `WP_Query` was used to retrieve `->found_posts` just to get a count of specific post types. This is highly inefficient because it executes `SQL_CALC_FOUND_ROWS` and pulls full post objects into memory unnecessarily.
 **Action:** When counting posts by meta values or statuses, use a direct aggregated `$wpdb->get_results` query with `GROUP BY` or a direct `$wpdb->get_var("SELECT COUNT...")` instead of `WP_Query`. Ensure the resulting array is pre-initialized with all expected keys to avoid missing data when `0` rows match a specific condition.
+## 2025-01-28 - Add no_found_rows to WP_Query existence checks
+**Learning:** Checking if a post exists using `WP_Query` inside a loop (e.g. while iterating through many external items to sync) with `posts_per_page => 1` and without `'no_found_rows' => true` can cause a severe N+1 performance drain due to `SQL_CALC_FOUND_ROWS` executing on every iteration.
+**Action:** Always add `'no_found_rows' => true` to `WP_Query` arguments when performing existence checks (where only `have_posts()` is needed), especially inside loops or data sync functions.
