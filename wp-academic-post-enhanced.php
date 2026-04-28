@@ -2,7 +2,7 @@
 /**
  * Plugin Name: WP Academic Post Enhanced
  * Description: A plugin to enhance blog posts for the academic sector with a focus on SEO and LLMs.
- * Version: 3.9.5
+ * Version: 3.9.6
  * Author: Mohammed looti
  * Author URI: Your Website
  * License: GPL2
@@ -16,7 +16,7 @@ if ( ! defined( 'WP_ACADEMIC_POST_ENHANCED_FILE' ) ) {
 }
 
 if ( ! defined( 'WPA_VERSION' ) ) {
-    define( 'WPA_VERSION', '3.9.5' );
+    define( 'WPA_VERSION', '3.9.6' );
 }
 
 // Load the plugin features.

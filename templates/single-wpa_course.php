@@ -21,14 +21,6 @@ $course_id = get_the_ID();
 $theme_opts = get_option( 'wpa_homepage_settings', [] );
 $course_opts = get_option( 'wpa_course_settings', [] );
 
-// Fallback Helper
-if ( ! function_exists( 'wpa_get_setting' ) ) {
-    function wpa_get_setting( $key_theme, $key_course, $default, $theme_opts, $course_opts ) {
-        if ( isset( $theme_opts[$key_theme] ) ) return $theme_opts[$key_theme];
-        if ( isset( $course_opts[$key_course] ) ) return $course_opts[$key_course];
-        return $default;
-    }
-}
 
 // Display Settings
 $show_dur = wpa_get_setting( 'course_show_duration', 'show_course_duration', 1, $theme_opts, $course_opts );
