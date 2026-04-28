@@ -22,14 +22,6 @@ $course_id = get_post_meta( $lesson_id, '_wpa_course_id', true );
 $theme_opts = get_option( 'wpa_homepage_settings', [] );
 $course_opts = get_option( 'wpa_course_settings', [] );
 
-// Helper to get setting with fallback
-if ( ! function_exists( 'wpa_get_setting' ) ) {
-    function wpa_get_setting( $key_theme, $key_course, $default, $theme_opts, $course_opts ) {
-        if ( isset( $theme_opts[$key_theme] ) ) return $theme_opts[$key_theme];
-        if ( isset( $course_opts[$key_course] ) ) return $course_opts[$key_course];
-        return $default;
-    }
-}
 
 // Access Control
 $can_access = function_exists('wpa_course_user_can_access') ? wpa_course_user_can_access( $course_id ) : true;

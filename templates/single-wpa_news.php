@@ -15,14 +15,6 @@ if ( function_exists( 'wpa_get_header' ) ) {
     get_header();
 }
 
-// Fallback Helper
-if ( ! function_exists( 'wpa_get_setting' ) ) {
-    function wpa_get_setting( $key_theme, $key_module, $default, $theme_opts, $module_opts ) {
-        if ( isset( $theme_opts[$key_theme] ) ) return $theme_opts[$key_theme];
-        if ( isset( $module_opts[$key_module] ) ) return $module_opts[$key_module];
-        return $default;
-    }
-}
 
 $theme_opts = get_option( 'wpa_homepage_settings', [] );
 $news_opts = get_option( 'wpa_field_news_settings', [] );

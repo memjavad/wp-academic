@@ -247,3 +247,21 @@ function wpa_get_clean_title( $post_id = null, $max_chars = 70 ) {
     return $title;
 }
 
+
+/**
+ * Helper to get a setting from theme options or module options with a fallback default.
+ *
+ * @param string $key_theme   The key to look for in theme options.
+ * @param string $key_module  The key to look for in module options.
+ * @param mixed  $default     The default value if neither is set.
+ * @param array  $theme_opts  The theme options array.
+ * @param array  $module_opts The module options array.
+ * @return mixed
+ */
+if ( ! function_exists( 'wpa_get_setting' ) ) {
+    function wpa_get_setting( $key_theme, $key_module, $default, $theme_opts, $module_opts ) {
+        if ( isset( $theme_opts[$key_theme] ) ) return $theme_opts[$key_theme];
+        if ( isset( $module_opts[$key_module] ) ) return $module_opts[$key_module];
+        return $default;
+    }
+}
