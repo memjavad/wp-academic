@@ -247,3 +247,21 @@ function wpa_get_clean_title( $post_id = null, $max_chars = 70 ) {
     return $title;
 }
 
+
+/**
+ * Get a setting with a fallback mechanism.
+ *
+ * @param string $key_theme   The key in the theme options array.
+ * @param string $key_specific The key in the specific (course/news/module) options array.
+ * @param mixed  $default     The default value.
+ * @param array  $theme_opts  The theme options array.
+ * @param array  $specific_opts The specific options array.
+ * @return mixed The resolved setting value.
+ */
+if ( ! function_exists( 'wpa_get_setting' ) ) {
+    function wpa_get_setting( $key_theme, $key_specific, $default, $theme_opts, $specific_opts ) {
+        if ( isset( $theme_opts[$key_theme] ) ) return $theme_opts[$key_theme];
+        if ( isset( $specific_opts[$key_specific] ) ) return $specific_opts[$key_specific];
+        return $default;
+    }
+}
