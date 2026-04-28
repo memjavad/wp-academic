@@ -133,9 +133,12 @@ $is_enrolled = function_exists('wpa_course_is_user_enrolled') ? wpa_course_is_us
             <div class="wpa-course-curriculum style-<?php echo esc_attr( $curr_style ); ?>">
                 <h3><?php echo esc_html( $lbl_curr ); ?></h3>
                 <?php 
-                $lessons = get_posts( [ 'post_type' => 'wpa_lesson', 'meta_key' => '_wpa_course_id', 'meta_value' => $course_id, 'posts_per_page' => -1, 'orderby' => 'menu_order', 'order' => 'ASC' ] );
+                $lessons = get_posts( [ 'post_type' => 'wpa_lesson', 'meta_key' => '_wpa_course_id', 'meta_value' => $course_id, 'posts_per_page' => -1, 'orderby' => 'menu_order', 'order' => 'ASC', 'no_found_rows' => true ] );
 
                 if ( ! empty( $lessons ) ) {
+                    // Preload meta to prevent N+1 queries in the loop
+                    update_meta_cache( 'post', wp_list_pluck( $lessons, 'ID' ) );
+
                     // Sections enabled? Usually yes for display.
                     $sections = [];
                     foreach ( $lessons as $lesson ) {
