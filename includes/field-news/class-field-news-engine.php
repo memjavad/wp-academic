@@ -45,7 +45,10 @@ class WPA_Field_News_Engine {
             }
             wp_send_json_success( 'Connection Successful!' );
         } catch ( Exception $e ) {
-            wp_send_json_error( $e->getMessage() );
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'Field News API Test Error: ' . $e->getMessage() );
+            }
+            wp_send_json_error( 'An error occurred during API test. Please check server logs.' );
         }
     }
 
@@ -63,7 +66,10 @@ class WPA_Field_News_Engine {
                 'edit_link' => get_edit_post_link( $post_id, '' )
             ] );
         } catch ( Exception $e ) {
-            wp_send_json_error( $e->getMessage() );
+            if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+                error_log( 'Field News Generate Error: ' . $e->getMessage() );
+            }
+            wp_send_json_error( 'An error occurred during generation. Please check server logs.' );
         }
     }
 }
