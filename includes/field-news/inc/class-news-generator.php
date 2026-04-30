@@ -212,24 +212,28 @@ class WPA_News_Generator {
 
     private function is_in_repo( $scopus_id ) {
         if ( empty( $scopus_id ) ) return false;
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query
         $q = new WP_Query([
             'post_type' => 'wpa_study',
             'meta_key' => '_wpa_scopus_id',
             'meta_value' => $scopus_id,
             'posts_per_page' => 1,
-            'fields' => 'ids'
+            'fields' => 'ids',
+            'no_found_rows' => true
         ]);
         return $q->have_posts();
     }
 
     private function is_published( $scopus_id ) {
         if ( empty( $scopus_id ) ) return false;
+        // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query
         $q = new WP_Query([
             'post_type' => 'wpa_news',
             'meta_key' => '_wpa_scopus_id',
             'meta_value' => $scopus_id,
             'posts_per_page' => 1,
-            'fields' => 'ids'
+            'fields' => 'ids',
+            'no_found_rows' => true
         ]);
         return $q->have_posts();
     }
@@ -243,7 +247,8 @@ class WPA_News_Generator {
             'meta_key'       => '_wpa_status',
             'meta_value'     => 'selected',
             'orderby'        => 'date',
-            'order'          => 'ASC' // FIFO
+            'order'          => 'ASC', // FIFO
+            'no_found_rows'  => true // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query
         ];
         $repo_query = new WP_Query( $args );
         
@@ -631,11 +636,13 @@ class WPA_News_Generator {
         // 1. Try tags search
         if ( ! empty( $tags ) ) {
             foreach ( array_slice($tags, 0, 3) as $tag ) {
+                // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query
                 $q = new WP_Query([
                     'post_type'      => 'wpa_course',
                     'posts_per_page' => $max_courses,
                     'post_status'    => 'publish',
-                    's'              => $tag
+                    's'              => $tag,
+                    'no_found_rows'  => true
                 ]);
                 if ( $q->have_posts() ) {
                     foreach ( $q->posts as $p ) {
@@ -649,12 +656,14 @@ class WPA_News_Generator {
         // 2. Try title keywords if still empty
         if ( count($found_courses) < $max_courses && ! empty($title_keywords) ) {
             foreach ( $title_keywords as $keyword ) {
+                // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query
                 $q = new WP_Query([
                     'post_type'      => 'wpa_course',
                     'posts_per_page' => $max_courses - count($found_courses),
                     'post_status'    => 'publish',
                     's'              => $keyword,
-                    'post__not_in'   => array_keys($found_courses)
+                    'post__not_in'   => array_keys($found_courses),
+                    'no_found_rows'  => true
                 ]);
                 if ( $q->have_posts() ) {
                     foreach ( $q->posts as $p ) {
@@ -667,10 +676,12 @@ class WPA_News_Generator {
 
         // 3. Fallback: Latest 3 courses if still empty
         if ( empty($found_courses) ) {
+             // ⚡ Bolt: Prevent expensive SQL_CALC_FOUND_ROWS query
              $q = new WP_Query([
                 'post_type'      => 'wpa_course',
                 'posts_per_page' => $max_courses,
-                'post_status'    => 'publish'
+                'post_status'    => 'publish',
+                'no_found_rows'  => true
             ]);
             if ( $q->have_posts() ) {
                 foreach ( $q->posts as $p ) {
