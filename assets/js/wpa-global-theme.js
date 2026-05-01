@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 for (let i = 0; i < slideCount; i++) {
                     const dot = document.createElement('button');
                     dot.classList.add('wpa-slider-dot');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
                     if (i === 0) dot.classList.add('active');
                     dot.addEventListener('click', () => goToSlide(i));
                     dotsContainer.appendChild(dot);
