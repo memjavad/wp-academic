@@ -217,7 +217,8 @@ class WPA_News_Generator {
             'meta_key' => '_wpa_scopus_id',
             'meta_value' => $scopus_id,
             'posts_per_page' => 1,
-            'fields' => 'ids'
+            'fields' => 'ids',
+            'no_found_rows' => true,
         ]);
         return $q->have_posts();
     }
@@ -229,7 +230,8 @@ class WPA_News_Generator {
             'meta_key' => '_wpa_scopus_id',
             'meta_value' => $scopus_id,
             'posts_per_page' => 1,
-            'fields' => 'ids'
+            'fields' => 'ids',
+            'no_found_rows' => true,
         ]);
         return $q->have_posts();
     }
@@ -243,7 +245,8 @@ class WPA_News_Generator {
             'meta_key'       => '_wpa_status',
             'meta_value'     => 'selected',
             'orderby'        => 'date',
-            'order'          => 'ASC' // FIFO
+            'order'          => 'ASC', // FIFO
+            'no_found_rows'  => true,
         ];
         $repo_query = new WP_Query( $args );
         
