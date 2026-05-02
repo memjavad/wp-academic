@@ -305,6 +305,28 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // --- FAQ Accordion Engine ---
+    const faqQuestions = document.querySelectorAll('.wpa-faq-question');
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('.wpa-faq-icon');
+
+                if (isExpanded) {
+                    this.setAttribute('aria-expanded', 'false');
+                    answer.style.maxHeight = '0';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                } else {
+                    this.setAttribute('aria-expanded', 'true');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    }
+
     // --- UX Enhancements: Smooth Scroll ---
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
