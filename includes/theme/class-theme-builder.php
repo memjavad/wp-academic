@@ -1139,11 +1139,11 @@ class WPA_Theme_Builder {
                     <?php for( $i=1; $i<=4; $i++ ) : 
                         if ( ! empty( $data["q{$i}"] ) ) : ?>
                         <div class="wpa-faq-item" style="margin-bottom: 15px; border: 1px solid var(--wpa-border-color); border-radius: 12px; overflow: hidden;">
-                            <button class="wpa-faq-question" style="width: 100%; padding: 20px 25px; background: var(--wpa-bg-white); border: none; text-align: inherit; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; color: var(--wpa-text-main);">
+                            <button class="wpa-faq-question" aria-expanded="false" aria-controls="wpa-faq-answer-<?php echo esc_attr( $i ); ?>" style="width: 100%; padding: 20px 25px; background: var(--wpa-bg-white); border: none; text-align: inherit; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; color: var(--wpa-text-main);">
                                 <?php echo esc_html( $data["q{$i}"] ); ?>
                                 <span class="wpa-faq-icon" style="width:20px; transition: transform 0.3s;"><?php echo WPA_Icons::get('arrow-down-alt2'); ?></span>
                             </button>
-                            <div class="wpa-faq-answer" style="max-height: 0; overflow: hidden; transition: max-height: 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: var(--wpa-bg-light);">
+                            <div id="wpa-faq-answer-<?php echo esc_attr( $i ); ?>" class="wpa-faq-answer" style="max-height: 0; overflow: hidden; transition: max-height: 0.4s cubic-bezier(0.4, 0, 0.2, 1); background: var(--wpa-bg-light);">
                                 <div style="padding: 20px 25px; border-top: 1px solid var(--wpa-border-color); line-height: 1.6; color: var(--wpa-text-muted);">
                                     <?php echo wpautop( wp_kses_post( $data["a{$i}"] ) ); ?>
                                 </div>
