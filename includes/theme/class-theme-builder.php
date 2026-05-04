@@ -743,8 +743,8 @@ class WPA_Theme_Builder {
                 </div>
                 
                 <div class="wpa-slider-nav">
-                    <button class="wpa-slider-prev"><?php echo WPA_Icons::get('arrow-left-alt2'); ?></button>
-                    <button class="wpa-slider-next"><?php echo WPA_Icons::get('arrow-right-alt2'); ?></button>
+                    <button class="wpa-slider-prev" aria-label="<?php esc_attr_e('Previous Slide', 'wp-academic-post-enhanced'); ?>"><?php echo WPA_Icons::get('arrow-left-alt2'); ?></button>
+                    <button class="wpa-slider-next" aria-label="<?php esc_attr_e('Next Slide', 'wp-academic-post-enhanced'); ?>"><?php echo WPA_Icons::get('arrow-right-alt2'); ?></button>
                 </div>
                 <div class="wpa-slider-dots"></div>
                 
@@ -1139,7 +1139,7 @@ class WPA_Theme_Builder {
                     <?php for( $i=1; $i<=4; $i++ ) : 
                         if ( ! empty( $data["q{$i}"] ) ) : ?>
                         <div class="wpa-faq-item" style="margin-bottom: 15px; border: 1px solid var(--wpa-border-color); border-radius: 12px; overflow: hidden;">
-                            <button class="wpa-faq-question" style="width: 100%; padding: 20px 25px; background: var(--wpa-bg-white); border: none; text-align: inherit; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; color: var(--wpa-text-main);">
+                            <button class="wpa-faq-question" aria-expanded="false" style="width: 100%; padding: 20px 25px; background: var(--wpa-bg-white); border: none; text-align: inherit; font-weight: 700; font-size: 1.1rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.3s; color: var(--wpa-text-main);">
                                 <?php echo esc_html( $data["q{$i}"] ); ?>
                                 <span class="wpa-faq-icon" style="width:20px; transition: transform 0.3s;"><?php echo WPA_Icons::get('arrow-down-alt2'); ?></span>
                             </button>
