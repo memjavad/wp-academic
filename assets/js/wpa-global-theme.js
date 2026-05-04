@@ -214,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 for (let i = 0; i < slideCount; i++) {
                     const dot = document.createElement('button');
                     dot.classList.add('wpa-slider-dot');
+                    dot.setAttribute('aria-label', 'Slide ' + (i + 1) + ' of ' + slideCount);
                     if (i === 0) dot.classList.add('active');
                     dot.addEventListener('click', () => goToSlide(i));
                     dotsContainer.appendChild(dot);
@@ -321,4 +322,28 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     });
+
+    // --- FAQ Accordion Logic ---
+    const faqQuestions = document.querySelectorAll('.wpa-faq-question');
+    if (faqQuestions.length > 0) {
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('.wpa-faq-icon');
+
+                const isOpen = this.getAttribute('aria-expanded') === 'true';
+
+                // Toggle current FAQ
+                if (isOpen) {
+                    this.setAttribute('aria-expanded', 'false');
+                    if (answer) answer.style.maxHeight = null;
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                } else {
+                    this.setAttribute('aria-expanded', 'true');
+                    if (answer) answer.style.maxHeight = answer.scrollHeight + 'px';
+                    if (icon) icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
+    }
 });
