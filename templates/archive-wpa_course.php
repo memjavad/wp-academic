@@ -34,7 +34,7 @@ if ( function_exists( 'wpa_get_header' ) ) {
                 <article id="post-<?php the_ID(); ?>" class="wpa-card wpa-course-card">
                     <div class="wpa-card-img">
                         <a href="<?php the_permalink(); ?>">
-                            <?php has_post_thumbnail() ? the_post_thumbnail('medium_large') : echo_placeholder_icon('welcome-learn-more'); ?>
+                            <?php has_post_thumbnail() ? the_post_thumbnail('medium_large') : wpa_echo_placeholder_icon('welcome-learn-more'); ?>
                         </a>
                     </div>
                     <div class="wpa-card-body">
@@ -80,10 +80,4 @@ if ( function_exists( 'wpa_get_footer' ) ) {
     get_footer();
 }
 
-// Helper if not defined in theme scope yet
-if (!function_exists('echo_placeholder_icon')) {
-    function echo_placeholder_icon($icon) {
-        echo '<div style="width:100%;height:100%;background:var(--wpa-bg-light);display:flex;align-items:center;justify-content:center;color:#cbd5e1;"><div style="width:40px;height:40px;">' . WPA_Icons::get($icon) . '</div></div>';
-    }
-}
 ?>

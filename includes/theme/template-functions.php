@@ -247,3 +247,14 @@ function wpa_get_clean_title( $post_id = null, $max_chars = 70 ) {
     return $title;
 }
 
+
+/**
+ * Output a placeholder icon.
+ *
+ * @param string $icon The icon name.
+ */
+if (!function_exists('wpa_echo_placeholder_icon')) {
+    function wpa_echo_placeholder_icon($icon) {
+        echo '<div style="width:100%;height:100%;background:var(--wpa-bg-light);display:flex;align-items:center;justify-content:center;color:#cbd5e1;"><div style="width:40px;height:40px;">' . WPA_Icons::get($icon) . '</div></div>';
+    }
+}
