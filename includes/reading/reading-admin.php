@@ -232,19 +232,19 @@ add_action( 'admin_init', 'wpa_register_reading_settings' );
 function wpa_sanitize_reading_settings( $input ) {
     $sanitized = [];
     $sanitized['time_enabled'] = isset( $input['time_enabled'] );
-    $sanitized['time_label'] = sanitize_text_field( $input['time_label'] );
-    $sanitized['time_position'] = sanitize_key( $input['time_position'] );
+    $sanitized['time_label'] = isset( $input['time_label'] ) ? sanitize_text_field( $input['time_label'] ) : '';
+    $sanitized['time_position'] = isset( $input['time_position'] ) ? sanitize_key( $input['time_position'] ) : '';
     
     $sanitized['resizer_enabled'] = isset( $input['resizer_enabled'] );
-    $sanitized['resizer_position'] = sanitize_key( $input['resizer_position'] );
-    $sanitized['resizer_content_selector'] = sanitize_text_field( $input['resizer_content_selector'] );
-    $sanitized['resizer_btn_color'] = sanitize_hex_color( $input['resizer_btn_color'] );
-    $sanitized['resizer_btn_bg_color'] = sanitize_hex_color( $input['resizer_btn_bg_color'] );
+    $sanitized['resizer_position'] = isset( $input['resizer_position'] ) ? sanitize_key( $input['resizer_position'] ) : '';
+    $sanitized['resizer_content_selector'] = isset( $input['resizer_content_selector'] ) ? sanitize_text_field( $input['resizer_content_selector'] ) : '';
+    $sanitized['resizer_btn_color'] = isset( $input['resizer_btn_color'] ) ? sanitize_hex_color( $input['resizer_btn_color'] ) : '';
+    $sanitized['resizer_btn_bg_color'] = isset( $input['resizer_btn_bg_color'] ) ? sanitize_hex_color( $input['resizer_btn_bg_color'] ) : '';
 
     $sanitized['progress_enabled'] = isset( $input['progress_enabled'] );
-    $sanitized['progress_color'] = sanitize_hex_color( $input['progress_color'] );
-    $sanitized['progress_height'] = absint( $input['progress_height'] );
-    $sanitized['progress_position'] = sanitize_key( $input['progress_position'] );
+    $sanitized['progress_color'] = isset( $input['progress_color'] ) ? sanitize_hex_color( $input['progress_color'] ) : '';
+    $sanitized['progress_height'] = isset( $input['progress_height'] ) ? absint( $input['progress_height'] ) : 0;
+    $sanitized['progress_position'] = isset( $input['progress_position'] ) ? sanitize_key( $input['progress_position'] ) : '';
     
     return $sanitized;
 }
