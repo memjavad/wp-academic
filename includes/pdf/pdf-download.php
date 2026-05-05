@@ -163,24 +163,7 @@ class WPA_PDF_Download {
         if ( ! file_exists( $this->cache_dir ) ) {
             wp_mkdir_p( $this->cache_dir );
         } else {
-            // Cache Pruning: Limit number of cached PDFs to save storage
-            $cache_limit = apply_filters( 'wpa_pdf_cache_limit', 50 );
-            $cache_files = glob( $this->cache_dir . '/post-*.pdf' );
-            
-            if ( $cache_files && count( $cache_files ) >= $cache_limit ) {
-                // Sort by last modified time (Oldest first)
-                usort( $cache_files, function( $a, $b ) {
-                    return filemtime( $a ) - filemtime( $b );
-                } );
-
-                // Delete oldest files until we are below the limit
-                $to_delete = count( $cache_files ) - $cache_limit + 1;
-                for ( $i = 0; $i < $to_delete; $i++ ) {
-                    if ( is_file( $cache_files[$i] ) ) {
-                        unlink( $cache_files[$i] );
-                    }
-                }
-            }
+            $this->prune_cache();
         }
 
         // Initialize mPDF
@@ -256,134 +239,42 @@ class WPA_PDF_Download {
 
             // Styles
             $ui_font = $is_arabic ? 'amiri' : 'helvetica';
-            $stylesheet = '
-                body { font-family: ' . $ui_font . ', sans-serif; font-size: 11pt; line-height: 1.6; color: ' . $text_color . '; }
-                .cover-page { text-align: center; padding-top: 50mm; }
-                .cover-title { font-size: 28pt; font-weight: bold; margin-bottom: 10mm; color: ' . $heading_color . '; line-height: 1.2; font-family: ' . $ui_font . '; }
-                .cover-title a { color: ' . $heading_color . '; text-decoration: none; }
-                .cover-meta { font-size: 14pt; color: #444; margin-bottom: 20mm; font-family: ' . $ui_font . '; }
-                .cover-citation-box { 
-                    background-color: ' . $citation_bg_color . '; border: 0.5pt solid #eee; padding: 8mm; 
-                    text-align: ' . ($is_arabic ? 'right' : 'left') . '; 
-                    direction: ' . ($is_arabic ? 'rtl' : 'ltr') . '; 
-                    margin: 0 auto; width: 85%;
-                }
-                .citation-label { font-weight: bold; font-size: 9pt; text-transform: uppercase; color: #999; margin-bottom: 3mm; font-family: ' . $ui_font . '; }
-                .citation-text { font-size: 10pt; color: #333; font-family: ' . $ui_font . '; }
-                .citation-text a { color: ' . $link_color . '; text-decoration: underline; }
-                
-                p { margin-bottom: 4mm; text-align: justify; page-break-inside: auto !important; }
-                h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 15pt 0 5pt 0; page-break-after: avoid; color: ' . $heading_color . '; }
-                h1 { font-size: 18pt; } h2 { font-size: 15pt; } h3 { font-size: 13pt; }
-                a { color: ' . $link_color . '; text-decoration: underline; }
-                
-                img { max-width: 100%; height: auto; margin: 5mm auto; display: block; }
-                pre { 
-                    background-color: #f5f5f5; 
-                    border: 0.5pt solid #ddd; 
-                    padding: 5mm; 
-                    font-family: courier, monospace; 
-                    font-size: 9pt; 
-                    line-height: 1.4; 
-                    white-space: pre-wrap; 
-                    word-wrap: break-word;
-                    margin-bottom: 5mm;
-                }
-                code { 
-                    background-color: #f5f5f5; 
-                    font-family: courier, monospace; 
-                    padding: 0.5mm 1mm; 
-                    font-size: 10pt; 
-                }
 
-                table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-bottom: 5mm;
-                    table-layout: fixed;
-                }
-                th, td {
-                    border: 0.1mm solid #000000;
-                    padding: 2mm;
-                    vertical-align: top;
-                    font-size: 10pt;
-                }
-                th {
-                    background-color: #f2f2f2;
-                    font-weight: bold;
-                    text-align: center;
-                }
+            $html_data = [
+                'title' => $title,
+                'author' => $author,
+                'date' => $date,
+                'site_name' => $site_name,
+                'shortlink' => $shortlink,
+                'site_url' => $site_url,
+                'site_url_clean' => $site_url_clean,
+                'text_color' => $text_color,
+                'heading_color' => $heading_color,
+                'link_color' => $link_color,
+                'citation_bg_color' => $citation_bg_color,
+                'is_arabic' => $is_arabic,
+                'ui_font' => $ui_font,
+                'visible_elements' => $visible_elements,
+                'citation_options' => $citation_options,
+                'post' => $post
+            ];
 
-                .pdf-header { width: 100%; border-bottom: 0.5pt solid #eee; padding-bottom: 2mm; border-collapse: separate; direction: ' . ($is_arabic ? 'rtl' : 'ltr') . '; }
-                .pdf-header td { border: none; padding: 0; vertical-align: bottom; }
-                .header-title { width: 80%; text-align: ' . ($is_arabic ? 'right' : 'left') . '; font-family: ' . $ui_font . '; font-size: 8pt; color: #aaa; }
-                .header-title a { color: #aaa; text-decoration: none; }
-                .header-page { width: 20%; text-align: ' . ($is_arabic ? 'left' : 'right') . '; font-family: ' . $ui_font . '; font-size: 8pt; color: #aaa; }
-                
-                .pdf-footer { width: 100%; font-family: ' . $ui_font . '; font-size: 8pt; color: #aaa; border-top: 0.5pt solid #eee; padding-top: 2mm; border-collapse: separate; direction: ' . ($is_arabic ? 'rtl' : 'ltr') . '; }
-                .pdf-footer td { border: none; padding: 0; text-align: ' . ($is_arabic ? 'right' : 'left') . '; }
-                .pdf-footer td.footer-right { text-align: ' . ($is_arabic ? 'left' : 'right') . '; }
-                .pdf-footer a { color: #aaa; text-decoration: none; }
-            ';
+            $stylesheet = $this->get_pdf_stylesheet( $html_data );
 
             $mpdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
 
             // PAGE 1: COVER
-            $cover_html = '<div class="cover-page">';
-            
-            if ( in_array( 'cover_title', $visible_elements ) ) {
-                $cover_html .= '<div class="cover-title"><a href="' . esc_url($shortlink) . '">' . esc_html( $title ) . '</a></div>';
-            }
-
-            if ( in_array( 'cover_meta', $visible_elements ) ) {
-                $authored_label = $is_arabic ? 'تأليف' : __( 'Authored by', 'wp-academic-post-enhanced' );
-                $cover_html .= '<div class="cover-meta">
-                    ' . $authored_label . ' <br>
-                    <strong>' . esc_html( $author ) . '</strong> <br><br>
-                    <span style="font-size: 11pt; color: #888;">' . esc_html( $date ) . '</span>
-                </div>';
-            }
-
-            if ( in_array( 'cover_citation', $visible_elements ) ) {
-                $citation_label = WPA_Theme_Labels::get('cite_box_title');
-                $default_style = isset( $citation_options['default_style'] ) ? $citation_options['default_style'] : 'apa';
-                
-                // Use the global citation generator for consistency
-                $citation_text = wp_academic_post_enhanced_generate_citation( 
-                    $default_style, 
-                    $author, 
-                    get_the_date( 'Y', $post ), 
-                    $title, 
-                    $site_name, 
-                    $shortlink 
-                );
-
-                $cover_html .= '<div class="cover-citation-box">
-                    <div class="citation-label">' . esc_html( $citation_label ) . '</div>
-                    <div class="citation-text">
-                        ' . $citation_text . '
-                    </div>
-                </div>';
-            }
-            
-            $cover_html .= '</div>';
-
+            $cover_html = $this->get_cover_html( $html_data );
             $mpdf->WriteHTML($cover_html, \Mpdf\HTMLParserMode::HTML_BODY);
 
             // PAGE 2+: Header/Footer Setup
             if ( in_array( 'header', $visible_elements ) ) {
-                $header_html = '
-                <table class="pdf-header">
-                    <tr>
-                        <td class="header-title"><a href="' . esc_url($shortlink) . '">' . esc_html($title) . '</a></td>
-                        <td class="header-page">{PAGENO}</td>
-                    </tr>
-                </table>';
+                $header_html = $this->get_header_html( $html_data );
                 $mpdf->SetHTMLHeader($header_html);
             }
             
             if ( in_array( 'footer', $visible_elements ) ) {
-                $footer_html = '<table class="pdf-footer"><tr><td><a href="' . esc_url($site_url) . '">' . esc_html($site_name) . '</a></td><td class="footer-right"><a href="' . esc_url($site_url) . '">' . esc_html($site_url_clean) . '</a></td></tr></table>';
+                $footer_html = $this->get_footer_html( $html_data );
                 $mpdf->SetHTMLFooter($footer_html);
             }
 
@@ -401,6 +292,159 @@ class WPA_PDF_Download {
         } catch ( \Mpdf\MpdfException $e ) {
             wp_die( 'PDF Error: ' . $e->getMessage() );
         }
+    }
+
+    private function prune_cache() {
+        // Cache Pruning: Limit number of cached PDFs to save storage
+        $cache_limit = apply_filters( 'wpa_pdf_cache_limit', 50 );
+        $cache_files = glob( $this->cache_dir . '/post-*.pdf' );
+
+        if ( $cache_files && count( $cache_files ) >= $cache_limit ) {
+            // Sort by last modified time (Oldest first)
+            usort( $cache_files, function( $a, $b ) {
+                return filemtime( $a ) - filemtime( $b );
+            } );
+
+            // Delete oldest files until we are below the limit
+            $to_delete = count( $cache_files ) - $cache_limit + 1;
+            for ( $i = 0; $i < $to_delete; $i++ ) {
+                if ( is_file( $cache_files[$i] ) ) {
+                    unlink( $cache_files[$i] );
+                }
+            }
+        }
+    }
+
+    private function get_pdf_stylesheet( $data ) {
+        extract( $data );
+        return '
+            body { font-family: ' . $ui_font . ', sans-serif; font-size: 11pt; line-height: 1.6; color: ' . $text_color . '; }
+            .cover-page { text-align: center; padding-top: 50mm; }
+            .cover-title { font-size: 28pt; font-weight: bold; margin-bottom: 10mm; color: ' . $heading_color . '; line-height: 1.2; font-family: ' . $ui_font . '; }
+            .cover-title a { color: ' . $heading_color . '; text-decoration: none; }
+            .cover-meta { font-size: 14pt; color: #444; margin-bottom: 20mm; font-family: ' . $ui_font . '; }
+            .cover-citation-box {
+                background-color: ' . $citation_bg_color . '; border: 0.5pt solid #eee; padding: 8mm;
+                text-align: ' . ($is_arabic ? 'right' : 'left') . ';
+                direction: ' . ($is_arabic ? 'rtl' : 'ltr') . ';
+                margin: 0 auto; width: 85%;
+            }
+            .citation-label { font-weight: bold; font-size: 9pt; text-transform: uppercase; color: #999; margin-bottom: 3mm; font-family: ' . $ui_font . '; }
+            .citation-text { font-size: 10pt; color: #333; font-family: ' . $ui_font . '; }
+            .citation-text a { color: ' . $link_color . '; text-decoration: underline; }
+
+            p { margin-bottom: 4mm; text-align: justify; page-break-inside: auto !important; }
+            h1, h2, h3, h4, h5, h6 { font-weight: bold; margin: 15pt 0 5pt 0; page-break-after: avoid; color: ' . $heading_color . '; }
+            h1 { font-size: 18pt; } h2 { font-size: 15pt; } h3 { font-size: 13pt; }
+            a { color: ' . $link_color . '; text-decoration: underline; }
+
+            img { max-width: 100%; height: auto; margin: 5mm auto; display: block; }
+            pre {
+                background-color: #f5f5f5;
+                border: 0.5pt solid #ddd;
+                padding: 5mm;
+                font-family: courier, monospace;
+                font-size: 9pt;
+                line-height: 1.4;
+                white-space: pre-wrap;
+                word-wrap: break-word;
+                margin-bottom: 5mm;
+            }
+            code {
+                background-color: #f5f5f5;
+                font-family: courier, monospace;
+                padding: 0.5mm 1mm;
+                font-size: 10pt;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 5mm;
+                table-layout: fixed;
+            }
+            th, td {
+                border: 0.1mm solid #000000;
+                padding: 2mm;
+                vertical-align: top;
+                font-size: 10pt;
+            }
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .pdf-header { width: 100%; border-bottom: 0.5pt solid #eee; padding-bottom: 2mm; border-collapse: separate; direction: ' . ($is_arabic ? 'rtl' : 'ltr') . '; }
+            .pdf-header td { border: none; padding: 0; vertical-align: bottom; }
+            .header-title { width: 80%; text-align: ' . ($is_arabic ? 'right' : 'left') . '; font-family: ' . $ui_font . '; font-size: 8pt; color: #aaa; }
+            .header-title a { color: #aaa; text-decoration: none; }
+            .header-page { width: 20%; text-align: ' . ($is_arabic ? 'left' : 'right') . '; font-family: ' . $ui_font . '; font-size: 8pt; color: #aaa; }
+
+            .pdf-footer { width: 100%; font-family: ' . $ui_font . '; font-size: 8pt; color: #aaa; border-top: 0.5pt solid #eee; padding-top: 2mm; border-collapse: separate; direction: ' . ($is_arabic ? 'rtl' : 'ltr') . '; }
+            .pdf-footer td { border: none; padding: 0; text-align: ' . ($is_arabic ? 'right' : 'left') . '; }
+            .pdf-footer td.footer-right { text-align: ' . ($is_arabic ? 'left' : 'right') . '; }
+            .pdf-footer a { color: #aaa; text-decoration: none; }
+        ';
+    }
+
+    private function get_cover_html( $data ) {
+        extract( $data );
+        $cover_html = '<div class="cover-page">';
+
+        if ( in_array( 'cover_title', $visible_elements ) ) {
+            $cover_html .= '<div class="cover-title"><a href="' . esc_url($shortlink) . '">' . esc_html( $title ) . '</a></div>';
+        }
+
+        if ( in_array( 'cover_meta', $visible_elements ) ) {
+            $authored_label = $is_arabic ? 'تأليف' : __( 'Authored by', 'wp-academic-post-enhanced' );
+            $cover_html .= '<div class="cover-meta">
+                ' . $authored_label . ' <br>
+                <strong>' . esc_html( $author ) . '</strong> <br><br>
+                <span style="font-size: 11pt; color: #888;">' . esc_html( $date ) . '</span>
+            </div>';
+        }
+
+        if ( in_array( 'cover_citation', $visible_elements ) ) {
+            $citation_label = WPA_Theme_Labels::get('cite_box_title');
+            $default_style = isset( $citation_options['default_style'] ) ? $citation_options['default_style'] : 'apa';
+
+            // Use the global citation generator for consistency
+            $citation_text = wp_academic_post_enhanced_generate_citation(
+                $default_style,
+                $author,
+                get_the_date( 'Y', $post ),
+                $title,
+                $site_name,
+                $shortlink
+            );
+
+            $cover_html .= '<div class="cover-citation-box">
+                <div class="citation-label">' . esc_html( $citation_label ) . '</div>
+                <div class="citation-text">
+                    ' . $citation_text . '
+                </div>
+            </div>';
+        }
+
+        $cover_html .= '</div>';
+        return $cover_html;
+    }
+
+    private function get_header_html( $data ) {
+        extract( $data );
+        return '
+        <table class="pdf-header">
+            <tr>
+                <td class="header-title"><a href="' . esc_url($shortlink) . '">' . esc_html($title) . '</a></td>
+                <td class="header-page">{PAGENO}</td>
+            </tr>
+        </table>';
+    }
+
+    private function get_footer_html( $data ) {
+        extract( $data );
+        return '<table class="pdf-footer"><tr><td><a href="' . esc_url($site_url) . '">' . esc_html($site_name) . '</a></td><td class="footer-right"><a href="' . esc_url($site_url) . '">' . esc_html($site_url_clean) . '</a></td></tr></table>';
     }
 }
 
