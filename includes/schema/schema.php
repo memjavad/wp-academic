@@ -397,58 +397,74 @@ class WP_Academic_Post_Enhanced_Schema {
 
         // --- Field News Specific: Link to Source Research ---
         if ( $post_type === 'wpa_news' ) {
-            $study_data = get_post_meta( $post_id, '_wpa_news_metadata', true );
-            if ( ! empty( $study_data ) ) {
-                $source_url = '';
-                if ( ! empty( $study_data['doi'] ) ) {
-                    $source_url = 'https://doi.org/' . $study_data['doi'];
-                } elseif ( ! empty( $study_data['url'] ) ) {
-                    $source_url = $study_data['url'];
-                }
-
-                if ( $source_url ) {
-                    // Build a complete ScholarlyArticle object for the source research
-                    $source_article = [
-                        '@type'    => 'ScholarlyArticle',
-                        'headline' => isset( $study_data['title'] ) ? $study_data['title'] : '',
-                        'url'      => $source_url,
-                    ];
-
-                    // Add Authors if available
-                    if ( ! empty( $study_data['authors_list'] ) && is_array( $study_data['authors_list'] ) ) {
-                        $source_article['author'] = [];
-                        foreach ( array_slice($study_data['authors_list'], 0, 5) as $auth ) {
-                            $author_obj = [
-                                '@type' => 'Person',
-                                'name'  => $auth['name']
-                            ];
-                            if ( ! empty( $auth['orcid'] ) ) $author_obj['sameAs'] = $auth['orcid'];
-                            $source_article['author'][] = $author_obj;
-                        }
-                    } elseif ( ! empty( $study_data['creator'] ) ) {
-                        $source_article['author'] = [
-                            '@type' => 'Person',
-                            'name'  => $study_data['creator']
-                        ];
-                    }
-
-                    // Add Publication Date
-                    if ( ! empty( $study_data['date'] ) ) {
-                        $source_article['datePublished'] = date( 'c', strtotime( $study_data['date'] ) );
-                    }
-
-                    // Add Journal as Publisher/Provider
-                    if ( ! empty( $study_data['publication'] ) ) {
-                        $source_article['publisher'] = [
-                            '@type' => 'Organization',
-                            'name'  => $study_data['publication']
-                        ];
-                    }
-
-                    $schema['isBasedOn'] = $source_article;
-                }
-            }
+            $schema = $this->enrich_wpa_news_source_research( $schema, $post_id );
         }
+
+        return $schema;
+    }
+
+    /**
+     * Extracts Field News specific logic for source research link.
+     */
+    private function enrich_wpa_news_source_research( $schema, $post_id ) {
+        $study_data = get_post_meta( $post_id, '_wpa_news_metadata', true );
+
+        if ( empty( $study_data ) ) {
+            return $schema;
+        }
+
+        $source_url = '';
+        if ( ! empty( $study_data['doi'] ) ) {
+            $source_url = 'https://doi.org/' . $study_data['doi'];
+        } elseif ( ! empty( $study_data['url'] ) ) {
+            $source_url = $study_data['url'];
+        }
+
+        if ( ! $source_url ) {
+            return $schema;
+        }
+
+        // Build a complete ScholarlyArticle object for the source research
+        $source_article = [
+            '@type'    => 'ScholarlyArticle',
+            'headline' => isset( $study_data['title'] ) ? $study_data['title'] : '',
+            'url'      => $source_url,
+        ];
+
+        // Add Authors if available
+        if ( ! empty( $study_data['authors_list'] ) && is_array( $study_data['authors_list'] ) ) {
+            $source_article['author'] = [];
+            foreach ( array_slice($study_data['authors_list'], 0, 5) as $auth ) {
+                $author_obj = [
+                    '@type' => 'Person',
+                    'name'  => $auth['name']
+                ];
+                if ( ! empty( $auth['orcid'] ) ) {
+                    $author_obj['sameAs'] = $auth['orcid'];
+                }
+                $source_article['author'][] = $author_obj;
+            }
+        } elseif ( ! empty( $study_data['creator'] ) ) {
+            $source_article['author'] = [
+                '@type' => 'Person',
+                'name'  => $study_data['creator']
+            ];
+        }
+
+        // Add Publication Date
+        if ( ! empty( $study_data['date'] ) ) {
+            $source_article['datePublished'] = date( 'c', strtotime( $study_data['date'] ) );
+        }
+
+        // Add Journal as Publisher/Provider
+        if ( ! empty( $study_data['publication'] ) ) {
+            $source_article['publisher'] = [
+                '@type' => 'Organization',
+                'name'  => $study_data['publication']
+            ];
+        }
+
+        $schema['isBasedOn'] = $source_article;
 
         return $schema;
     }
