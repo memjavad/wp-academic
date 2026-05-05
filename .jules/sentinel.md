@@ -23,3 +23,5 @@
 **Vulnerability:** AJAX handlers in `includes/field-news/repo-admin.php` exposed internal server file paths by returning `$e->getFile()` and `$e->getLine()` to the frontend via `wp_send_json_error()`.
 **Learning:** Returning raw exception details directly to the client exposes server architecture and sensitive internals, which constitutes a Medium-priority security risk.
 **Prevention:** Always use generic error messages for client-facing error responses (e.g. "An error occurred. Check server logs.") and log the detailed exception information server-side using `error_log()` securely.
+
+Date: 2024-05-24, Vulnerability: Unsanitized array input, Learning: User-supplied arrays from $_POST must have each element sanitized to prevent injection attacks., Prevention: Use array_map() with a sanitization function like sanitize_text_field() along with wp_unslash().
