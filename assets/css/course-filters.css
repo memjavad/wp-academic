@@ -103,7 +103,7 @@ body.rtl .wpa-course-filters {
     }
 }
 
-/* Fix for no results */
+/* Styling for no results */
 .wpa-no-results {
     text-align: center;
     padding: 40px;
