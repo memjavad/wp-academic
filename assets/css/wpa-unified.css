@@ -3271,6 +3271,7 @@ body.wpa-dark-mode .wpa-news-header {
 body.wpa-glass-enabled.wpa-dark-mode .wpa-news-header {
     background: rgba(15, 23, 42, 0.85) !important;
     backdrop-filter: blur(12px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important;
     color: var(--wpa-text-main) !important;
