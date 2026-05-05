@@ -37,3 +37,6 @@
 ## 2024-05-24 - Avoid WP_Query for Counting Operations
 **Learning:** Found multiple instances where `WP_Query` was used to retrieve `->found_posts` just to get a count of specific post types. This is highly inefficient because it executes `SQL_CALC_FOUND_ROWS` and pulls full post objects into memory unnecessarily.
 **Action:** When counting posts by meta values or statuses, use a direct aggregated `$wpdb->get_results` query with `GROUP BY` or a direct `$wpdb->get_var("SELECT COUNT...")` instead of `WP_Query`. Ensure the resulting array is pre-initialized with all expected keys to avoid missing data when `0` rows match a specific condition.
+## 2024-06-15 - Asynchronous Sitemap Pings
+**Learning:** Using `wp_remote_get()` for tasks where the response is not needed (like pinging search engines about sitemap updates) blocks the thread and delays page load/request handling.
+**Action:** Always add `'blocking' => false` to the arguments array of `wp_remote_get()` or `wp_remote_post()` when making "fire-and-forget" requests to external APIs.

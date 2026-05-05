@@ -69,8 +69,8 @@ class WP_Academic_Post_Enhanced_Sitemap_Manager {
 		
 		foreach ( $urls as $sitemap ) {
 			$url_encoded = urlencode( $sitemap );
-			wp_remote_get( "https://www.google.com/ping?sitemap={$url_encoded}", [ 'timeout' => 5 ] );
-			wp_remote_get( "https://www.bing.com/ping?sitemap={$url_encoded}", [ 'timeout' => 5 ] );
+			wp_remote_get( "https://www.google.com/ping?sitemap={$url_encoded}", [ 'timeout' => 5, 'blocking' => false ] );
+			wp_remote_get( "https://www.bing.com/ping?sitemap={$url_encoded}", [ 'timeout' => 5, 'blocking' => false ] );
 		}
 
 		return true;
