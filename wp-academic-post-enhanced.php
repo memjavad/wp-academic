@@ -16,7 +16,7 @@ if ( ! defined( 'WP_ACADEMIC_POST_ENHANCED_FILE' ) ) {
 }
 
 if ( ! defined( 'WPA_VERSION' ) ) {
-    define( 'WPA_VERSION', '3.9.5' );
+    define( 'WPA_VERSION', '3.9.6' );
 }
 
 // Load the plugin features.

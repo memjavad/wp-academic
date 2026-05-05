@@ -242,7 +242,7 @@ class WPA_Theme_Builder {
     public function render_builder_ui() {
         $layout = get_option( 'wpa_homepage_layout', [] );
         
-        // Fix: Ensure layout is array if stored as JSON string
+        // Ensure layout is array if stored as JSON string
         if ( is_string( $layout ) ) {
             $decoded = json_decode( $layout, true );
             $layout = is_array( $decoded ) ? $decoded : [];
