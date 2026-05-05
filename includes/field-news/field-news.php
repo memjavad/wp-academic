@@ -162,7 +162,8 @@ function wpa_field_news_run_screen_cron() {
             'meta_key'       => '_wpa_status',
             'meta_value'     => 'pending',
             'orderby'        => 'date',
-            'order'          => 'DESC'
+            'order'          => 'DESC',
+            'no_found_rows'  => true
         ];
         $query = new WP_Query( $args );
 
