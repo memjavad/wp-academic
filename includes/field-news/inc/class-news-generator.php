@@ -630,18 +630,25 @@ class WPA_News_Generator {
 
         // 1. Try tags search
         if ( ! empty( $tags ) ) {
-            foreach ( array_slice($tags, 0, 3) as $tag ) {
-                $q = new WP_Query([
-                    'post_type'      => 'wpa_course',
-                    'posts_per_page' => $max_courses,
-                    'post_status'    => 'publish',
-                    's'              => $tag
-                ]);
-                if ( $q->have_posts() ) {
-                    foreach ( $q->posts as $p ) {
-                        $found_courses[$p->ID] = $p;
-                        if ( count($found_courses) >= $max_courses ) break 2;
-                    }
+            $search_tags = array_slice($tags, 0, 3);
+            $q = new WP_Query([
+                'post_type'      => 'wpa_course',
+                'posts_per_page' => $max_courses,
+                'post_status'    => 'publish',
+                'tax_query'      => [
+                    [
+                        'taxonomy' => 'post_tag',
+                        'field'    => 'name',
+                        'terms'    => $search_tags,
+                        'operator' => 'IN'
+                    ]
+                ],
+                'no_found_rows'  => true
+            ]);
+            if ( $q->have_posts() ) {
+                foreach ( $q->posts as $p ) {
+                    $found_courses[$p->ID] = $p;
+                    if ( count($found_courses) >= $max_courses ) break;
                 }
             }
         }
@@ -654,7 +661,8 @@ class WPA_News_Generator {
                     'posts_per_page' => $max_courses - count($found_courses),
                     'post_status'    => 'publish',
                     's'              => $keyword,
-                    'post__not_in'   => array_keys($found_courses)
+                    'post__not_in'   => array_keys($found_courses),
+                    'no_found_rows'  => true
                 ]);
                 if ( $q->have_posts() ) {
                     foreach ( $q->posts as $p ) {
@@ -670,7 +678,8 @@ class WPA_News_Generator {
              $q = new WP_Query([
                 'post_type'      => 'wpa_course',
                 'posts_per_page' => $max_courses,
-                'post_status'    => 'publish'
+                'post_status'    => 'publish',
+                'no_found_rows'  => true
             ]);
             if ( $q->have_posts() ) {
                 foreach ( $q->posts as $p ) {
