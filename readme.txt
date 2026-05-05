@@ -3,7 +3,7 @@ Contributors: Mohammed looti
 Tags: academic, citation, toc, schema, pdf, social, analytics, seo, lms, ai
 Requires at least: 5.8
 Tested up to: 6.7
-Stable tag: 3.9.3
+Stable tag: 3.9.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
