@@ -28,7 +28,7 @@ class WP_Academic_Post_Enhanced_Database_Optimizer {
             wp_die( __( 'You do not have permission to perform this action.', 'wp-academic-post-enhanced' ) );
         }
 
-        $actions = isset( $_POST['wpa_optimize_actions'] ) ? (array) $_POST['wpa_optimize_actions'] : [];
+        $actions = isset( $_POST['wpa_optimize_actions'] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST['wpa_optimize_actions'] ) ) : [];
         $keep_revisions = isset( $_POST['wpa_keep_revisions'] ) ? absint( $_POST['wpa_keep_revisions'] ) : 0;
         
         // Save scheduling options
