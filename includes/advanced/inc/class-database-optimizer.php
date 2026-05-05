@@ -255,4 +255,3 @@ class WP_Academic_Post_Enhanced_Database_Optimizer {
     }
 }
 
-WP_Academic_Post_Enhanced_Database_Optimizer::get_instance();

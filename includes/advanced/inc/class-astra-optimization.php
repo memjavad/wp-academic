@@ -96,4 +96,3 @@ class WP_Academic_Post_Enhanced_Astra_Optimization {
     }
 }
 
-WP_Academic_Post_Enhanced_Astra_Optimization::get_instance();
