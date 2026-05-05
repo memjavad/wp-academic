@@ -56,52 +56,43 @@ add_filter( 'cron_schedules', 'wpa_field_news_cron_schedules' );
 function wpa_field_news_init() {
     $options = get_option( 'wpa_field_news_settings' );
     
-    // --- Schedule 1: Auto-Posting ---
-    $post_enabled = isset( $options['auto_post_enable'] ) ? $options['auto_post_enable'] : 0;
-    $post_interval = isset( $options['auto_post_interval'] ) ? $options['auto_post_interval'] : 'daily';
-    $post_hook = 'wpa_field_news_cron_event';
+    // --- Configure Scheduled Events ---
+    $schedules_config = [
+        [
+            'enabled_key'  => 'auto_post_enable',
+            'interval_key' => 'auto_post_interval',
+            'default_int'  => 'daily',
+            'hook'         => 'wpa_field_news_cron_event',
+        ],
+        [
+            'enabled_key'  => 'repo_auto_fetch',
+            'interval_key' => 'repo_fetch_interval',
+            'default_int'  => 'daily',
+            'hook'         => 'wpa_field_news_fetch_cron_event',
+        ],
+        [
+            'enabled_key'  => 'auto_screen_enable',
+            'interval_key' => 'auto_screen_interval',
+            'default_int'  => 'hourly',
+            'hook'         => 'wpa_field_news_screen_cron_event',
+        ],
+    ];
 
-    if ( $post_enabled ) {
-        if ( ! wp_next_scheduled( $post_hook ) ) {
-            wp_schedule_event( time(), $post_interval, $post_hook );
-        } elseif ( wp_get_schedule( $post_hook ) !== $post_interval ) {
-            wp_clear_scheduled_hook( $post_hook );
-            wp_schedule_event( time(), $post_interval, $post_hook );
+    foreach ( $schedules_config as $config ) {
+        $enabled  = isset( $options[ $config['enabled_key'] ] ) ? $options[ $config['enabled_key'] ] : 0;
+        $interval = isset( $options[ $config['interval_key'] ] ) ? $options[ $config['interval_key'] ] : $config['default_int'];
+        $hook     = $config['hook'];
+
+        if ( $enabled ) {
+            if ( ! wp_next_scheduled( $hook ) ) {
+                wp_schedule_event( time(), $interval, $hook );
+            } elseif ( wp_get_schedule( $hook ) !== $interval ) {
+                wp_clear_scheduled_hook( $hook );
+                wp_schedule_event( time(), $interval, $hook );
+            }
+        } else {
+            wp_clear_scheduled_hook( $hook );
         }
-    } else {
-        wp_clear_scheduled_hook( $post_hook );
-    }
-
-    // --- Schedule 2: Auto-Fetching ---
-    $fetch_enabled = isset( $options['repo_auto_fetch'] ) ? $options['repo_auto_fetch'] : 0;
-    $fetch_interval = isset( $options['repo_fetch_interval'] ) ? $options['repo_fetch_interval'] : 'daily';
-    $fetch_hook = 'wpa_field_news_fetch_cron_event';
-
-    if ( $fetch_enabled ) {
-        if ( ! wp_next_scheduled( $fetch_hook ) ) {
-            wp_schedule_event( time(), $fetch_interval, $fetch_hook );
-        } elseif ( wp_get_schedule( $fetch_hook ) !== $fetch_interval ) {
-            wp_clear_scheduled_hook( $fetch_hook );
-            wp_schedule_event( time(), $fetch_interval, $fetch_hook );
-        }
-    } else {
-        wp_clear_scheduled_hook( $fetch_hook );
-    }
-
-    // --- Schedule 3: Auto-Screening ---
-    $screen_enabled = isset( $options['auto_screen_enable'] ) ? $options['auto_screen_enable'] : 0;
-    $screen_interval = isset( $options['auto_screen_interval'] ) ? $options['auto_screen_interval'] : 'hourly';
-    $screen_hook = 'wpa_field_news_screen_cron_event';
-
-    if ( $screen_enabled ) {
-        if ( ! wp_next_scheduled( $screen_hook ) ) {
-            wp_schedule_event( time(), $screen_interval, $screen_hook );
-        } elseif ( wp_get_schedule( $screen_hook ) !== $screen_interval ) {
-            wp_clear_scheduled_hook( $screen_hook );
-            wp_schedule_event( time(), $screen_interval, $screen_hook );
-        }
-    } else {
-        wp_clear_scheduled_hook( $screen_hook );
     }
 
     // Register Sidebar
