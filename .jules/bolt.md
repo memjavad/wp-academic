@@ -37,3 +37,7 @@
 ## 2024-05-24 - Avoid WP_Query for Counting Operations
 **Learning:** Found multiple instances where `WP_Query` was used to retrieve `->found_posts` just to get a count of specific post types. This is highly inefficient because it executes `SQL_CALC_FOUND_ROWS` and pulls full post objects into memory unnecessarily.
 **Action:** When counting posts by meta values or statuses, use a direct aggregated `$wpdb->get_results` query with `GROUP BY` or a direct `$wpdb->get_var("SELECT COUNT...")` instead of `WP_Query`. Ensure the resulting array is pre-initialized with all expected keys to avoid missing data when `0` rows match a specific condition.
+
+## 2024-12-04 - Prevent N+1 metadata queries for lessons
+**Learning:** Using `update_meta_cache( 'post', $post_ids )` efficiently retrieves and primes the postmeta cache for multiple posts simultaneously, significantly reducing database load when looping over post objects and subsequently accessing their metadata.
+**Action:** Always pre-fetch metadata with `update_meta_cache` before executing loops that fetch individual post metadata within those loops.
