@@ -43,134 +43,46 @@ function wpa_student_dashboard_shortcode() {
     if ( $hide_title ) {
         echo '<style>.page-title, .entry-title { display: none !important; }</style>';
     }
-    ?>
-    <div class="wpa-dash-header <?php echo esc_attr( $header_class ); ?>">
-        <?php if ( $bg_url ) : ?>
-            <div class="wpa-dash-bg" <?php echo $header_style; ?>></div>
-        <?php endif; ?>
-        
-        <div class="wpa-dash-header-inner">
-            <?php if ( $show_avatar ) : ?>
-                <div class="wpa-dash-avatar">
-                    <?php 
-                    $custom_avatar_id = get_user_meta( $user_id, 'wpa_user_custom_avatar', true );
-                    if ( $custom_avatar_id ) {
-                        echo wp_get_attachment_image( $custom_avatar_id, [100, 100], false, ['class' => 'wpa-custom-avatar'] );
-                    } else {
-                        echo get_avatar( $user_id, 100 ); 
-                    }
-                    ?>
-                </div>
-            <?php endif; ?>
-            
-            <div class="wpa-dash-info">
-                <h2><?php echo esc_html( $welcome_text ); ?></h2>
-                <div class="wpa-dash-stats">
-                    <?php 
-                    $completed_count = 0;
-                    echo date_i18n( get_option( 'date_format' ) ); 
-                    ?>
-                </div>
-            </div>
-        </div>
-        <?php if ( $bg_url ) : ?><div class="wpa-dash-overlay"></div><?php endif; ?>
-    </div>
-    <?php
-    $header_html = ob_get_clean();
 
-    if ( empty( $enrolled_ids ) || ! is_array( $enrolled_ids ) ) {
-        return $header_html . '<p>' . WPA_Theme_Labels::get( 'dash_not_enrolled' ) . '</p>';
-    }
+    if ( ! empty( $enrolled_ids ) && is_array( $enrolled_ids ) ) {
+        $query = new WP_Query( [
+            'post_type' => 'wpa_course',
+            'posts_per_page' => -1,
+            'post__in' => $enrolled_ids,
+            'post_status' => 'publish',
+        ] );
 
-    $query = new WP_Query( [
-        'post_type' => 'wpa_course',
-        'posts_per_page' => -1,
-        'post__in' => $enrolled_ids,
-        'post_status' => 'publish',
-    ] );
+        $active_courses = [];
+        $completed_courses = [];
+        $all_courses_html = '';
 
-    if ( ! $query->have_posts() ) return '<p>' . __( 'No active courses.', 'wp-academic-post-enhanced' ) . '</p>';
-
-    $active_courses = [];
-    $completed_courses = [];
-    $all_courses_html = '';
-
-    while ( $query->have_posts() ) {
-        $query->the_post();
-        $course_id = get_the_ID();
-        $progress = wpa_course_get_progress( $course_id, $user_id );
-        
-        $status_class = ( $progress >= 100 ) ? 'completed' : ( ($progress > 0) ? 'in-progress' : 'not-started' );
-        $status_text = ( $progress >= 100 ) ? WPA_Theme_Labels::get('status_completed') : ( ($progress > 0) ? WPA_Theme_Labels::get('status_in_progress') : WPA_Theme_Labels::get('status_enrolled') );
-        $thumb = get_the_post_thumbnail_url( $course_id, 'medium_large' );
-
-        ob_start();
-        ?>
-        <div class="wpa-dash-card <?php echo esc_attr( $status_class ); ?>">
-            <a href="<?php echo get_permalink(); ?>" class="wpa-dash-thumb" style="background-image: url(<?php echo esc_url( $thumb ); ?>);">
-                <span class="wpa-status-badge"><?php echo esc_html( $status_text ); ?></span>
-            </a>
-            <div class="wpa-dash-body">
-                <h4><a href="<?php echo get_permalink(); ?>"><?php echo get_the_title(); ?></a></h4>
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                $course_id = get_the_ID();
+                $progress = wpa_course_get_progress( $course_id, $user_id );
                 
-                <div class="wpa-dash-progress-wrapper">
-                    <div class="wpa-course-progress-bar" role="progressbar" aria-valuenow="<?php echo esc_attr( $progress ); ?>" aria-valuemin="0" aria-valuemax="100">
-                        <div class="wpa-progress-fill" style="width:<?php echo esc_attr( $progress ); ?>%"></div>
-                    </div>
-                    <span class="wpa-dash-percent"><?php echo esc_html( $progress ); ?>%</span>
-                </div>
-
-                <div class="wpa-dash-footer">
-                    <?php if ( $progress >= 100 ) : 
-                        $cert_link = add_query_arg( [ 'wpa_download_certificate' => '1', 'course_id' => $course_id ], home_url() ); ?>
-                        <a href="<?php echo esc_url( $cert_link ); ?>" class="wpa-btn wpa-btn-outline" target="_blank"><span class="dashicons dashicons-awards"></span> <?php echo WPA_Theme_Labels::get('lesson_certificate'); ?></a>
-                    <?php else : ?>
-                        <a href="<?php echo get_permalink(); ?>" class="wpa-btn wpa-btn-primary"><?php echo WPA_Theme_Labels::get('lesson_continue'); ?> <span class="dashicons dashicons-arrow-right-alt2"></span></a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-        <?php
-        $card_html = ob_get_clean();
+                $status_class = ( $progress >= 100 ) ? 'completed' : ( ($progress > 0) ? 'in-progress' : 'not-started' );
+                $status_text = ( $progress >= 100 ) ? WPA_Theme_Labels::get('status_completed') : ( ($progress > 0) ? WPA_Theme_Labels::get('status_in_progress') : WPA_Theme_Labels::get('status_enrolled') );
+                $thumb = get_the_post_thumbnail_url( $course_id, 'medium_large' );
         
-        $all_courses_html .= $card_html;
-        if ( $progress >= 100 ) {
-            $completed_courses[] = $card_html;
-        } else {
-            $active_courses[] = $card_html;
+                ob_start();
+                include __DIR__ . '/../views/student-dashboard-card.php';
+                $card_html = ob_get_clean();
+
+                $all_courses_html .= $card_html;
+                if ( $progress >= 100 ) {
+                    $completed_courses[] = $card_html;
+                } else {
+                    $active_courses[] = $card_html;
+                }
+            }
+            wp_reset_postdata();
         }
     }
-    wp_reset_postdata();
 
-    ob_start();
-    echo $header_html;
-    ?>
-    <div class="wpa-dashboard-wrapper">
-        <div class="wpa-dashboard-tabs">
-            <button class="wpa-dash-tab active" data-tab="active"><?php echo WPA_Theme_Labels::get('status_active'); ?> <span class="count"><?php echo count($active_courses); ?></span></button>
-            <button class="wpa-dash-tab" data-tab="completed"><?php echo WPA_Theme_Labels::get('status_completed'); ?> <span class="count"><?php echo count($completed_courses); ?></span></button>
-            <button class="wpa-dash-tab" data-tab="all"><?php echo WPA_Theme_Labels::get('status_all_courses'); ?></button>
-        </div>
+    include __DIR__ . '/../views/student-dashboard.php';
 
-        <div id="wpa-dash-active" class="wpa-dash-content active">
-            <div class="wpa-dashboard-grid">
-                <?php echo !empty($active_courses) ? implode('', $active_courses) : '<p>' . WPA_Theme_Labels::get('msg_no_active') . '</p>'; ?>
-            </div>
-        </div>
-
-        <div id="wpa-dash-completed" class="wpa-dash-content" style="display:none;">
-            <div class="wpa-dashboard-grid">
-                <?php echo !empty($completed_courses) ? implode('', $completed_courses) : '<p>' . WPA_Theme_Labels::get('msg_no_completed') . '</p>'; ?>
-            </div>
-        </div>
-
-        <div id="wpa-dash-all" class="wpa-dash-content" style="display:none;">
-            <div class="wpa-dashboard-grid">
-                <?php echo $all_courses_html; ?>
-            </div>
-        </div>
-    </div>
-    <?php
     return ob_get_clean();
 }
 add_shortcode( 'wpa_student_dashboard', 'wpa_student_dashboard_shortcode' );
