@@ -38,6 +38,7 @@ class WPA_Glossary_Frontend {
 	 */
 	public function ajax_get_letter_group() {
 		$letter = isset( $_GET['letter'] ) ? sanitize_text_field( $_GET['letter'] ) : 'all';
+		$letter = mb_substr( preg_replace( '/[^\p{L}\p{N}#\-]/u', '', $letter ), 0, 5 );
 		$style  = isset( $_GET['style'] ) ? sanitize_text_field( $_GET['style'] ) : 'modern';
 		
 		$args = array(
