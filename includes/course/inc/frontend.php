@@ -155,7 +155,7 @@ function wpa_course_content_filter( $content ) {
 
         if ( ! empty( $lessons ) ) {
             // Bulk cache post meta to prevent N+1 queries
-            update_postmeta_cache( wp_list_pluck( $lessons, 'ID' ) );
+            update_meta_cache( 'post', wp_list_pluck( $lessons, 'ID' ) );
             $sections = [];
             // Group logic (if enabled) OR Flat List
             if ( $enable_sections ) {
@@ -320,7 +320,7 @@ function wpa_lesson_content_filter( $content ) {
 
         if ( ! empty( $all_lessons ) ) {
             // Bulk cache post meta to prevent N+1 queries
-            update_postmeta_cache( wp_list_pluck( $all_lessons, 'ID' ) );
+            update_meta_cache( 'post', wp_list_pluck( $all_lessons, 'ID' ) );
         }
 
         // --- Sequential Check ---
@@ -468,6 +468,7 @@ function wpa_lesson_content_filter( $content ) {
             $found_current = false;
 
             if ( $enable_sections ) {
+                update_meta_cache( 'post', wp_list_pluck( $all_lessons, 'ID' ) );
                 $sections = [];
                 foreach ( $all_lessons as $lesson ) {
                     $section_name = get_post_meta( $lesson->ID, '_wpa_lesson_section', true );
