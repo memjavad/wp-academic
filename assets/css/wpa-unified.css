@@ -2444,7 +2444,7 @@ body.wpa-dark-mode .wpa-glossary-hero {
     border-bottom-color: var(--wpa-border-color) !important;
 }
 
-/* Fix for AI Enhanced Content Inline Styles */
+/* Override AI Enhanced Content Inline Styles */
 .rop-ai-enhanced-content {
     background-color: transparent !important;
     border-color: transparent !important;
