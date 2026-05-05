@@ -63,4 +63,3 @@ class WP_Academic_Post_Enhanced_Critical_CSS {
     }
 }
 
-WP_Academic_Post_Enhanced_Critical_CSS::get_instance();

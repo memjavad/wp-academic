@@ -64,4 +64,3 @@ class WP_Academic_Post_Enhanced_CDN_Rewrite {
     }
 }
 
-WP_Academic_Post_Enhanced_CDN_Rewrite::get_instance();

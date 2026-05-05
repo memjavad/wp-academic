@@ -106,4 +106,3 @@ class WP_Academic_Post_Enhanced_Asset_Manager {
     }
 }
 
-WP_Academic_Post_Enhanced_Asset_Manager::get_instance();

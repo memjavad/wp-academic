@@ -10,6 +10,7 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/class-disable-features.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-performance-tweaks.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-astra-optimization.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-asset-manager.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/class-cdn-rewrite.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-critical-css.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-server-optimization.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/class-database-optimizer.php';
@@ -39,6 +40,8 @@ class WP_Academic_Post_Enhanced_Advanced {
         WP_Academic_Post_Enhanced_Disable_Features::get_instance();
         WP_Academic_Post_Enhanced_Performance_Tweaks::get_instance();
         WP_Academic_Post_Enhanced_Astra_Optimization::get_instance();
+        WP_Academic_Post_Enhanced_Asset_Manager::get_instance();
+        WP_Academic_Post_Enhanced_CDN_Rewrite::get_instance();
         
         // Fix: Ensure these are loaded
         WP_Academic_Post_Enhanced_Critical_CSS::get_instance();

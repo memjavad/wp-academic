@@ -304,4 +304,3 @@ class WP_Academic_Post_Enhanced_Performance_Tweaks {
     }
 }
 
-WP_Academic_Post_Enhanced_Performance_Tweaks::get_instance();
