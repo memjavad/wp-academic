@@ -651,7 +651,7 @@ class WPA_Theme_Builder {
         <article class="wpa-card wpa-news-card">
             <div class="wpa-card-img">
                 <a href="<?php the_permalink(); ?>">
-                    <?php has_post_thumbnail() ? the_post_thumbnail('medium_large', ['alt' => get_the_title()]) : echo_placeholder_icon('format-image'); ?>
+                    <?php has_post_thumbnail() ? the_post_thumbnail('medium_large', ['alt' => get_the_title()]) : wpa_echo_placeholder_icon('format-image'); ?>
                 </a>
             </div>
             <div class="wpa-card-body">
@@ -726,7 +726,7 @@ class WPA_Theme_Builder {
                                 if ( $thumb_id ) {
                                     echo wp_get_attachment_image( $thumb_id, 'full', false, ['class' => 'wpa-slide-img', 'loading' => 'eager', 'style' => 'width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0;'] );
                                 } else {
-                                    echo_placeholder_icon('format-image');
+                                    wpa_echo_placeholder_icon('format-image');
                                 }
                                 ?>
                             </div>
@@ -1092,7 +1092,7 @@ class WPA_Theme_Builder {
                         <div class="wpa-card wpa-team-card">
                             <div class="wpa-card-img" style="height:250px;">
                                 <?php if($img) echo '<img src="' . esc_url($img) . '" alt="' . esc_attr($data["member_{$i}_name"]) . '">'; 
-                                      else echo_placeholder_icon('admin-users'); ?>
+                                      else wpa_echo_placeholder_icon('admin-users'); ?>
                             </div>
                             <div class="wpa-card-body" style="text-align:center;">
                                 <h3 class="wpa-card-title" style="margin-bottom:5px;"><?php echo esc_html( $data["member_{$i}_name"] ); ?></h3>
@@ -1157,7 +1157,3 @@ class WPA_Theme_Builder {
     }
 }
 
-// Helper
-function echo_placeholder_icon($icon) {
-    echo '<div style="width:100%;height:100%;background:var(--wpa-bg-light);display:flex;align-items:center;justify-content:center;color:#cbd5e1;"><div style="width:40px;height:40px;">' . WPA_Icons::get($icon) . '</div></div>';
-}
