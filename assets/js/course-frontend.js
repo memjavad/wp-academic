@@ -120,13 +120,27 @@ jQuery(document).ready(function($) {
         
         $title.toggleClass('collapsed');
         $list.toggleClass('collapsed');
+
+        // Update aria-expanded state
+        var isExpanded = !$title.hasClass('collapsed');
+        $title.attr('aria-expanded', isExpanded);
+    });
+
+    // Add keyboard support for Sidebar Accordion toggle
+    $('.wpa-sidebar-section-toggle').on('keypress', function(e) {
+        if (e.which === 13 || e.which === 32) { // Enter or Space key
+            e.preventDefault();
+            $(this).click();
+        }
     });
 
     // Auto-collapse sections that don't have the active lesson
     $('.wpa-sidebar-list').each(function() {
         if ($(this).find('li.current-lesson').length === 0) {
             $(this).addClass('collapsed');
-            $(this).prev('.wpa-sidebar-section-title').addClass('collapsed');
+            var $title = $(this).prev('.wpa-sidebar-section-title');
+            $title.addClass('collapsed');
+            $title.attr('aria-expanded', 'false');
         }
     });
 

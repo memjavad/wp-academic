@@ -480,7 +480,7 @@ function wpa_lesson_content_filter( $content ) {
                 foreach ( $sections as $section_title => $section_lessons ) {
                     if ( count( $sections ) > 1 || $section_title !== __( 'General', 'wp-academic-post-enhanced' ) ) {
                         $section_count = count( $section_lessons );
-                        $sidebar_html .= '<h5 class="wpa-sidebar-section-title wpa-sidebar-section-toggle">' . esc_html( $section_title ) . ' <div class="wpa-section-meta"><span class="wpa-section-count">' . $section_count . '</span> <span class="dashicons dashicons-arrow-down-alt2"></span></div></h5>';
+                        $sidebar_html .= '<h5 class="wpa-sidebar-section-title wpa-sidebar-section-toggle" role="button" tabindex="0" aria-expanded="true">' . esc_html( $section_title ) . ' <div class="wpa-section-meta"><span class="wpa-section-count">' . $section_count . '</span> <span class="dashicons dashicons-arrow-down-alt2"></span></div></h5>';
                     }
                     $sidebar_html .= '<ul class="wpa-sidebar-list">';
                     
