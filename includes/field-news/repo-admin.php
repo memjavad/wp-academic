@@ -763,7 +763,8 @@ class WPA_Study_Repo_Page {
             'meta_key'       => '_wpa_status',
             'meta_value'     => 'pending',
             'orderby'        => 'date',
-            'order'          => 'DESC'
+            'order'          => 'DESC',
+            'no_found_rows'  => true // ⚡ Bolt: Disable SQL_CALC_FOUND_ROWS for performance in non-paginated queries
         ];
         $query = new WP_Query( $args );
         
