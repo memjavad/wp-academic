@@ -114,19 +114,35 @@ jQuery(document).ready(function($) {
     });
 
     // Sidebar Accordion
-    $('.wpa-sidebar-section-toggle').on('click', function() {
+    var $toggles = $('.wpa-sidebar-section-toggle');
+    $toggles.attr({
+        'role': 'button',
+        'tabindex': '0',
+        'aria-expanded': 'true'
+    });
+
+    $toggles.on('click keypress', function(e) {
+        if (e.type === 'keypress' && e.which !== 13 && e.which !== 32) return;
+        if (e.type === 'keypress') e.preventDefault();
+
         var $title = $(this);
         var $list = $title.next('.wpa-sidebar-list');
         
         $title.toggleClass('collapsed');
         $list.toggleClass('collapsed');
+
+        $title.attr('aria-expanded', !$title.hasClass('collapsed'));
     });
 
     // Auto-collapse sections that don't have the active lesson
     $('.wpa-sidebar-list').each(function() {
         if ($(this).find('li.current-lesson').length === 0) {
             $(this).addClass('collapsed');
-            $(this).prev('.wpa-sidebar-section-title').addClass('collapsed');
+            var $title = $(this).prev('.wpa-sidebar-section-title');
+            $title.addClass('collapsed');
+            if ($title.hasClass('wpa-sidebar-section-toggle')) {
+                $title.attr('aria-expanded', 'false');
+            }
         }
     });
 
